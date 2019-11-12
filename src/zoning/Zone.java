@@ -58,5 +58,23 @@ public class Zone {
         this.corners[3] = new Coordinate(c3.getX(), c1.getY(), c1.getZ());
     }
 
+    public Coordinate[] getCorners() {
+        return corners;
+    }
 
+    public long getzHeight() {
+        return zHeight;
+    }
+
+    public void setzHeight(long zHeight) {
+        this.zHeight = zHeight;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
 }

@@ -1,9 +1,6 @@
 package Records;
-
-import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Date;
 
 /**
  * Holds information about a single completion on a given map
@@ -55,6 +52,8 @@ public class Record implements Comparable<Record> {
     public int compareTo(Record rec) {
         return this.time.compareTo(rec.time);
     }
+
+
 
 
     //Getters and setters

@@ -20,15 +20,16 @@ public class Map {
         this.completions = 0;
         this.records = new ArrayList<>();
         this.zones = new ArrayList<>();
+
     }
 
     /**
      * Parameter constructor
-     * @param mapName
-     * @param tier
-     * @param completions
-     * @param records
-     * @param zones
+     * @param mapName name of the map
+     * @param tier  difficulty of the map (1-10)
+     * @param completions number of people who have completed this map
+     * @param records list of records
+     * @param zones list of zones
      */
     public Map(String mapName, short tier, int completions, ArrayList<Record> records, ArrayList<Zone> zones) {
         this.mapName = mapName;
@@ -86,7 +87,7 @@ public class Map {
      * @param id
      * @return either the record is returned or null is returned if not found
      */
-    public Record GetRecordByPlace(String id) {
+    public Record GetRecordByPlayer(String id) {
         for(Record rec: this.records) {
             if(rec.getSteamID().compareTo(id) == 0)
                 return rec;

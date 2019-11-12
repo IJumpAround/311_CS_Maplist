@@ -95,6 +95,35 @@ public class Map {
         return null;
     }
 
+    @Override
+    public String toString() {
+        return "Map{" +
+                "mapName='" + mapName + '\'' +
+                ", tier=" + tier +
+                ", completions=" + completions +
+                ", records=" + records +
+                ", zones=" + zones +
+                '}';
+    }
+
+    public String toPrettyString() {
+        String p = String.format(
+                 "Map Name:    %-15s\n"
+                +"WR:          %-15s\n"
+                +"Tier:        %-15d\n"
+                +"Completions: %-15d\n"
+                ,mapName,"dsfs",tier,completions);
+
+
+        return  "Map Name: '" + mapName + "\n" +
+                "Tier=" + tier +
+                ", completions=" + completions +
+                ", records=" + records +
+                ", zones=" + zones +
+                '}';
+
+    }
+
     public ArrayList<Zone> getZones() {
         return zones;
     }

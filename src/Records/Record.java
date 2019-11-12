@@ -54,7 +54,9 @@ public class Record implements Comparable<Record> {
     }
 
 
-
+    public String formattedTime() {
+        return time.toString();
+    }
 
     //Getters and setters
 

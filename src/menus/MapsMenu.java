@@ -1,13 +1,13 @@
-package Menus;
+package menus;
 
-import Exceptions.DuplicateMapException;
-import Menus.MenuClasses.Menus;
-import Menus.MenuClasses.options;
+import exceptions.DuplicateEntryException;
+import menus.menuClasses.Menus;
+import menus.menuClasses.options;
 import maps.Map;
 import maps.MapList;
 
-import static Menus.MenuHelpers.clearScreen;
-import static Menus.MenuHelpers.outputCurrentItem;
+import static menus.MenuHelpers.clearScreen;
+import static menus.MenuHelpers.outputCurrentItem;
 
 public class MapsMenu {
 
@@ -90,7 +90,7 @@ public class MapsMenu {
         }
         try {
             maps.addMap(name, tier);
-        } catch (DuplicateMapException e) {
+        } catch (DuplicateEntryException e) {
             Menus.status = e.getMessage();
         }
     }

@@ -1,6 +1,6 @@
 package zoning;
 
-import Exceptions.InvalidDimensions;
+import exceptions.InvalidDimensions;
 
 
 /**
@@ -8,6 +8,7 @@ import Exceptions.InvalidDimensions;
  * A zone is always a rectangular cuboid. This means we only need two corners and a height to define a zone.
  */
 public class Zone {
+    public static int idGen = 0;
     protected Coordinate[] corners;     //4 corners for the zone box
     protected long zHeight;             //Height of the zone
     protected String ID;                //identifier of the zone
@@ -15,7 +16,7 @@ public class Zone {
     /**
      * Default constructor
      */
-    Zone() {
+    public Zone() {
         corners = new Coordinate[4];
         zHeight = 0;
         ID = "-1";
@@ -28,7 +29,7 @@ public class Zone {
      * @param c2 Opposite corner
      * @param zh Height of zone
      */
-    Zone(String id, Coordinate c1, Coordinate c2, long zh) {
+    public Zone(String id, Coordinate c1, Coordinate c2, long zh) {
         this.ID = id;
         this.zHeight = zh;
 

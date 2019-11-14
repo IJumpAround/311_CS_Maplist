@@ -1,7 +1,7 @@
 package maps;
-import Exceptions.DuplicateMapException;
-import Menus.MenuClasses.ABCSelectionList;
-import Records.Record;
+import exceptions.DuplicateEntryException;
+import menus.menuClasses.ABCSelectionList;
+import records.Record;
 import zoning.Zone;
 
 import java.util.ArrayList;
@@ -55,14 +55,14 @@ public class MapList extends ABCSelectionList {
     /**
      * Wrapper for _addMap()
      */
-    public void addMap(String name, short tier, int completions, ArrayList<Record> records, ArrayList<Zone> zones) throws DuplicateMapException {
+    public void addMap(String name, short tier, int completions, ArrayList<Record> records, ArrayList<Zone> zones) throws DuplicateEntryException {
         _addMap(name, tier, completions, records, zones);
     }
 
     /**
      * Wrapper for addMap()
      */
-    public void addMap(String name, short tier) throws DuplicateMapException {
+    public void addMap(String name, short tier) throws DuplicateEntryException {
         _addMap(name,tier,0,null,null);
     }
 
@@ -75,7 +75,7 @@ public class MapList extends ABCSelectionList {
      * @param records list of records
      * @param zones list of zones
      */
-    private void _addMap(String name, short tier, int completions, ArrayList<Record> records, ArrayList<Zone> zones) throws DuplicateMapException {
+    private void _addMap(String name, short tier, int completions, ArrayList<Record> records, ArrayList<Zone> zones) throws DuplicateEntryException {
         //something something add map
         if(!mapNameExists(name)) {
             maps.add(new Map(name, tier));
@@ -83,7 +83,7 @@ public class MapList extends ABCSelectionList {
             count++;
         }
         else
-            throw new DuplicateMapException("[Error]: " + name + " already exists");
+            throw new DuplicateEntryException("[Error]: " + name + " already exists");
 
     }
 

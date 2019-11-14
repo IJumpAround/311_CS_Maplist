@@ -1,4 +1,4 @@
-package Menus.MenuClasses;
+package menus.menuClasses;
 
 /**
  * Abstract base class that implements some menu selection functionality

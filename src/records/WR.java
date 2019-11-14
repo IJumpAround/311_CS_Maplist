@@ -1,4 +1,4 @@
-package Records;
+package records;
 
 public class WR extends Top10{
     private int replayID;

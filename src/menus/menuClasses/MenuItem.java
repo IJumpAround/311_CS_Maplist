@@ -1,4 +1,4 @@
-package Menus.MenuClasses;
+package menus.menuClasses;
 
 public class MenuItem {
     private int number;

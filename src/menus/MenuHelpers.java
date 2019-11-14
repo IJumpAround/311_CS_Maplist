@@ -1,6 +1,6 @@
-package Menus;
+package menus;
 
-import Menus.MenuClasses.ABCSelectionList;
+import menus.menuClasses.ABCSelectionList;
 
 public class MenuHelpers {
 

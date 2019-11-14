@@ -1,4 +1,4 @@
-package Menus.MenuClasses;
+package menus.menuClasses;
 
 import java.util.Scanner;
 
@@ -44,7 +44,7 @@ public  class Menus {
         recordMenu.addItem(0,"Exit",options.EXIT);
 
         mapSubMenu.addItem(1,"Zones",options.VIEW_ZONES);
-        mapSubMenu.addItem(2,"Records",options.VIEW_RECORDS);
+        mapSubMenu.addItem(2, "records",options.VIEW_RECORDS);
         mapSubMenu.addItem(0,"Exit",options.EXIT);
     }
 
@@ -114,11 +114,37 @@ public  class Menus {
         return value;
     }
 
-    public static int[] promptForCoords() {
+    /**
+     * Prompt the user for three integer values each separated by a space
+     * Store the values into a 3 length array and return the array
+     * @return int[3]
+     */
+    public static long[] promptForCoords() {
         String input = "";
-        int[] coords = new int[3];
+        long[] coords = {0,0,0};
+        boolean done = false;
 
+        while(!done) {
+            System.out.print(">");
 
+            if(reader.hasNext()) {
+                input = reader.nextLine().replace('(',' ').replace(')',' ').strip();
+                String[] s = input.split("\\s",3);
+
+                //Parse split input into ints
+                try {
+                    coords[0] = Long.parseLong(s[0]);
+                    coords[1] = Long.parseLong(s[1]);
+                    coords[2] = Long.parseLong(s[2]);
+                    done = true;
+                }
+                catch (NumberFormatException e) {
+                    System.out.println("Enter three numbers space separated");
+                }
+            }
+
+        }
+        return coords;
     }
 
 

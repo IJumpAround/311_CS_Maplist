@@ -11,13 +11,13 @@ public class Coordinate {
     /**
      * Default constructor, initialize everything to 0
      */
-    Coordinate(){
+    public Coordinate(){
         x = 0;
         y = 0;
         z = 0;
     }
 
-    Coordinate(long x, long y, long z) {
+    public Coordinate(long x, long y, long z) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -27,7 +27,7 @@ public class Coordinate {
      * Copy constructor
      * @param c A coordinate to copy into this one
      */
-    Coordinate(Coordinate c) {
+    public Coordinate(Coordinate c) {
         this.x = c.x;
         this.y = c.y;
         this.z = c.z;

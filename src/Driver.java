@@ -1,9 +1,9 @@
 import java.time.LocalTime;
-import Menus.MenuClasses.Menus;
-import Records.Record;
+import menus.menuClasses.Menus;
+import records.Record;
 import maps.Map;
 import maps.MapList;
-import Menus.MapsMenu;
+import menus.MapsMenu;
 
 
 

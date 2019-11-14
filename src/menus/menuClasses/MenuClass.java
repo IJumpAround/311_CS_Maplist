@@ -1,4 +1,4 @@
-package Menus.MenuClasses;
+package menus.menuClasses;
 
 import java.util.ArrayList;
 

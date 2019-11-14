@@ -1,4 +1,4 @@
-package Exceptions;
+package exceptions;
 
 /**
  * Thrown when creating a zone of invalid proportions.

@@ -1,6 +1,6 @@
 package maps;
 import java.util.ArrayList;
-import Records.Record;
+import records.Record;
 import zoning.Zone;
 
 

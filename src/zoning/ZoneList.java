@@ -1,6 +1,7 @@
 package zoning;
 
-import Menus.MenuClasses.ABCSelectionList;
+import exceptions.DuplicateEntryException;
+import menus.menuClasses.ABCSelectionList;
 import java.util.ArrayList;
 
 public class ZoneList extends ABCSelectionList {
@@ -34,6 +35,27 @@ public class ZoneList extends ABCSelectionList {
 
     public Zone getSelectedZone() {
         return zones.get(cursor);
+    }
+
+    public void addZone(Zone z) throws DuplicateEntryException {
+        if(findByID(z.getID()) == -1)
+            zones.add(z);
+        else
+            throw new DuplicateEntryException("ID: " + z.getID() + " already exists");
+    }
+
+    /**
+     * Return index of a zone if it exists in the list.
+     * @param id string id
+     * @return index or -1 if not found
+     */
+    public int findByID(String id) {
+        for(int i = 0; i < zones.size(); i++) {
+            if(zones.get(i).getID().compareTo(id) == 0) {
+                return i;
+            }
+        }
+        return -1;
     }
 
 }

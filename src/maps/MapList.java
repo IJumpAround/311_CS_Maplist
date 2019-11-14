@@ -1,75 +1,40 @@
 package maps;
-import Interfaces.MenuList;
+import ABC.MenuList;
 import Records.Record;
 import zoning.Zone;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class MapList extends ArrayList<Map> implements MenuList {
-    private int cursor;
+public class MapList extends MenuList {
+    //private int cursor;
+    private ArrayList<Map> maps;
     private ArrayList<String> names;
 
     public MapList() {
-        this.cursor = 0;
+        super();
+        maps = new ArrayList<>();
+        names = new ArrayList<>();
     }
 
-    public MapList(Collection<? extends Map> c, int cursor) {
-        super(c);
-        this.cursor = cursor;
+    public MapList(ArrayList<Map> maps) {
+        super(maps.size());
+        this.maps = maps;
+        names = new ArrayList<>();
+
+        for (Map map: maps) {
+            names.add(map.getMapName());
+        }
     }
 
-    public int getCursor() {
-        return cursor;
-    }
 
     /**
      * Return the map the cursor is currently pointing at.
      * @return Map
      */
     public Map getMap() {
-        return this.get(cursor);
+        return maps.get(cursor);
     }
-
-    /**
-     * Set cursor to next item in the list
-     * @throws IndexOutOfBoundsException at end of list
-     */
-    public void next() throws IndexOutOfBoundsException {
-        if(cursor < this.size())
-            cursor++;
-        else
-            throw new IndexOutOfBoundsException("End of list");
-    }
-
-    /**
-     * Set cursor to previous item in the list
-     * @throws IndexOutOfBoundsException already at start of list
-     */
-    public void prev() throws IndexOutOfBoundsException {
-        if(cursor > 0)
-            cursor--;
-        else
-            throw new IndexOutOfBoundsException("Beginning of list");
-    }
-
-    /**
-     * Point cursor to the first element in the list
-     */
-    public void start() {
-        cursor = 0;
-    }
-
-    /**
-     * Point cursor to the last element in the list
-     */
-    public void end() {
-        if(this.size() == 0)
-            cursor = 0;
-        else
-            cursor = this.size()-1;
-    }
-
 
     /**
      * Wrapper for _addMap()
@@ -103,7 +68,6 @@ public class MapList extends ArrayList<Map> implements MenuList {
 
     public ArrayList<String> getMapNames() {
         return names;
-
     }
 
 

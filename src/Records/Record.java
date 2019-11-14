@@ -1,6 +1,7 @@
 package Records;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Holds information about a single completion on a given map
@@ -55,7 +56,8 @@ public class Record implements Comparable<Record> {
 
 
     public String formattedTime() {
-        return time.toString();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
+        return time.format(formatter);
     }
 
     //Getters and setters

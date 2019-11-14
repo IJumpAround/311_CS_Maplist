@@ -1,20 +1,29 @@
-package Menus;
+package Menus.MenuClasses;
 
 /**
  * Abstract base class that implements some menu selection functionality
+ * NOTE: This is class is actually a container for maps, zones or records.
+ * It allows selection of the items it contains in a way that makes sense for a menu.
+ * IE: Next() Previous() Current()
+ * It has a cursor that points to the currently selected item in the arrayList
+ * implemented by the child class.
  */
-public abstract class MenuList {
+public abstract class SelectionList {
     protected int cursor;
     protected int count;
+    protected String type;
 
-    public MenuList() {
+    public SelectionList() {
         cursor = 0;
         count = 0;
+        initializeType();
     }
 
-    public MenuList(int count) {
+
+    public SelectionList(int count) {
         cursor = 0;
         this.count = count;
+        initializeType();
     }
 
     int getCursor() {
@@ -46,8 +55,20 @@ public abstract class MenuList {
             cursor = count-1;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getCount() {
+        return count;
+    }
     public abstract String prettyCurrentItem();
 
+    protected abstract void initializeType();
 
 }
 

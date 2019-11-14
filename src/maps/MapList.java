@@ -1,11 +1,12 @@
 package maps;
-import Menus.MenuList;
+import Exceptions.DuplicateMapException;
+import Menus.MenuClasses.SelectionList;
 import Records.Record;
 import zoning.Zone;
 
 import java.util.ArrayList;
 
-public class MapList extends MenuList {
+public class MapList extends SelectionList {
     //private int cursor;
     private ArrayList<Map> maps;
     private ArrayList<String> names;
@@ -14,17 +15,6 @@ public class MapList extends MenuList {
         super();
         maps = new ArrayList<>();
         names = new ArrayList<>();
-    }
-
-    @Override
-    public String prettyCurrentItem() {
-        String str = "";
-
-        if(maps.size() > 0) {
-            Map curr = getSelectedMap();
-            str =  curr.toPrettyString();
-        }
-        return str;
     }
 
     public MapList(ArrayList<Map> maps) {
@@ -38,6 +28,22 @@ public class MapList extends MenuList {
     }
 
 
+    @Override
+    public String prettyCurrentItem() {
+        String str = "";
+
+        if(maps.size() > 0) {
+            Map curr = getSelectedMap();
+            str =  curr.toPrettyString();
+        }
+        return str;
+    }
+
+    @Override
+    protected void initializeType() {
+        type = "Map";
+    }
+
     /**
      * Return the map the cursor is currently pointing at.
      * @return Map
@@ -49,15 +55,15 @@ public class MapList extends MenuList {
     /**
      * Wrapper for _addMap()
      */
-    public void addMap(String name, short tier, int completions, ArrayList<Record> records, ArrayList<Zone> zones) {
+    public void addMap(String name, short tier, int completions, ArrayList<Record> records, ArrayList<Zone> zones) throws DuplicateMapException {
         _addMap(name, tier, completions, records, zones);
     }
 
     /**
      * Wrapper for addMap()
      */
-    public void addMap(String name) {
-        _addMap(name,(short)0,0,null,null);
+    public void addMap(String name, short tier) throws DuplicateMapException {
+        _addMap(name,tier,0,null,null);
     }
 
 
@@ -69,10 +75,15 @@ public class MapList extends MenuList {
      * @param records list of records
      * @param zones list of zones
      */
-    private void _addMap(String name, short tier, int completions, ArrayList<Record> records, ArrayList<Zone> zones) {
+    private void _addMap(String name, short tier, int completions, ArrayList<Record> records, ArrayList<Zone> zones) throws DuplicateMapException {
         //something something add map
-        String n = "name";
-        names.add(n);
+        if(!mapNameExists(name)) {
+            maps.add(new Map(name, tier));
+            names.add(name);
+            count++;
+        }
+        else
+            throw new DuplicateMapException("[Error]: " + name + " already exists");
 
     }
 
@@ -80,5 +91,28 @@ public class MapList extends MenuList {
         return names;
     }
 
+    /**
+     * Does the given mapname already exist?
+     * @param name
+     * @return
+     */
+    public boolean mapNameExists(String name) {
 
+        for(String n: names) {
+            if(n.compareTo(name) == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Delete the currently selected map
+     */
+    public void deleteMap() {
+        if(maps.size() > 0) {
+            maps.remove(cursor);
+            count--;
+        }
+    }
 }

@@ -39,7 +39,17 @@ public class Map {
         this.zones = zones;
     }
 
-
+    /**
+     * Name constructor
+     * @param mapName
+     */
+    public Map(String mapName, short tier) {
+        this.mapName = mapName;
+        this.tier = tier;
+        this.completions = 0;
+        this.records = new ArrayList<>();
+        this.zones = new ArrayList<>();
+    }
 
     public String getMapName() {
         return mapName;
@@ -107,21 +117,18 @@ public class Map {
     }
 
     public String toPrettyString() {
-        String p = String.format(
+        String wr;
+        if(records.size() > 0)
+            wr = records.get(0).formattedTime();
+        else
+            wr = "N/A";
+        return String.format(
                  "Map Name:    %-15s\n"
                 +"WR:          %-15s\n"
                 +"Tier:        %-15d\n"
                 +"Completions: %-15d\n"
-                ,mapName,"dsfs",tier,completions);
-
-
-        return  "Map Name: '" + mapName + "\n" +
-                "Tier=" + tier +
-                ", completions=" + completions +
-                ", records=" + records +
-                ", zones=" + zones +
-                '}';
-
+                ,mapName,wr,tier,completions);
+//
     }
 
     public ArrayList<Zone> getZones() {

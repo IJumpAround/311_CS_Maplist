@@ -1,9 +1,9 @@
 package zoning;
 
-import Menus.MenuList;
+import Menus.MenuClasses.SelectionList;
 import java.util.ArrayList;
 
-public class ZoneList extends MenuList {
+public class ZoneList extends SelectionList {
     ArrayList<Zone> zones;
 
     public ZoneList() {
@@ -20,6 +20,11 @@ public class ZoneList extends MenuList {
             str =  curr.prettyZone();
         }
         return str;
+    }
+
+    @Override
+    protected void initializeType() {
+        type = "Zone";
     }
 
     public ZoneList(ArrayList<Zone> zones) {

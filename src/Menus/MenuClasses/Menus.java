@@ -1,4 +1,4 @@
-package Menus;
+package Menus.MenuClasses;
 
 import java.util.Scanner;
 
@@ -8,11 +8,13 @@ public  class Menus {
     public static MenuClass recordMenu;
     public static MenuClass mapSubMenu;
     static Scanner reader = new Scanner(System.in);
+    public static String status = "";
 
     public static void setupMenus() {
-        mapMenu = new MenuClass();
-        zoneMenu = new MenuClass();
-        recordMenu = new MenuClass();
+        mapMenu = new MenuClass("Map Management");
+        zoneMenu = new MenuClass("Select an entry type");
+        recordMenu = new MenuClass("Record Management");
+        mapSubMenu = new MenuClass("Zone Management");
 
         //Setup Maps menu
         mapMenu.addItem(1,"Add Map",options.ADD_MAP);
@@ -53,6 +55,8 @@ public  class Menus {
     public static int getMenuChoice() {
         String line;
         int option = -1;
+
+        System.out.print(">");
         if(reader.hasNext()) {
             line = reader.nextLine().strip();
 
@@ -66,5 +70,50 @@ public  class Menus {
 
         return option;
     }
+
+    /**
+     * Prompt for a string input.
+     * Continues to prompt until the user enters a string.
+     * IE: Doesn't allow just pressing enter without text
+     * @return the entered string
+     */
+    public static String promptForString() {
+        String line= "";
+
+        while(line.compareTo("") == 0) {
+            System.out.print(">");
+            if(reader.hasNext()) {
+                line = reader.nextLine().strip();
+            }
+        }
+        return line;
+    }
+
+    /**
+     * Prompt the user to enter a number.
+     * Continues to prompt until they enter a valid number
+     * @return the number entered
+     */
+    public static int promptForNumber() {
+        String input = "";
+        int value = -1;
+
+
+        while(value == -1) {
+            System.out.print(">");
+
+            if(reader.hasNext()) {
+                input = reader.nextLine().strip();
+                try {
+                    value = Integer.parseInt(input);
+                } catch (NumberFormatException e) {
+                    value = -1;
+                }
+            }
+        }
+        return value;
+    }
+
+
 
 }

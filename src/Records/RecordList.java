@@ -1,12 +1,12 @@
 package Records;
-import Menus.MenuList;
+import Menus.MenuClasses.SelectionList;
 import java.util.ArrayList;
 
 
 /**
  * Inherits from MenuList to create a recordList
  */
-public class RecordList extends MenuList {
+public class RecordList extends SelectionList {
     private ArrayList<Record> records;
 
     public RecordList() {
@@ -22,6 +22,11 @@ public class RecordList extends MenuList {
             str =  curr.formattedTime();
         }
         return str;
+    }
+
+    @Override
+    protected void initializeType() {
+        type = "Record";
     }
 
     public RecordList(ArrayList<Record> records) {

@@ -57,10 +57,13 @@ public class MapsMenu {
                 mapsSubMenu(maps.getSelectedMap());
                 break;
             case SEARCH_MAPS:
+                searchMaps(maps);
                 break;
             case NEXT:
+                maps.next();
                 break;
             case PREVIOUS:
+                maps.prev();
                 break;
             case EXIT:
                 break;
@@ -104,7 +107,7 @@ public class MapsMenu {
             clearScreen();
             System.out.println("Are you sure you want to delete " + maps.getSelectedMap().getMapName() + "? \n"
                     + "Note this will delete all " + curr.getZones().size() + " zones "
-                    + "and " + curr.getCompletions() + " for this map (y/n): ");
+                    + "and " + curr.getCompletions() + "records for this map (y/n): ");
             response = Menus.promptForString().toLowerCase();
         }
 
@@ -129,12 +132,30 @@ public class MapsMenu {
 
         switch (choice) {
             case VIEW_RECORDS:
-
+                //TODO add call to records menu
                 break;
             case VIEW_ZONES:
+                //TODO add call to zones menu
                 break;
             case EXIT:
                 break;
         }
+    }
+
+    public static void searchMaps(MapList maps) {
+        int index;
+        String response = "";
+
+        clearScreen();
+        System.out.println("Enter the mapname you want to search form");
+        response = Menus.promptForString();
+        index = maps.findMapByName(response);
+
+        maps.setCursor(index);
+        if(index == -1) {
+            Menus.status = "Map: " + response + " was not found";
+        }
+
+
     }
 }

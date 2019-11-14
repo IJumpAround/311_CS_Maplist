@@ -1,12 +1,12 @@
 package maps;
 import Exceptions.DuplicateMapException;
-import Menus.MenuClasses.SelectionList;
+import Menus.MenuClasses.ABCSelectionList;
 import Records.Record;
 import zoning.Zone;
 
 import java.util.ArrayList;
 
-public class MapList extends SelectionList {
+public class MapList extends ABCSelectionList {
     //private int cursor;
     private ArrayList<Map> maps;
     private ArrayList<String> names;
@@ -114,5 +114,20 @@ public class MapList extends SelectionList {
             maps.remove(cursor);
             count--;
         }
+    }
+
+    /**
+     * Search for a map by its name and select it.
+     * @param name String mapname
+     * @return
+     */
+    public int findMapByName(String name) {
+        Map curr;
+        for(int i = 0; i < count; i++) {
+            curr = maps.get(i);
+            if(name.compareTo(curr.getMapName()) == 0)
+                return i;
+        }
+        return -1;
     }
 }

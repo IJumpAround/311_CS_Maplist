@@ -1,12 +1,12 @@
 package Records;
-import Menus.MenuClasses.SelectionList;
+import Menus.MenuClasses.ABCSelectionList;
 import java.util.ArrayList;
 
 
 /**
  * Inherits from MenuList to create a recordList
  */
-public class RecordList extends SelectionList {
+public class RecordList extends ABCSelectionList {
     private ArrayList<Record> records;
 
     public RecordList() {

@@ -1,10 +1,10 @@
 package Menus;
 
-import Menus.MenuClasses.SelectionList;
+import Menus.MenuClasses.ABCSelectionList;
 
 public class MenuHelpers {
 
-    public static void outputCurrentItem(SelectionList list) {
+    public static void outputCurrentItem(ABCSelectionList list) {
         String type = list.getType();
         System.out.println("\n\nCurrently selected item: " + type);
         System.out.println("Number of " + type + "s: " + list.getCount());

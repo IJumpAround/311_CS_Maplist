@@ -1,9 +1,9 @@
 package zoning;
 
-import Menus.MenuClasses.SelectionList;
+import Menus.MenuClasses.ABCSelectionList;
 import java.util.ArrayList;
 
-public class ZoneList extends SelectionList {
+public class ZoneList extends ABCSelectionList {
     ArrayList<Zone> zones;
 
     public ZoneList() {

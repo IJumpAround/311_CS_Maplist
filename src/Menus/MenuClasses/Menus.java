@@ -114,6 +114,13 @@ public  class Menus {
         return value;
     }
 
+    public static int[] promptForCoords() {
+        String input = "";
+        int[] coords = new int[3];
+
+
+    }
+
 
 
 }

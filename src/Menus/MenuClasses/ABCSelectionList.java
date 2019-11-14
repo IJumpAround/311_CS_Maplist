@@ -8,47 +8,48 @@ package Menus.MenuClasses;
  * It has a cursor that points to the currently selected item in the arrayList
  * implemented by the child class.
  */
-public abstract class SelectionList {
+public abstract class ABCSelectionList {
     protected int cursor;
     protected int count;
     protected String type;
 
-    public SelectionList() {
+    public ABCSelectionList() {
         cursor = 0;
         count = 0;
         initializeType();
     }
 
 
-    public SelectionList(int count) {
+    public ABCSelectionList(int count) {
         cursor = 0;
         this.count = count;
         initializeType();
     }
 
-    int getCursor() {
+    public int getCursor() {
         return cursor;
     }
+    public void setCursor(int val) { cursor = val; }
 
-    void next() throws IndexOutOfBoundsException {
-        if(cursor < count)
+    public void next() throws IndexOutOfBoundsException {
+        if(cursor < (count -1))
             cursor++;
-        else
-            throw new IndexOutOfBoundsException("End of list");
+//        else
+//            throw new IndexOutOfBoundsException("End of list");
     }
 
-    void prev() throws IndexOutOfBoundsException {
+    public void prev() throws IndexOutOfBoundsException {
         if(cursor > 0)
             cursor--;
-        else
-            throw new IndexOutOfBoundsException("Start of list");
+//        else
+//            throw new IndexOutOfBoundsException("Start of list");
     }
 
-    void start() {
+    public void start() {
         cursor = 0;
     }
 
-    void end() {
+    public void end() {
         if(count == 0)
             cursor = 0;
         else

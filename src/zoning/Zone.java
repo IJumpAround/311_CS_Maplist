@@ -77,4 +77,17 @@ public class Zone {
     public void setID(String ID) {
         this.ID = ID;
     }
+
+    /**
+     * Prettify zone information for display
+     * @return
+     */
+    public String prettyZone() {
+        return "Zone ID: " + ID + "\n"
+                +    "Corners: " + corners[0].toString() + "\n"
+                +    "         " + corners[1].toString() + "\n"
+                +    "         " + corners[2].toString() + "\n"
+                +    "         " + corners[3].toString() + "\n"
+                +    "Height: " + zHeight;
+    }
 }

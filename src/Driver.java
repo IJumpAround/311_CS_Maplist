@@ -1,4 +1,4 @@
-import ABC.MenuList;
+import Menus.Menus;
 import Records.Record;
 import maps.Map;
 import maps.MapList;
@@ -18,8 +18,16 @@ public class Driver {
             maps = new MapList();
         }
 
-        recordTests();
-        menuDriver(maps);
+//        recordTests();
+//        menuDriver(maps);
+        menuClassTest();
+    }
+
+    public static void menuClassTest() {
+        Menus.setupMenus();
+        Menus.mapMenu.DisplayMenu();
+        Menus.recordMenu.DisplayMenu();
+        Menus.zoneMenu.DisplayMenu();
 
     }
 
@@ -42,41 +50,35 @@ public class Driver {
                    break;
 
            }
+
+
            clearScreen();
         }
     }
 
     public static int MapsMenu(MapList maps) {
-        int choice;
-        System.out.println("Maps");
-        System.out.println("1) Add Map");
-        System.out.println("2) Delete Map");
-        System.out.println("3) View/Modify");
-        System.out.println("4) Search");
-        System.out.println("5) Next");
-        System.out.println("6) Previous");
-        System.out.println("0) Exit");
+        int choice = -1;
+        Menus.mapMenu.DisplayMenu();
 
-        choice = InputReader.getMenuChoice();
         return choice;
     }
 
-    /**
-     * Menu show when selecting a single map
-     * @param map selected map
-     * @return menu choice
-     */
-    public static int mapSubmenu(Map map) {
-        int choice;
-        System.out.println("Map: " + map.getMapName());
-        System.out.println("1) Zones");
-        System.out.println("2) Records");
-        System.out.println("\n");
-        System.out.println(map.toPrettyString());
-
-        choice = InputReader.getMenuChoice();
-        return choice;
-    }
+//    /**
+//     * Menu show when selecting a single map
+//     * @param map selected map
+//     * @return menu choice
+//     */
+//    public static int mapSubmenu(Map map) {
+//        int choice;
+//        System.out.println("Map: " + map.getMapName());
+//        System.out.println("1) Zones");
+//        System.out.println("2) Records");
+//        System.out.println("\n");
+//        System.out.println(map.toPrettyString());
+//
+//        choice = InputReader.getMenuChoice();
+//        return choice;
+//    }
 
     public static int ZonesMenu(ZoneList zones) {
         int choice;

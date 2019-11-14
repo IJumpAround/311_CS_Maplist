@@ -1,7 +1,7 @@
-package ABC;
+package Menus;
 
 /**
- * Abstract base clase that implements some menu selection functionality
+ * Abstract base class that implements some menu selection functionality
  */
 public abstract class MenuList {
     protected int cursor;
@@ -45,6 +45,9 @@ public abstract class MenuList {
         else
             cursor = count-1;
     }
+
+    public abstract String prettyCurrentItem();
+
 
 }
 

@@ -1,10 +1,9 @@
 package maps;
-import ABC.MenuList;
+import Menus.MenuList;
 import Records.Record;
 import zoning.Zone;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class MapList extends MenuList {
     //private int cursor;
@@ -15,6 +14,17 @@ public class MapList extends MenuList {
         super();
         maps = new ArrayList<>();
         names = new ArrayList<>();
+    }
+
+    @Override
+    public String prettyCurrentItem() {
+        String str = "";
+
+        if(maps.size() > 0) {
+            Map curr = getSelectedMap();
+            str =  curr.toPrettyString();
+        }
+        return str;
     }
 
     public MapList(ArrayList<Map> maps) {
@@ -32,7 +42,7 @@ public class MapList extends MenuList {
      * Return the map the cursor is currently pointing at.
      * @return Map
      */
-    public Map getMap() {
+    public Map getSelectedMap() {
         return maps.get(cursor);
     }
 

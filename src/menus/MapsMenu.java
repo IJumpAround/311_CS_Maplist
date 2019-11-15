@@ -8,6 +8,7 @@ import maps.MapList;
 
 import static menus.MenuHelpers.clearScreen;
 import static menus.MenuHelpers.outputCurrentItem;
+import static menus.ZonesMenu.zonesMenu;
 
 public class MapsMenu {
 
@@ -106,7 +107,7 @@ public class MapsMenu {
         while(response.compareTo("y") != 0 && response.compareTo("n") != 0) {
             clearScreen();
             System.out.println("Are you sure you want to delete " + maps.getSelectedMap().getMapName() + "? \n"
-                    + "Note this will delete all " + curr.getZones().size() + " zones "
+                    + "Note this will delete all " + curr.getZones().getCount() + " zones "
                     + "and " + curr.getCompletions() + "records for this map (y/n): ");
             response = Menus.promptForString().toLowerCase();
         }
@@ -135,7 +136,7 @@ public class MapsMenu {
                 //TODO add call to records menu
                 break;
             case VIEW_ZONES:
-                //TODO add call to zones menu
+                zonesMenu(map.getZones());
                 break;
             case EXIT:
                 break;

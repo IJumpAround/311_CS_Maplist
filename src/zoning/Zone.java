@@ -16,7 +16,7 @@ public class Zone {
     /**
      * Default constructor
      */
-    public Zone() {
+    public  Zone() {
         corners = new Coordinate[4];
         zHeight = 0;
         ID = "-1";
@@ -32,6 +32,7 @@ public class Zone {
     public Zone(String id, Coordinate c1, Coordinate c2, long zh) {
         this.ID = id;
         this.zHeight = zh;
+        this.corners = new Coordinate[4];
 
         try {
             SetCorners(c1, c2);

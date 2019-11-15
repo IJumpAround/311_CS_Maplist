@@ -1,9 +1,7 @@
 package menus;
 
 import menus.menuClasses.options;
-import zoning.Coordinate;
-import zoning.Zone;
-import zoning.ZoneList;
+import zoning.*;
 import exceptions.DuplicateEntryException;
 import menus.menuClasses.Menus;
 
@@ -13,16 +11,15 @@ import static menus.MenuHelpers.outputCurrentItem;
 public class ZonesMenu {
     public static int zonesMenu(ZoneList zones) {
         options choice;
-        Menus.setupMenus();
         clearScreen();
 
         /**
          * Main loop for menu options
          */
-        while (Menus.recordMenu.getMenuChoice() != options.EXIT) {
-            Menus.recordMenu.DisplayMenu();
+        while (Menus.zoneMenu.getMenuChoice() != options.EXIT) {
+            Menus.zoneMenu.DisplayMenu();
             outputCurrentItem(zones);
-            choice = Menus.recordMenu.promptForMenuChoice();
+            choice = Menus.zoneMenu.promptForMenuChoice();
             MapsExecute(zones, choice);
 
             //Clear screen before end of loop, print any error messages here so they show at the top of screen
@@ -74,6 +71,7 @@ public class ZonesMenu {
      * @param zones
      */
     public static void addZonePrompt(ZoneList zones) {
+        Zone zoneToAdd;
         boolean zMatch = false;
         String name = "";
         String type = "";
@@ -89,6 +87,7 @@ public class ZonesMenu {
             type = Menus.promptForString();
         }
 
+        //TODO Add prompts for specific info needed by child class constructors
         Coordinate c1,c2;
         long[] temp1 = {0,0,0};
         long[] temp2 = {0,0,0};
@@ -123,7 +122,11 @@ public class ZonesMenu {
         //Default to 1
         zHeight = (zHeight == 0) ? 1 : zHeight;
 
-
+        //TODO update constructors in child classes
+        if(type.compareTo("timer") == 0)
+            zoneToAdd = new TimerZone(name,c1,c2,zHeight);
+        else
+            zoneToAdd = new TeleportZone(name,c1,c2,zHeight);
         //Add the zone, print an error if this name is a duplicate
         try {
             zones.addZone(new Zone(name, c1, c2, zHeight));

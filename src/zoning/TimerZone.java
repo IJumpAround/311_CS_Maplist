@@ -4,7 +4,7 @@ public class TimerZone extends Zone {
     private String type;    //Bonus or main
     private boolean start;  //true if start zone, false if end zone
 
-    TimerZone() {
+    public TimerZone() {
         super();
         type = "main";
         start = true;

@@ -12,9 +12,9 @@ public  class Menus {
 
     public static void setupMenus() {
         mapMenu = new MenuClass("Map Management");
-        zoneMenu = new MenuClass("Select an entry type");
+        zoneMenu = new MenuClass("Zone Management");
         recordMenu = new MenuClass("Record Management");
-        mapSubMenu = new MenuClass("Zone Management");
+        mapSubMenu = new MenuClass("Select an entry type");
 
         //Setup Maps menu
         mapMenu.addItem(1,"Add Map",options.ADD_MAP);
@@ -44,7 +44,7 @@ public  class Menus {
         recordMenu.addItem(0,"Exit",options.EXIT);
 
         mapSubMenu.addItem(1,"Zones",options.VIEW_ZONES);
-        mapSubMenu.addItem(2, "records",options.VIEW_RECORDS);
+        mapSubMenu.addItem(2, "Records",options.VIEW_RECORDS);
         mapSubMenu.addItem(0,"Exit",options.EXIT);
     }
 
@@ -95,7 +95,7 @@ public  class Menus {
      * @return the number entered
      */
     public static int promptForNumber() {
-        String input = "";
+        String input;
         int value = -1;
 
 

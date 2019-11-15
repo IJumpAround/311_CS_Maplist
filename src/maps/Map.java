@@ -2,6 +2,7 @@ package maps;
 import java.util.ArrayList;
 import records.Record;
 import zoning.Zone;
+import zoning.ZoneList;
 
 
 public class Map {
@@ -9,7 +10,7 @@ public class Map {
     private short tier;
     private int completions;
     private ArrayList<Record> records;
-    private ArrayList<Zone> zones;
+    private ZoneList zones;
 
     /**
      * Default constructor
@@ -19,7 +20,7 @@ public class Map {
         this.tier = 0;
         this.completions = 0;
         this.records = new ArrayList<>();
-        this.zones = new ArrayList<>();
+        this.zones = new ZoneList();
 
     }
 
@@ -31,7 +32,7 @@ public class Map {
      * @param records list of records
      * @param zones list of zones
      */
-    public Map(String mapName, short tier, int completions, ArrayList<Record> records, ArrayList<Zone> zones) {
+    public Map(String mapName, short tier, int completions, ArrayList<Record> records, ZoneList zones) {
         this.mapName = mapName;
         this.tier = tier;
         this.completions = completions;
@@ -48,7 +49,7 @@ public class Map {
         this.tier = tier;
         this.completions = 0;
         this.records = new ArrayList<>();
-        this.zones = new ArrayList<>();
+        this.zones = new ZoneList();
     }
 
     public String getMapName() {
@@ -131,11 +132,11 @@ public class Map {
 //
     }
 
-    public ArrayList<Zone> getZones() {
+    public ZoneList getZones() {
         return zones;
     }
 
-    public void setZones(ArrayList<Zone> zones) {
+    public void setZones(ZoneList zones) {
         this.zones = zones;
     }
 }

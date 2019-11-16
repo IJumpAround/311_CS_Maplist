@@ -1,5 +1,7 @@
 package zoning;
 
+import zoning.enums.timerType;
+
 public class TimerZone extends Zone {
     private timerType type;    //Bonus or main
     private boolean start;  //true if start zone, false if end zone
@@ -17,7 +19,13 @@ public class TimerZone extends Zone {
         this.start = start;
     }
 
-
+    @Override
+    public String prettyZone() {
+        String t = this.type == timerType.MAIN ? "Main" : "Bonus";
+        String start = this.start ? "Start" : "End";
+        return super.prettyZone() + "\n"
+                +"Zone is a " + t + " " + start + " zone";
+    }
 
     public timerType GetType() {
         return type;

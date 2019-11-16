@@ -26,6 +26,16 @@ public abstract class ABCSelectionList {
         initializeType();
     }
 
+    /**
+     * Copy constructor
+     * @param list
+     */
+    public ABCSelectionList(ABCSelectionList list) {
+        this.cursor = list.cursor;
+        this.count = list.count;
+        this.type = list.type;
+    }
+
     public int getCursor() {
         return cursor;
     }

@@ -1,5 +1,7 @@
 package zoning;
 
+import zoning.enums.teleportType;
+
 ;
 
 public class TeleportZone extends Zone {
@@ -31,19 +33,30 @@ public class TeleportZone extends Zone {
      * @param _type Source or Destination
      * @param _target target destination
      */
-    TeleportZone(String id, Coordinate c1, Coordinate c2, long zh, String _type, String _target) {
+    public TeleportZone(String id, Coordinate c1, Coordinate c2, long zh, teleportType _type, String _target) {
         super(id,c1,c2,zh);
-
-        if(_type.compareTo("source") == 0)
-            type = teleportType.SOURCE;
-        else
-            type = teleportType.DESTINATION;
+        this.type = _type;
+//        if(_type.compareTo("source") == 0)
+//            type = teleportType.SOURCE;
+//        else
+//            type = teleportType.DESTINATION;
         target = _target;
     }
 
+    @Override
+    public String prettyZone() {
+        String t = this.type == teleportType.SOURCE ? "Source" : "Destination";
+        String targ = this.target != null ? this.target : "None";
+        targ = this.type == teleportType.SOURCE ? targ : "N/A";
+
+        return super.prettyZone() + "\n"
+                + "Teleport type: " + t + "\n"
+                + "Target: " + targ;
+    }
+
     /*
-        Getters and setters
-     */
+            Getters and setters
+         */
     public teleportType getType() {
         return type;
     }

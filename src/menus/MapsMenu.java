@@ -1,10 +1,12 @@
 package menus;
 
+import ObjectBuilder.ReadObject;
+import ObjectBuilder.WriteObject;
 import exceptions.DuplicateEntryException;
-import menus.menuClasses.Menus;
-import menus.menuClasses.options;
 import maps.Map;
 import maps.MapList;
+import menus.menuClasses.Menus;
+import menus.menuClasses.optionsEnum;
 
 import static menus.MenuHelpers.clearScreen;
 import static menus.MenuHelpers.outputCurrentItem;
@@ -19,18 +21,22 @@ public class MapsMenu {
      * @return
      */
     public static int mapsMenu(MapList maps) {
-        options choice;
+        optionsEnum choice;
         Menus.setupMenus();
         clearScreen();
 
         /**
          * Main loop for menu options
          */
-        while (Menus.mapMenu.getMenuChoice() != options.EXIT) {
+        while (Menus.mapMenu.getMenuChoice() != optionsEnum.EXIT) {
             Menus.mapMenu.DisplayMenu();
             outputCurrentItem(maps);
             choice = Menus.mapMenu.promptForMenuChoice();
-            MapsExecute(maps, choice);
+
+            //Call execute, load will return a maplist if it is called any other possibility returns null
+            MapList temp = mapsExecute(maps, choice);
+            if(temp != null)
+                maps = temp;
 
             //Clear screen before end of loop, print any error messages here so they show at the top of screen
             clearScreen();
@@ -44,7 +50,7 @@ public class MapsMenu {
         //retur n choice;
     }
 
-    public static int MapsExecute(MapList maps, options choice) {
+    public static MapList mapsExecute(MapList maps, optionsEnum choice) {
 
         switch (choice){
 
@@ -74,8 +80,15 @@ public class MapsMenu {
                 break;
             case NONE:
                 break;
+            case WRITE:
+                WriteObject.test(maps);
+                break;
+            case LOAD:
+                 return ReadObject.loadObject("ObjectGson.gson");
+
+
         }
-        return -1;
+        return null;
     }
 
     /**
@@ -131,7 +144,7 @@ public class MapsMenu {
      * @param map
      */
     public static void mapsSubMenu(Map map) {
-        options choice;
+        optionsEnum choice;
 
         //Clear screen and print options for this submenu
         //exit, zones or records

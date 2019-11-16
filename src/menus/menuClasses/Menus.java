@@ -17,35 +17,37 @@ public  class Menus {
         mapSubMenu = new MenuClass("Select an entry type");
 
         //Setup Maps menu
-        mapMenu.addItem(1,"Add Map",options.ADD_MAP);
-        mapMenu.addItem(2,"Delete Map",options.DELETE_MAP);
-        mapMenu.addItem(3,"View/Modify",options.VIEW);
-        mapMenu.addItem(4,"Search Maps",options.SEARCH_MAPS);
-        mapMenu.addItem(5,"Next",options.NEXT);
-        mapMenu.addItem(6,"Previous",options.PREVIOUS);
-        mapMenu.addItem(0,"Exit",options.EXIT);
+        mapMenu.addItem(1,"Add Map", optionsEnum.ADD_MAP);
+        mapMenu.addItem(2,"Delete Map", optionsEnum.DELETE_MAP);
+        mapMenu.addItem(3,"View/Modify", optionsEnum.VIEW);
+        mapMenu.addItem(4,"Search Maps", optionsEnum.SEARCH_MAPS);
+        mapMenu.addItem(5,"Next", optionsEnum.NEXT);
+        mapMenu.addItem(6,"Previous", optionsEnum.PREVIOUS);
+        mapMenu.addItem(7,"Save", optionsEnum.WRITE);
+        mapMenu.addItem(8,"Load", optionsEnum.LOAD);
+        mapMenu.addItem(0,"Exit", optionsEnum.EXIT);
 
         //Setup zones menu
-        zoneMenu.addItem(1,"Add Zone",options.ADD_ZONE);
-        zoneMenu.addItem(2,"Delete Zone",options.DELETE_ZONE);
-        zoneMenu.addItem(3,"View/Modify",options.VIEW);
-        zoneMenu.addItem(4,"Search Zones",options.SEARCH_ZONES);
-        zoneMenu.addItem(5,"Next",options.NEXT);
-        zoneMenu.addItem(6,"Previous",options.PREVIOUS);
-        zoneMenu.addItem(0,"Exit",options.EXIT);
+        zoneMenu.addItem(1,"Add Zone", optionsEnum.ADD_ZONE);
+        zoneMenu.addItem(2,"Delete Zone", optionsEnum.DELETE_ZONE);
+        zoneMenu.addItem(3,"View/Modify", optionsEnum.VIEW);
+        zoneMenu.addItem(4,"Search Zones", optionsEnum.SEARCH_ZONES);
+        zoneMenu.addItem(5,"Next", optionsEnum.NEXT);
+        zoneMenu.addItem(6,"Previous", optionsEnum.PREVIOUS);
+        zoneMenu.addItem(0,"Exit", optionsEnum.EXIT);
 
         //Setup records menu
-        recordMenu.addItem(1,"Add Record",options.ADD_RECORD);
-        recordMenu.addItem(2,"Delete Record",options.DELETE_RECORD);
-        recordMenu.addItem(3,"View/Modify",options.VIEW);
-        recordMenu.addItem(4,"Search Records",options.SEARCH_RECORDS);
-        recordMenu.addItem(5,"Next",options.NEXT);
-        recordMenu.addItem(6,"Previous",options.PREVIOUS);
-        recordMenu.addItem(0,"Exit",options.EXIT);
+        recordMenu.addItem(1,"Add Record", optionsEnum.ADD_RECORD);
+        recordMenu.addItem(2,"Delete Record", optionsEnum.DELETE_RECORD);
+        recordMenu.addItem(3,"View/Modify", optionsEnum.VIEW);
+        recordMenu.addItem(4,"Search Records", optionsEnum.SEARCH_RECORDS);
+        recordMenu.addItem(5,"Next", optionsEnum.NEXT);
+        recordMenu.addItem(6,"Previous", optionsEnum.PREVIOUS);
+        recordMenu.addItem(0,"Exit", optionsEnum.EXIT);
 
-        mapSubMenu.addItem(1,"Zones",options.VIEW_ZONES);
-        mapSubMenu.addItem(2, "Records",options.VIEW_RECORDS);
-        mapSubMenu.addItem(0,"Exit",options.EXIT);
+        mapSubMenu.addItem(1,"Zones", optionsEnum.VIEW_ZONES);
+        mapSubMenu.addItem(2, "Records", optionsEnum.VIEW_RECORDS);
+        mapSubMenu.addItem(0,"Exit", optionsEnum.EXIT);
     }
 
     /**

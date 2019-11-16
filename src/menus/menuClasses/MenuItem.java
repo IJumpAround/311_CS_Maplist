@@ -3,15 +3,15 @@ package menus.menuClasses;
 public class MenuItem {
     private int number;
     private String name;
-    private options identifier;
+    private optionsEnum identifier;
 
     public MenuItem() {
         number = -1;
         name = "";
-        identifier = options.NONE;
+        identifier = optionsEnum.NONE;
     }
 
-    public MenuItem(int number, String name, options identifier) {
+    public MenuItem(int number, String name, optionsEnum identifier) {
         this.number = number;
         this.name = name;
         this.identifier = identifier;
@@ -33,11 +33,11 @@ public class MenuItem {
         this.name = name;
     }
 
-    public options getIdentifier() {
+    public optionsEnum getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(options identifier) {
+    public void setIdentifier(optionsEnum identifier) {
         this.identifier = identifier;
     }
 

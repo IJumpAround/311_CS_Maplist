@@ -6,19 +6,19 @@ public class MenuClass {
     protected String title;
     protected ArrayList<MenuItem> items;
     //protected int choice;
-    protected options menuChoice;
+    protected optionsEnum menuChoice;
 
     //Constructors
     public MenuClass(String title) {
         this.title = title;
         items = new ArrayList<>();
-        menuChoice = options.NONE;
+        menuChoice = optionsEnum.NONE;
     }
 
     public MenuClass(String title, ArrayList<MenuItem> items) {
         this.title = title;
         this.items = items;
-        menuChoice = options.NONE;
+        menuChoice = optionsEnum.NONE;
     }
 
     /**
@@ -36,7 +36,7 @@ public class MenuClass {
      * The int returned is converted to an enum and the enum is returned
      * @return option enum
      */
-    public options promptForMenuChoice() {
+    public optionsEnum promptForMenuChoice() {
         int option = Menus.getMenuChoice();
         for(MenuItem item: items) {
             if(item.getNumber() == option) {
@@ -44,11 +44,11 @@ public class MenuClass {
                 return menuChoice;
             }
         }
-        menuChoice = options.NONE;
+        menuChoice = optionsEnum.NONE;
         return menuChoice;
     }
 
-    public void addItem(int index, String name, options identifier) {
+    public void addItem(int index, String name, optionsEnum identifier) {
         items.add(new MenuItem(index, name, identifier));
     }
 
@@ -60,11 +60,11 @@ public class MenuClass {
         this.items = items;
     }
 
-    public options getMenuChoice() {
+    public optionsEnum getMenuChoice() {
         return menuChoice;
     }
 
-    public void setMenuChoice(options menuChoice) {
+    public void setMenuChoice(optionsEnum menuChoice) {
         this.menuChoice = menuChoice;
     }
 }

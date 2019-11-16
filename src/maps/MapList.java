@@ -28,6 +28,13 @@ public class MapList extends ABCSelectionList {
     }
 
 
+    public MapList(MapList target) {
+        super(target);
+        this.maps = new ArrayList<Map>(target.maps);
+        this.names = new ArrayList<String>(target.names);
+    }
+
+
     @Override
     public String prettyCurrentItem() {
         String str = "";

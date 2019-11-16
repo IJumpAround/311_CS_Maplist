@@ -1,26 +1,26 @@
 package menus;
 
-import menus.menuClasses.options;
-import zoning.*;
 import exceptions.DuplicateEntryException;
 import menus.menuClasses.Menus;
+import menus.menuClasses.optionsEnum;
+import zoning.*;
+import zoning.enums.teleportType;
+import zoning.enums.timerType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static menus.MenuHelpers.clearScreen;
-import static menus.MenuHelpers.outputCurrentItem;
-import static menus.MenuHelpers.promptForOptions;
+import static menus.MenuHelpers.*;
 
 public class ZonesMenu {
     public static int zonesMenu(ZoneList zones) {
-        options choice;
+        optionsEnum choice;
         clearScreen();
 
         /**
          * Main loop for menu options
          */
-        while (Menus.zoneMenu.getMenuChoice() != options.EXIT) {
+        while (Menus.zoneMenu.getMenuChoice() != optionsEnum.EXIT) {
             Menus.zoneMenu.DisplayMenu();
             outputCurrentItem(zones);
             choice = Menus.zoneMenu.promptForMenuChoice();
@@ -38,7 +38,7 @@ public class ZonesMenu {
         //retur n choice;
     }
 
-    public static int zonesExecute(ZoneList zones, options choice) {
+    public static int zonesExecute(ZoneList zones, optionsEnum choice) {
 
         switch (choice){
 
@@ -52,7 +52,7 @@ public class ZonesMenu {
                 //zonesSubMenu(zones.getSelectedMap());
                 break;
             case SEARCH_ZONES:
-                //searchMaps(zones);
+                searchZones(zones);
                 break;
             case NEXT:
                 zones.next();
@@ -97,7 +97,7 @@ public class ZonesMenu {
         String source = "";
         String input = "";
         timerType tType = null;
-        teleportType teleType;
+        teleportType teleType = null;
         boolean isStart = false;
         if(type.compareTo("timer") == 0) {
             input = promptForOptions(new ArrayList<>(Arrays.asList("start", "end")), "Is this a start or end zone");
@@ -106,7 +106,7 @@ public class ZonesMenu {
             tType = (input.compareTo("main") == 0) ? timerType.MAIN : timerType.BONUS;
         }
         else {
-           source = promptForOptions(new ArrayList<>(Arrays.asList("source","destination")), "Is this the source or destination teleporter");
+           source = promptForOptions(new ArrayList<>(Arrays.asList("src","dest")), "Is this the source or destination teleporter");
            teleType = source.compareTo("source") == 0 ? teleportType.SOURCE : teleportType.DESTINATION;
         }
 
@@ -148,7 +148,7 @@ public class ZonesMenu {
         if(type.compareTo("timer") == 0)
             zoneToAdd = new TimerZone(name,c1,c2,zHeight,tType,isStart);
         else
-            zoneToAdd = new TeleportZone(name,c1,c2,zHeight);
+            zoneToAdd = new TeleportZone(name,c1,c2,zHeight, teleType,null);
 
         //Add the zone, print an error if this name is a duplicate
         try {
@@ -180,5 +180,18 @@ public class ZonesMenu {
         if(response.compareTo("y") == 0) {
             zones.deleteZone();
         }
+    }
+
+    public static void searchZones(ZoneList zones) {
+        int index = 0;
+        System.out.println("Enter the ID of the zone you wish to find");
+        String input = Menus.promptForString();
+
+        if((index = zones.findByID(input)) != -1) {
+            zones.setCursor(index);
+
+        }
+        else
+            Menus.status = "ID: " + input + " was not found";
     }
 }

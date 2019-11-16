@@ -5,8 +5,12 @@ import zoning.*;
 import exceptions.DuplicateEntryException;
 import menus.menuClasses.Menus;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static menus.MenuHelpers.clearScreen;
 import static menus.MenuHelpers.outputCurrentItem;
+import static menus.MenuHelpers.promptForOptions;
 
 public class ZonesMenu {
     public static int zonesMenu(ZoneList zones) {
@@ -20,7 +24,7 @@ public class ZonesMenu {
             Menus.zoneMenu.DisplayMenu();
             outputCurrentItem(zones);
             choice = Menus.zoneMenu.promptForMenuChoice();
-            MapsExecute(zones, choice);
+            zonesExecute(zones, choice);
 
             //Clear screen before end of loop, print any error messages here so they show at the top of screen
             clearScreen();
@@ -34,7 +38,7 @@ public class ZonesMenu {
         //retur n choice;
     }
 
-    public static int MapsExecute(ZoneList zones, options choice) {
+    public static int zonesExecute(ZoneList zones, options choice) {
 
         switch (choice){
 
@@ -42,7 +46,7 @@ public class ZonesMenu {
                 addZonePrompt(zones);
                 break;
             case DELETE_ZONE:
-                //deleteMapPrompt(zones);
+                deleteZonePrompt(zones);
                 break;
             case VIEW:
                 //zonesSubMenu(zones.getSelectedMap());
@@ -87,7 +91,25 @@ public class ZonesMenu {
             type = Menus.promptForString();
         }
 
-        //TODO Add prompts for specific info needed by child class constructors
+
+
+        //Prompts specific to each zone type
+        String source = "";
+        String input = "";
+        timerType tType = null;
+        teleportType teleType;
+        boolean isStart = false;
+        if(type.compareTo("timer") == 0) {
+            input = promptForOptions(new ArrayList<>(Arrays.asList("start", "end")), "Is this a start or end zone");
+            isStart = input.compareTo("start") == 0;
+            input = promptForOptions(new ArrayList<>(Arrays.asList("main", "bonus")), "Is this a main or bonus zone");
+            tType = (input.compareTo("main") == 0) ? timerType.MAIN : timerType.BONUS;
+        }
+        else {
+           source = promptForOptions(new ArrayList<>(Arrays.asList("source","destination")), "Is this the source or destination teleporter");
+           teleType = source.compareTo("source") == 0 ? teleportType.SOURCE : teleportType.DESTINATION;
+        }
+
         Coordinate c1,c2;
         long[] temp1 = {0,0,0};
         long[] temp2 = {0,0,0};
@@ -124,16 +146,39 @@ public class ZonesMenu {
 
         //TODO update constructors in child classes
         if(type.compareTo("timer") == 0)
-            zoneToAdd = new TimerZone(name,c1,c2,zHeight);
+            zoneToAdd = new TimerZone(name,c1,c2,zHeight,tType,isStart);
         else
             zoneToAdd = new TeleportZone(name,c1,c2,zHeight);
+
         //Add the zone, print an error if this name is a duplicate
         try {
-            zones.addZone(new Zone(name, c1, c2, zHeight));
+            zones.addZone(zoneToAdd);
         }
         catch (DuplicateEntryException e) {
             Menus.status = e.getMessage();
         }
 
+    }
+
+    /**
+     * Prompt to delete a zone.
+     * @param zones
+     */
+    public static void deleteZonePrompt(ZoneList zones) {
+        if(zones.getCount() == 0)
+            return;
+
+        String response = "";
+        while(response.compareTo("y") != 0 && response.compareTo("n") != 0) {
+            clearScreen();
+            System.out.println("Are you sure you want to delete " + zones.getSelectedZone().getID()
+            +" (y|n)");
+            response = Menus.promptForString().toLowerCase();
+        }
+
+        //Delete zone otherwise do nothing
+        if(response.compareTo("y") == 0) {
+            zones.deleteZone();
+        }
     }
 }

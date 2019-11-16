@@ -1,7 +1,9 @@
 package zoning;
 
+;
+
 public class TeleportZone extends Zone {
-    private String type;        //type of teleport zone (Teleporter or Destination)
+    private teleportType type;        //type of teleport zone (Teleporter or Destination)
     private String target;      //ID of Destination teleporter if this is a teleporter
 
     /**
@@ -9,12 +11,19 @@ public class TeleportZone extends Zone {
      */
     TeleportZone() {
         super();
-        type = "source";
+        type = teleportType.SOURCE;
+        target = null;
+    }
+
+    public TeleportZone(String id, Coordinate c1, Coordinate c2, long zh) {
+        super(id, c1, c2, zh);
+        type = teleportType.SOURCE;
         target = null;
     }
 
     /**
      * Parameter Constructor
+     * assumes the _type input is either source or destination
      * @param id identifier for this zone
      * @param c1 first corner
      * @param c2 second corner
@@ -24,18 +33,22 @@ public class TeleportZone extends Zone {
      */
     TeleportZone(String id, Coordinate c1, Coordinate c2, long zh, String _type, String _target) {
         super(id,c1,c2,zh);
-        type = _type;
+
+        if(_type.compareTo("source") == 0)
+            type = teleportType.SOURCE;
+        else
+            type = teleportType.DESTINATION;
         target = _target;
     }
 
     /*
         Getters and setters
      */
-    public String getType() {
+    public teleportType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(teleportType type) {
         this.type = type;
     }
 

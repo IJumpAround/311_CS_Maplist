@@ -1,6 +1,6 @@
 package maps;
 import exceptions.DuplicateEntryException;
-import menus.menuClasses.ABCSelectionList;
+import ABC.ABCSelectionList;
 import records.Record;
 import zoning.Zone;
 
@@ -49,7 +49,10 @@ public class MapList extends ABCSelectionList {
      * @return Map
      */
     public Map getSelectedMap() {
-        return maps.get(cursor);
+        if(count > 0)
+            return maps.get(cursor);
+        else
+            return null;
     }
 
     /**
@@ -113,6 +116,7 @@ public class MapList extends ABCSelectionList {
         if(maps.size() > 0) {
             maps.remove(cursor);
             count--;
+            clampCursor();
         }
     }
 

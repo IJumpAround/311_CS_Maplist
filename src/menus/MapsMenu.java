@@ -55,7 +55,11 @@ public class MapsMenu {
                 deleteMapPrompt(maps);
                 break;
             case VIEW:
-                mapsSubMenu(maps.getSelectedMap());
+                Map curr = maps.getSelectedMap();
+                if(curr != null)
+                    mapsSubMenu(maps.getSelectedMap());
+                else
+                    Menus.status = "Map list is empty";
                 break;
             case SEARCH_MAPS:
                 searchMaps(maps);
@@ -102,6 +106,10 @@ public class MapsMenu {
      */
     public static void deleteMapPrompt(MapList maps) {
         String response = "";
+
+        if(maps.getCount() == 0)
+            return;
+
         Map curr = maps.getSelectedMap();
 
         while(response.compareTo("y") != 0 && response.compareTo("n") != 0) {

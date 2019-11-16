@@ -1,6 +1,9 @@
 package menus;
 
-import menus.menuClasses.ABCSelectionList;
+import ABC.ABCSelectionList;
+import menus.menuClasses.Menus;
+
+import java.util.ArrayList;
 
 public class MenuHelpers {
 
@@ -20,4 +23,24 @@ public class MenuHelpers {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
+
+    /**
+     * Provided a list of options and a prompt, format the prompt
+     * and continue to prompt the user until they enter a value contained in options
+     * @param options list of options the user should enter
+     * @param prompt  prompt to show the user
+     * @return returns the string they entered
+     */
+    public static String promptForOptions(ArrayList<String> options, String prompt) {
+        String input ="";
+        String optionsFormatter = options.toString();
+        optionsFormatter = optionsFormatter.replace(',', '|').replace('[', '(').replace(']',')');
+        while(!options.contains(input)) {
+            System.out.println(prompt + " " + optionsFormatter);
+            input = Menus.promptForString();
+        }
+        return input;
+    }
+
+
 }

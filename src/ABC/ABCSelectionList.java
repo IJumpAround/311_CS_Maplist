@@ -1,4 +1,4 @@
-package menus.menuClasses;
+package ABC;
 
 /**
  * Abstract base class that implements some menu selection functionality
@@ -54,6 +54,19 @@ public abstract class ABCSelectionList {
             cursor = 0;
         else
             cursor = count-1;
+    }
+
+    /**
+     * Cursor can end up outside of bounds when delet
+     */
+    public void clampCursor() {
+        if(cursor > count && count > 0) {
+            cursor = count -1;
+
+        }
+        else if(cursor > 0 && count == 0) {
+            cursor = 0;
+        }
     }
 
     public String getType() {

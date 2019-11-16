@@ -1,35 +1,28 @@
 package zoning;
 
 public class TimerZone extends Zone {
-    private String type;    //Bonus or main
+    private timerType type;    //Bonus or main
     private boolean start;  //true if start zone, false if end zone
 
     public TimerZone() {
         super();
-        type = "main";
+        type = timerType.MAIN;
         start = true;
 
     }
 
-    /**
-     * Paremeter Constructor
-     * @param id Zone Identifier
-     * @param c1 first corner
-     * @param c2 opposite corner
-     * @param zh height
-     * @param t  type (bonus or main)
-     * @param s  start zone or end zone
-     */
-    TimerZone(String id, Coordinate c1, Coordinate c2, long zh, String t, boolean s) {
-        super(id,c1,c2,zh);
-        this.type = t;
-        this.start = s;
+    public TimerZone(String id, Coordinate c1, Coordinate c2, long zh,timerType type, boolean start) {
+        super(id, c1, c2, zh);
+        this.type = type;
+        this.start = start;
     }
 
-    public String GetType() {
+
+
+    public timerType GetType() {
         return type;
     }
-    public void setType(String type) {
+    public void setType(timerType type) {
         this.type = type;
     }
 

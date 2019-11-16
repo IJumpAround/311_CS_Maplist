@@ -1,8 +1,8 @@
 package menus;
 
 import exceptions.DuplicateEntryException;
-import menus.menuClasses.Menus;
-import menus.menuClasses.optionsEnum;
+import menus.menuclasses.Menus;
+import menus.menuclasses.optionsEnum;
 import zoning.*;
 import zoning.enums.teleportType;
 import zoning.enums.timerType;
@@ -13,9 +13,18 @@ import java.util.Arrays;
 import static menus.MenuHelpers.*;
 
 public class ZonesMenu {
+
+    /**
+     * Display an interface for manipulating zones.
+     * @param zones
+     * @return
+     */
     public static int zonesMenu(ZoneList zones) {
         optionsEnum choice;
         clearScreen();
+
+        //Leaving via exit then re-entering leave choice set to EXIT. The loop exits immediately in that case
+        Menus.zoneMenu.clearChoice();
 
         /**
          * Main loop for menu options

@@ -1,4 +1,4 @@
-package menus.menuClasses;
+package menus.menuclasses;
 
 import java.util.ArrayList;
 
@@ -19,6 +19,13 @@ public class MenuClass {
         this.title = title;
         this.items = items;
         menuChoice = optionsEnum.NONE;
+    }
+
+    /**
+     * Reset choice to NONE
+     */
+    public void clearChoice() {
+        this.menuChoice = optionsEnum.NONE;
     }
 
     /**

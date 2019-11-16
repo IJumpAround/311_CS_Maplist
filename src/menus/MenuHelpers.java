@@ -1,16 +1,20 @@
 package menus;
 
 import ABC.ABCSelectionList;
-import menus.menuClasses.Menus;
+import menus.menuclasses.Menus;
 
 import java.util.ArrayList;
 
 public class MenuHelpers {
 
     public static void outputCurrentItem(ABCSelectionList list) {
+        String cursor = (list.getCount() > 0) ? String.valueOf(list.getCursor()+1) : "0";
+        String max = (list.getCount()>0) ? String.valueOf(list.getCount()) : "0";
+
         String type = list.getType();
-        System.out.println("\n\nCurrently selected item: " + type);
-        System.out.println("Number of " + type + "s: " + list.getCount());
+        System.out.println("\n\n" + type);
+        System.out.println("Current Selection: " + cursor + " of " + max);
+        //System.out.println("Number of " + type + "s: " + list.getCount());
         System.out.println(list.prettyCurrentItem());
     }
 
@@ -35,6 +39,7 @@ public class MenuHelpers {
         String input ="";
         String optionsFormatter = options.toString();
         optionsFormatter = optionsFormatter.replace(',', '|').replace('[', '(').replace(']',')');
+
         while(!options.contains(input)) {
             System.out.println(prompt + " " + optionsFormatter);
             input = Menus.promptForString();

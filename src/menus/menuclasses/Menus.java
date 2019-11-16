@@ -1,4 +1,4 @@
-package menus.menuClasses;
+package menus.menuclasses;
 
 import java.util.Scanner;
 

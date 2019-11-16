@@ -5,8 +5,8 @@ import ObjectBuilder.WriteObject;
 import exceptions.DuplicateEntryException;
 import maps.Map;
 import maps.MapList;
-import menus.menuClasses.Menus;
-import menus.menuClasses.optionsEnum;
+import menus.menuclasses.Menus;
+import menus.menuclasses.optionsEnum;
 
 import static menus.MenuHelpers.clearScreen;
 import static menus.MenuHelpers.outputCurrentItem;

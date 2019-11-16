@@ -5,7 +5,6 @@ import ObjectBuilder.WriteObject;
 import exceptions.DuplicateEntryException;
 import maps.Map;
 import maps.MapList;
-import menus.menuclasses.Menus;
 import menus.menuclasses.optionsEnum;
 
 import static menus.MenuHelpers.clearScreen;
@@ -100,11 +99,11 @@ public class MapsMenu {
         short tier = 0;
         clearScreen();
         System.out.println("Enter the map name: ");
-        name = Menus.promptForString();
+        name = MenuHelpers.promptForString();
 
         while(tier < 1 || tier > 10) {
             System.out.println("Enter the map Tier (1-10): ");
-            tier = (short)Menus.promptForNumber();
+            tier = (short) MenuHelpers.promptForNumber();
         }
         try {
             maps.addMap(name, tier);
@@ -130,7 +129,7 @@ public class MapsMenu {
             System.out.println("Are you sure you want to delete " + maps.getSelectedMap().getMapName() + "? \n"
                     + "Note this will delete all " + curr.getZones().getCount() + " zones "
                     + "and " + curr.getCompletions() + "records for this map (y/n): ");
-            response = Menus.promptForString().toLowerCase();
+            response = MenuHelpers.promptForString().toLowerCase();
         }
 
         //Delete map otherwise do nothing
@@ -170,7 +169,7 @@ public class MapsMenu {
 
         clearScreen();
         System.out.println("Enter the mapname you want to search form");
-        response = Menus.promptForString();
+        response = MenuHelpers.promptForString();
         index = maps.findMapByName(response);
 
         maps.setCursor(index);

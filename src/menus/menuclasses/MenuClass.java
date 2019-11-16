@@ -1,5 +1,7 @@
 package menus.menuclasses;
 
+import menus.MenuHelpers;
+
 import java.util.ArrayList;
 
 public class MenuClass {
@@ -44,7 +46,7 @@ public class MenuClass {
      * @return option enum
      */
     public optionsEnum promptForMenuChoice() {
-        int option = Menus.getMenuChoice();
+        int option = MenuHelpers.getMenuChoice();
         for(MenuItem item: items) {
             if(item.getNumber() == option) {
                 menuChoice = item.getIdentifier();

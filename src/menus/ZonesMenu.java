@@ -1,7 +1,6 @@
 package menus;
 
 import exceptions.DuplicateEntryException;
-import menus.menuclasses.Menus;
 import menus.menuclasses.optionsEnum;
 import zoning.*;
 import zoning.enums.teleportType;
@@ -92,12 +91,12 @@ public class ZonesMenu {
         int zHeight = 0;
 
         System.out.println("Enter a name or identifier for this zone: ");
-        name = Menus.promptForString();
+        name = promptForString();
 
         //Determine type of zone
         while(type.compareTo("timer") != 0 && type.compareTo("teleport") != 0) {
             System.out.println("Zone type: (timer|teleport)");
-            type = Menus.promptForString();
+            type = promptForString();
         }
 
 
@@ -129,10 +128,10 @@ public class ZonesMenu {
             System.out.println("Create a zone by entering opposite corners of the base of the cuboid");
             System.out.println("z values must match for both corners");
             System.out.println("Enter the first coordinate: (x y z) ");
-            temp1 = Menus.promptForCoords();
+            temp1 = promptForCoords();
 
             System.out.println("Enter the second coordinate: (x y z) ");
-            temp2 = Menus.promptForCoords();
+            temp2 = promptForCoords();
 
             if(temp1[2] == temp2[2]) {
                 zMatch = true;
@@ -148,7 +147,7 @@ public class ZonesMenu {
 
         //Get height
         System.out.println("Enter the height of this zone: ");
-        zHeight = Menus.promptForNumber();
+        zHeight = promptForNumber();
 
         //Default to 1
         zHeight = (zHeight == 0) ? 1 : zHeight;
@@ -182,7 +181,7 @@ public class ZonesMenu {
             clearScreen();
             System.out.println("Are you sure you want to delete " + zones.getSelectedZone().getID()
             +" (y|n)");
-            response = Menus.promptForString().toLowerCase();
+            response = promptForString().toLowerCase();
         }
 
         //Delete zone otherwise do nothing
@@ -194,7 +193,7 @@ public class ZonesMenu {
     public static void searchZones(ZoneList zones) {
         int index = 0;
         System.out.println("Enter the ID of the zone you wish to find");
-        String input = Menus.promptForString();
+        String input = promptForString();
 
         if((index = zones.findByID(input)) != -1) {
             zones.setCursor(index);

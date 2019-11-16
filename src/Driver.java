@@ -1,5 +1,5 @@
 import java.time.LocalTime;
-import menus.menuclasses.Menus;
+import menus.Menus;
 import records.Record;
 import maps.Map;
 import maps.MapList;

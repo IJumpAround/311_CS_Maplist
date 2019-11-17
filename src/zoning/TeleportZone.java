@@ -5,7 +5,7 @@ import zoning.enums.teleportType;
 ;
 
 public class TeleportZone extends Zone {
-    private teleportType type;        //type of teleport zone (Teleporter or Destination)
+    private teleportType teleType;        //type of teleport zone (Teleporter or Destination)
     private String target;      //ID of Destination teleporter if this is a teleporter
 
     /**
@@ -13,13 +13,13 @@ public class TeleportZone extends Zone {
      */
     TeleportZone() {
         super();
-        type = teleportType.SOURCE;
+        teleType = teleportType.SOURCE;
         target = null;
     }
 
     public TeleportZone(String id, Coordinate c1, Coordinate c2, long zh) {
         super(id, c1, c2, zh);
-        type = teleportType.SOURCE;
+        teleType = teleportType.SOURCE;
         target = null;
     }
 
@@ -35,7 +35,7 @@ public class TeleportZone extends Zone {
      */
     public TeleportZone(String id, Coordinate c1, Coordinate c2, long zh, teleportType _type, String _target) {
         super(id,c1,c2,zh);
-        this.type = _type;
+        this.teleType = _type;
 //        if(_type.compareTo("source") == 0)
 //            type = teleportType.SOURCE;
 //        else
@@ -45,9 +45,9 @@ public class TeleportZone extends Zone {
 
     @Override
     public String prettyZone() {
-        String t = this.type == teleportType.SOURCE ? "Source" : "Destination";
+        String t = this.teleType == teleportType.SOURCE ? "Source" : "Destination";
         String targ = this.target != null ? this.target : "None";
-        targ = this.type == teleportType.SOURCE ? targ : "N/A";
+        targ = this.teleType == teleportType.SOURCE ? targ : "N/A";
 
         return super.prettyZone() + "\n"
                 + "Teleport type: " + t + "\n"
@@ -57,12 +57,12 @@ public class TeleportZone extends Zone {
     /*
             Getters and setters
          */
-    public teleportType getType() {
-        return type;
+    public teleportType getTeleType() {
+        return teleType;
     }
 
-    public void setType(teleportType type) {
-        this.type = type;
+    public void setTeleType(teleportType teleType) {
+        this.teleType = teleType;
     }
 
     public String getTarget() {

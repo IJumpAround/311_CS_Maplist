@@ -189,7 +189,7 @@ public class ZonesMenu {
             Zone curr = zones.getSelectedZone();
 
             //Item being deleted is a destination zone find the zone that targets it and set its dest to nothing
-            if (curr instanceof TeleportZone && ((TeleportZone) curr).getType() == teleportType.DESTINATION) {
+            if (curr instanceof TeleportZone && ((TeleportZone) curr).getTeleType() == teleportType.DESTINATION) {
                 for (Zone z : zones) {
                     if (z instanceof TeleportZone && ((TeleportZone) z).getTarget().equals(curr.getID())) {
                         ((TeleportZone) z).setTarget("");
@@ -219,13 +219,13 @@ public class ZonesMenu {
     public static void setTarget(ZoneList zones) {
         Zone curr = zones.getSelectedZone();
 
-        if (curr instanceof TeleportZone && ((TeleportZone) curr).getType() == teleportType.SOURCE) {
+        if (curr instanceof TeleportZone && ((TeleportZone) curr).getTeleType() == teleportType.SOURCE) {
             String name = MenuHelpers.promptForString("Enter the name of the zone you wish to target");
             int index = zones.findByID(name);
             if (index != -1) {
                 int here = zones.getCursor();
                 zones.setCursor(index);
-                if(zones.getSelectedZone() instanceof TeleportZone && ((TeleportZone) zones.getSelectedZone()).getType() == teleportType.DESTINATION) {
+                if(zones.getSelectedZone() instanceof TeleportZone && ((TeleportZone) zones.getSelectedZone()).getTeleType() == teleportType.DESTINATION) {
                     ((TeleportZone) curr).setTarget(name);
                 }
                 else

@@ -114,7 +114,7 @@ public class ZonesMenu {
             tType = (input.compareTo("main") == 0) ? timerType.MAIN : timerType.BONUS;
         } else {
             source = promptWithOptions(Arrays.asList("src", "dest"), "Is this the source or destination teleporter");
-            teleType = source.compareTo("source") == 0 ? teleportType.SOURCE : teleportType.DESTINATION;
+            teleType = source.equals("src") ? teleportType.SOURCE : teleportType.DESTINATION;
         }
 
         Coordinate c1, c2;
@@ -211,6 +211,11 @@ public class ZonesMenu {
             Menus.status = "ID: " + input + " was not found";
     }
 
+    /**
+     * Set the target of a teleport source zone
+     * Does not allow targeting non dest type Teleport zones as destination
+     * @param zones
+     */
     public static void setTarget(ZoneList zones) {
         Zone curr = zones.getSelectedZone();
 
@@ -218,7 +223,14 @@ public class ZonesMenu {
             String name = MenuHelpers.promptForString("Enter the name of the zone you wish to target");
             int index = zones.findByID(name);
             if (index != -1) {
-                ((TeleportZone) curr).setTarget(name);
+                int here = zones.getCursor();
+                zones.setCursor(index);
+                if(zones.getSelectedZone() instanceof TeleportZone && ((TeleportZone) zones.getSelectedZone()).getType() == teleportType.DESTINATION) {
+                    ((TeleportZone) curr).setTarget(name);
+                }
+                else
+                    Menus.status = "[Error]: Can only target TeleportZones that are of type Destination";
+                zones.setCursor(here);
             } else
                 Menus.status = "[Error]: Cannot target " + name + " as it does not exist";
         } else

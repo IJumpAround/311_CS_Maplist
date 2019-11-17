@@ -31,8 +31,8 @@ public  class Menus {
         mapMenu.addItem(2,"Delete Map", optionsEnum.DELETE_MAP);
         mapMenu.addItem(3,"View/Modify", optionsEnum.VIEW);
         mapMenu.addItem(4,"Search Maps", optionsEnum.SEARCH_MAPS);
-        mapMenu.addItem(5,"Next", optionsEnum.NEXT);
-        mapMenu.addItem(6,"Previous", optionsEnum.PREVIOUS);
+        mapMenu.addItem(5,"Previous", optionsEnum.PREVIOUS);
+        mapMenu.addItem(6,"Next", optionsEnum.NEXT);
         mapMenu.addItem(7,"Save", optionsEnum.WRITE);
         mapMenu.addItem(8,"Load", optionsEnum.LOAD);
         mapMenu.addItem(0,"Exit", optionsEnum.EXIT);
@@ -42,16 +42,16 @@ public  class Menus {
         zoneMenu.addItem(2,"Delete Zone", optionsEnum.DELETE_ZONE);
         zoneMenu.addItem(3,"Set Target", optionsEnum.SET_TARGET);
         zoneMenu.addItem(4,"Search Zones", optionsEnum.SEARCH_ZONES);
-        zoneMenu.addItem(5,"Next", optionsEnum.NEXT);
-        zoneMenu.addItem(6,"Previous", optionsEnum.PREVIOUS);
+        zoneMenu.addItem(5,"Previous", optionsEnum.PREVIOUS);
+        zoneMenu.addItem(6,"Next", optionsEnum.NEXT);
         zoneMenu.addItem(0,"Back", optionsEnum.EXIT);
 
         //Setup records menu
         recordMenu.addItem(1,"Add Record", optionsEnum.ADD_RECORD);
         recordMenu.addItem(2,"Delete Record", optionsEnum.DELETE_RECORD);
         recordMenu.addItem(3,"Search Records", optionsEnum.SEARCH_RECORDS);
-        recordMenu.addItem(4,"Next", optionsEnum.NEXT);
-        recordMenu.addItem(5,"Previous", optionsEnum.PREVIOUS);
+        recordMenu.addItem(4,"Previous", optionsEnum.PREVIOUS);
+        recordMenu.addItem(5,"Next", optionsEnum.NEXT);
         recordMenu.addItem(0,"Back", optionsEnum.EXIT);
 
         mapSubMenu.addItem(1,"Zones", optionsEnum.VIEW_ZONES);

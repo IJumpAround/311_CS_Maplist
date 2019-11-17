@@ -111,6 +111,26 @@ public class MenuHelpers {
     }
 
     /**
+     * Variant of string prompt. Pass in the prompt the user should see.
+     * Allows a default option if the user chooses nothing.
+     * @param prompt prompt to display to user
+     * @param defaultOption default choice
+     * @return either user input or default
+     */
+    public static String promptForString(String prompt, String defaultOption) {
+        String line = "";
+        System.out.println(prompt + " (default=" + defaultOption);
+
+        System.out.print(">");
+        if (Menus.reader.hasNext()) {
+            line = Menus.reader.nextLine().strip();
+        }
+
+        if(line.compareTo("") == 0)
+            return defaultOption;
+        return line;
+    }
+    /**
      * Prompt the user to enter a number.
      * Continues to prompt until they enter a valid number
      *

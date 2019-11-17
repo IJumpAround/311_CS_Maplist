@@ -41,6 +41,10 @@ public abstract class ABCSelectionList {
     }
     public void setCursor(int val) { cursor = val; }
 
+    /**
+     * Step cursor forwards by one element.
+     * @throws IndexOutOfBoundsException
+     */
     public void next() throws IndexOutOfBoundsException {
         if(cursor < (count -1))
             cursor++;
@@ -48,6 +52,10 @@ public abstract class ABCSelectionList {
 //            throw new IndexOutOfBoundsException("End of list");
     }
 
+    /**
+     * Step cursor backwards by one element
+     * @throws IndexOutOfBoundsException
+     */
     public void prev() throws IndexOutOfBoundsException {
         if(cursor > 0)
             cursor--;
@@ -55,10 +63,16 @@ public abstract class ABCSelectionList {
 //            throw new IndexOutOfBoundsException("Start of list");
     }
 
+    /**
+     * Set cursor to first element
+     */
     public void start() {
         cursor = 0;
     }
 
+    /**
+     * Set cursor to last element
+     */
     public void end() {
         if(count == 0)
             cursor = 0;
@@ -67,7 +81,7 @@ public abstract class ABCSelectionList {
     }
 
     /**
-     * Cursor can end up outside of bounds when delet
+     * Cursor can end up outside of bounds when deleting
      */
     public void clampCursor() {
         if(cursor > count && count > 0) {

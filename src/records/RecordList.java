@@ -22,7 +22,7 @@ public class RecordList extends ABCSelectionList {
 
         if(records.size() > 0) {
             Record curr = getSelectedItem();
-            str =  curr.formattedTime() + "\n" + curr.prettyRecord();
+            str =  String.format("%-13s","Time:") + curr.formattedTime() + "\n" + curr.prettyRecord();
         }
         return str;
     }
@@ -30,14 +30,15 @@ public class RecordList extends ABCSelectionList {
     /**
      * Add a record to the list and determine its point value.
      * Downgrade records that get booted out of WR or Top10 by this new record
-     * @param name
-     * @param id
-     * @param dateOfRun
-     * @param time
+     * Increment count and update point values for all records
+     * @param name playername
+     * @param id steamid
+     * @param dateOfRun date
+     * @param time run time
      */
     public void addRecord(String name, String id, LocalDateTime dateOfRun, Duration time, int mapTier) {
         int indexToInsert = findSpot(time);
-        Record record = null;
+        Record record;
 
         //TODO double check wr point bonus is working on initial entry, First record had zero points.
         //TODO try deleteing all records and adding new one, or add record to new map
@@ -59,20 +60,21 @@ public class RecordList extends ABCSelectionList {
 
         records.add(indexToInsert, record);
 
+        //Downgrade top10 or previous WR if necessary
         if(indexToInsert < 10 && count > 10) {
             downgradeRank10();
-            if(indexToInsert == 0)
-                downgradeOldWR();
         }
+        if(indexToInsert == 0 && count > 1)
+            downgradeOldWR();
 
-        updateAllRecords(mapTier);
         count++;
+        updateAllRecords(mapTier);
     }
 
     /**
      * Find the next slowest time and get the index
-     * @param time
-     * @return
+     * @param time time to insert
+     * @return index of slot
      */
     public int findSpot(Duration time) {
         int index = count;
@@ -111,9 +113,9 @@ public class RecordList extends ABCSelectionList {
 
     /**
      * Run this against every record each time one is updated.
-     * @param place
-     * @param tier
-     * @return
+     * @param place record rank
+     * @param tier map tier
+     * @return point value
      */
     private float calculateScore(int place, int tier) {
         int p = (place > 0) ? place : 1;

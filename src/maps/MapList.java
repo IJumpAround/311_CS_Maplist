@@ -6,6 +6,10 @@ import zoning.Zone;
 
 import java.util.ArrayList;
 
+/**
+ * Contains arraylist of Map objects.
+ * Uses cursor functionality to select modify and display information.
+ */
 public class MapList extends ABCSelectionList {
     //private int cursor;
     private ArrayList<Map> maps;

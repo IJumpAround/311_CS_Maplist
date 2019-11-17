@@ -5,6 +5,10 @@ import menus.menuclasses.optionsEnum;
 
 import java.util.Scanner;
 
+/**
+ * Class to hold static instances of each MenuClass type.
+ * setupMenus() must be called before attempting to use any of the contained menus.
+ */
 public  class Menus {
     public static MenuClass mapMenu;
     public static MenuClass zoneMenu;
@@ -13,6 +17,9 @@ public  class Menus {
     static Scanner reader = new Scanner(System.in);
     public static String status = "";
 
+    /**
+     * Create menu items for each menu
+     */
     public static void setupMenus() {
         mapMenu = new MenuClass("Map Management");
         zoneMenu = new MenuClass("Zone Management");
@@ -37,7 +44,7 @@ public  class Menus {
         zoneMenu.addItem(4,"Search Zones", optionsEnum.SEARCH_ZONES);
         zoneMenu.addItem(5,"Next", optionsEnum.NEXT);
         zoneMenu.addItem(6,"Previous", optionsEnum.PREVIOUS);
-        zoneMenu.addItem(0,"Exit", optionsEnum.EXIT);
+        zoneMenu.addItem(0,"Back", optionsEnum.EXIT);
 
         //Setup records menu
         recordMenu.addItem(1,"Add Record", optionsEnum.ADD_RECORD);
@@ -46,11 +53,11 @@ public  class Menus {
         recordMenu.addItem(4,"Search Records", optionsEnum.SEARCH_RECORDS);
         recordMenu.addItem(5,"Next", optionsEnum.NEXT);
         recordMenu.addItem(6,"Previous", optionsEnum.PREVIOUS);
-        recordMenu.addItem(0,"Exit", optionsEnum.EXIT);
+        recordMenu.addItem(0,"Back", optionsEnum.EXIT);
 
         mapSubMenu.addItem(1,"Zones", optionsEnum.VIEW_ZONES);
         mapSubMenu.addItem(2, "Records", optionsEnum.VIEW_RECORDS);
-        mapSubMenu.addItem(0,"Exit", optionsEnum.EXIT);
+        mapSubMenu.addItem(0,"Back", optionsEnum.EXIT);
     }
 
 

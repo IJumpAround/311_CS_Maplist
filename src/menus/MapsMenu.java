@@ -7,8 +7,9 @@ import maps.Map;
 import maps.MapList;
 import menus.menuclasses.optionsEnum;
 
-import static menus.MenuHelpers.clearScreen;
-import static menus.MenuHelpers.outputCurrentItem;
+import java.util.Arrays;
+
+import static menus.MenuHelpers.*;
 import static menus.ZonesMenu.zonesMenu;
 import static menus.RecordsMenu.recordsMenu;
 
@@ -81,10 +82,16 @@ public class MapsMenu {
             case NONE:
                 break;
             case WRITE:
-                WriteObject.test(maps);
+                String filename = promptForString("Enter a filename","ObjectGson.gson");
+                WriteObject.writeObject(filename,maps);
                 break;
-            case LOAD:
-                 return ReadObject.loadObject("ObjectGson.gson");
+            case LOAD: {
+                String proceed = promptForOptions(Arrays.asList("y","n"),"Loading from a file will overwrite the current program data, continue?");
+                if(proceed.compareTo("y") == 0) {
+                    String fname = promptForString("Enter the filename to load from", "ObjectGson.gson");
+                    return ReadObject.loadObject(fname);
+                }
+            }
 
 
         }

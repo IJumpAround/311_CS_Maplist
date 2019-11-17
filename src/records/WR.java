@@ -29,6 +29,12 @@ public class WR extends Top10{
                 '}';
     }
 
+    @Override
+    public String prettyRecord() {
+        return super.prettyRecord() + "\n"
+                + String.format("Replay ID:      %-15s",replayID);
+    }
+
     public int getReplayID() {
         return replayID;
     }

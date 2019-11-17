@@ -30,6 +30,11 @@ public class Top10 extends Record {
         this.setPlace(target.getPlace());
     }
 
+    @Override
+    public String prettyRecord() {
+        return super.prettyRecord();
+    }
+
     /**
      * Creates a top 10 record entry
      * @param playerName

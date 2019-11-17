@@ -74,7 +74,7 @@ public class Record implements Comparable<Record> {
 
         hours = Duration.of(totalSeconds, ChronoUnit.SECONDS).toHours();
         minutes = Duration.of(totalSeconds, ChronoUnit.SECONDS).toMinutes() % 60;
-        seconds = Duration.of(totalSeconds, ChronoUnit.SECONDS).toSeconds() % 3600;
+        seconds = Duration.of(totalSeconds, ChronoUnit.SECONDS).toSeconds() % 60;
         millis = Duration.of(nanos, ChronoUnit.NANOS).toMillis();
 
 

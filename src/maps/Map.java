@@ -4,6 +4,11 @@ import records.RecordList;
 import zoning.ZoneList;
 
 
+/**
+ * Container class that encompasses Zones and Records.
+ * Contains a RecordList and ZoneList to manage information about zones and records.
+ * Holds other information relevant to a map such as its difficulty and number of completions.
+ */
 public class Map {
     private String mapName;
     private short tier;
@@ -40,8 +45,9 @@ public class Map {
     }
 
     /**
-     * Name constructor
+     *
      * @param mapName
+     * @param tier
      */
     public Map(String mapName, short tier) {
         this.mapName = mapName;
@@ -51,10 +57,18 @@ public class Map {
         this.zones = new ZoneList();
     }
 
+    /**
+     * Getter for mapname
+     * @return
+     */
     public String getMapName() {
         return mapName;
     }
 
+    /**
+     * Setter for mapname
+     * @param mapName
+     */
     public void setMapName(String mapName) {
         this.mapName = mapName;
     }
@@ -72,14 +86,9 @@ public class Map {
         return completions;
     }
 
-    public void setCompletions(int completions) {
-        this.completions = completions;
-    }
-
     public RecordList getRecords() {
         return records;
     }
-
 
     @Override
     public String toString() {
@@ -93,6 +102,10 @@ public class Map {
                 '}';
     }
 
+    /**
+     * Formatted output of map information. The format is meant for display.
+     * @return
+     */
     public String toPrettyString() {
         refreshStats();
         String wr;
@@ -114,10 +127,9 @@ public class Map {
         return zones;
     }
 
-    public void setZones(ZoneList zones) {
-        this.zones = zones;
-    }
-
+    /**
+     * update completions from records count
+     */
     private void refreshStats() {
         completions = records.getCount();
     }

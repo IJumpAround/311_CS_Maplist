@@ -2,7 +2,6 @@ package records;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 
 public class Top10 extends Record {
     protected float pointBonus;
@@ -13,18 +12,15 @@ public class Top10 extends Record {
      */
     Top10() {
         super();
-        obj = "Top10";
         pointBonus = 0;
     }
 
     Top10(float pts) {
         super();
-        obj = "Top10";
         this.pointBonus = pts;
     }
 
     Top10(Top10 target) {
-        obj = "Top10";
         this.steamID = target.steamID;
         this.playerName = target.playerName;
         this.dateOfRun = target.dateOfRun;
@@ -53,7 +49,6 @@ public class Top10 extends Record {
                  Duration time, int place, float pointBonus) {
 
         super(playerName, steamID, dateOfRun, points, time, place);
-        obj = "top";
         this.pointBonus = pointBonus;
     }
 

@@ -43,8 +43,6 @@ public class RecordList extends ABCSelectionList {
         int indexToInsert = findSpot(time);
         Record record;
 
-        //TODO double check wr point bonus is working on initial entry, First record had zero points.
-        //TODO try deleteing all records and adding new one, or add record to new map
         if(indexToInsert == 0) {
             record = new WR(100);
         }

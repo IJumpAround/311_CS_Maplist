@@ -92,8 +92,6 @@ public class MapsMenu {
                     return ReadObject.loadObject(fname);
                 }
             }
-
-
         }
         return null;
     }
@@ -184,7 +182,5 @@ public class MapsMenu {
         if(index == -1) {
             Menus.status = "Map: " + response + " was not found";
         }
-
-
     }
 }

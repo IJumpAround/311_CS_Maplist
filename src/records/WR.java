@@ -7,14 +7,12 @@ public class WR extends Top10{
 
     public WR() {
         super();
-        obj = "WR";
         this.replayID = replayIDGen;
         replayIDGen++;
     }
 
     public WR(float pointBonus) {
         super(pointBonus);
-        obj = "WR";
         this.replayID = replayIDGen;
         replayIDGen++;
     }

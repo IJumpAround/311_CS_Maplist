@@ -1,34 +1,22 @@
 package records;
 
-import com.google.gson.typeadapters.RuntimeTypeAdapterFactory;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-import java.util.HashSet;
-
-import objectBuilder.GsonHelpers;
 
 /**
  * Holds information about a single completion on a given map
  */
 public class Record implements Comparable<Record> {
-    private static final RuntimeTypeAdapterFactory<Record> adapter =
-            RuntimeTypeAdapterFactory.of(Record.class,"test");
-    private static final HashSet<Class<?>> registeredClasses= new HashSet<Class<?>>();
 
-    static {
-        GsonHelpers.registerType(adapter);
-    }
-
-    protected String obj;
     protected String playerName;
     protected String steamID;
     protected LocalDateTime dateOfRun;
     protected float points;
     private Duration time;
     private int place;
+
 
     public Record() {
         this.playerName = "";
@@ -37,8 +25,6 @@ public class Record implements Comparable<Record> {
         this.points = 0;
         this.time = null;
         this.place = 0;
-        registerClass();
-        obj = "Record";
     }
 
     public Record(String playerName, String steamID, LocalDateTime dateOfRun, float points, Duration time, int place) {
@@ -48,8 +34,6 @@ public class Record implements Comparable<Record> {
         this.points = points;
         this.time = time;
         this.place = place;
-        registerClass();
-        obj = "obj";
     }
 
     public Record(Record record) {
@@ -59,8 +43,6 @@ public class Record implements Comparable<Record> {
         points = record.points;
         time = record.time;
         place = record.place;
-        registerClass();
-        obj = "obj";
     }
 
     @Override
@@ -102,7 +84,7 @@ public class Record implements Comparable<Record> {
     }
 
     public String prettyRecord() {
-        String date = dateOfRun.format( DateTimeFormatter.ofPattern("mm/dd/yyyy"));
+        String date = dateOfRun.format( DateTimeFormatter.ofPattern("MM/dd/yyyy"));
         return String.format(
                 "Player:      %-15s\n"
                         + "Place:       %-15d\n"
@@ -161,12 +143,5 @@ public class Record implements Comparable<Record> {
 
     public void setPlace(int place) {
         this.place = place;
-    }
-
-    private synchronized void registerClass() {
-        if (!registeredClasses.contains(this.getClass())) {
-            registeredClasses.add(this.getClass());
-            adapter.registerSubtype(this.getClass());
-        }
     }
 }

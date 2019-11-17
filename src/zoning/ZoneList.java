@@ -3,8 +3,9 @@ package zoning;
 import exceptions.DuplicateEntryException;
 import abc.ABCSelectionList;
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class ZoneList extends ABCSelectionList {
+public class ZoneList extends ABCSelectionList implements Iterable<Zone> {
     ArrayList<Zone> zones;
 
     public ZoneList() {
@@ -34,7 +35,12 @@ public class ZoneList extends ABCSelectionList {
     }
 
     public Zone getSelectedZone() {
-        return zones.get(cursor);
+        if(isCursorInbounds()) {
+            return zones.get(cursor);
+        }
+        else
+            clampCursor();
+        return null;
     }
 
     public void addZone(Zone z) throws DuplicateEntryException {
@@ -64,11 +70,15 @@ public class ZoneList extends ABCSelectionList {
      * Remove the currently selected zone.
      */
     public void deleteZone() {
-        if(count > 0) {
+        if(count > 0 && isCursorInbounds()) {
             zones.remove(cursor);
             count--;
             clampCursor();
         }
     }
 
+    @Override
+    public Iterator<Zone> iterator() {
+        return zones.iterator();
+    }
 }

@@ -1,7 +1,7 @@
 package records;
 
 public class WR extends Top10{
-    private static int replayIDGen = 0;
+    private static int replayIDGen;
     private int replayID;
 
 
@@ -31,8 +31,16 @@ public class WR extends Top10{
 
     @Override
     public String prettyRecord() {
-        return super.prettyRecord() + "\n"
+        return super.prettyRecord()
                 + String.format("Replay ID:      %-15s",replayID);
+    }
+
+    public static void setReplayIDGen(int replayIDGen) {
+        WR.replayIDGen = replayIDGen;
+    }
+
+    public static int getReplayIDGen() {
+        return replayIDGen;
     }
 
     public int getReplayID() {

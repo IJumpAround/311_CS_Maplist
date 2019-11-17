@@ -5,12 +5,13 @@ import records.Record;
 import zoning.Zone;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Contains arraylist of Map objects.
  * Uses cursor functionality to select modify and display information.
  */
-public class MapList extends ABCSelectionList {
+public class MapList extends ABCSelectionList implements Iterable<Map>{
     //private int cursor;
     private ArrayList<Map> maps;
     private ArrayList<String> names;
@@ -60,7 +61,7 @@ public class MapList extends ABCSelectionList {
      * @return Map
      */
     public Map getSelectedMap() {
-        if(count > 0)
+        if(isCursorInbounds())
             return maps.get(cursor);
         else
             return null;
@@ -144,5 +145,10 @@ public class MapList extends ABCSelectionList {
                 return i;
         }
         return -1;
+    }
+
+    @Override
+    public Iterator<Map> iterator() {
+        return maps.iterator();
     }
 }

@@ -87,11 +87,14 @@ public abstract class ABCSelectionList {
      * Cursor can end up outside of bounds when deleting
      */
     public void clampCursor() {
-        if(cursor > count && count > 0) {
+        if(cursor >= count && count != 0 ) {
             cursor = count -1;
 
         }
-        else if(cursor > 0 && count == 0) {
+        else if(cursor > 0 && count <= 1) {
+            cursor = 0;
+        }
+        else if(cursor < 0) {
             cursor = 0;
         }
     }
@@ -102,6 +105,13 @@ public abstract class ABCSelectionList {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public boolean isCursorInbounds() {
+        if(cursor >= 0 && cursor < count)
+            return true;
+        else
+            return false;
     }
 
     public int getCount() {

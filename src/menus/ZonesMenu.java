@@ -14,6 +14,7 @@ public class ZonesMenu {
 
     /**
      * Display an interface for manipulating zones.
+     *
      * @param zones
      * @return
      */
@@ -35,7 +36,7 @@ public class ZonesMenu {
 
             //Clear screen before end of loop, print any error messages here so they show at the top of screen
             clearScreen();
-            if(Menus.status.compareTo("") != 0) {
+            if (Menus.status.compareTo("") != 0) {
                 System.out.println(Menus.status);
                 Menus.status = "";
             }
@@ -47,16 +48,13 @@ public class ZonesMenu {
 
     public static int zonesExecute(ZoneList zones, optionsEnum choice) {
 
-        switch (choice){
+        switch (choice) {
 
             case ADD_ZONE:
                 addZonePrompt(zones);
                 break;
             case DELETE_ZONE:
                 deleteZonePrompt(zones);
-                break;
-            case VIEW:
-                //zonesSubMenu(zones.getSelectedMap());
                 break;
             case SEARCH_ZONES:
                 searchZones(zones);
@@ -66,6 +64,9 @@ public class ZonesMenu {
                 break;
             case PREVIOUS:
                 zones.prev();
+                break;
+            case SET_TARGET:
+                setTarget(zones);
                 break;
             case EXIT:
                 break;
@@ -79,6 +80,7 @@ public class ZonesMenu {
      * Zones are created as rectangular cuboids.
      * The user is asked for two coordinates, two opposite corners of the objects base.
      * The user is then asked to provide the height of the zone from which the remaining points can be determined.
+     *
      * @param zones
      */
     public static void addZonePrompt(ZoneList zones) {
@@ -93,11 +95,10 @@ public class ZonesMenu {
         name = promptForString();
 
         //Determine type of zone
-        while(type.compareTo("timer") != 0 && type.compareTo("teleport") != 0) {
+        while (type.compareTo("timer") != 0 && type.compareTo("teleport") != 0) {
             System.out.println("Zone type: (timer|teleport)");
             type = promptForString();
         }
-
 
 
         //Prompts specific to each zone type
@@ -106,23 +107,22 @@ public class ZonesMenu {
         timerType tType = null;
         teleportType teleType = null;
         boolean isStart = false;
-        if(type.compareTo("timer") == 0) {
+        if (type.compareTo("timer") == 0) {
             input = promptWithOptions(Arrays.asList("start", "end"), "Is this a start or end zone");
             isStart = input.compareTo("start") == 0;
             input = promptWithOptions(Arrays.asList("main", "bonus"), "Is this a main or bonus zone");
             tType = (input.compareTo("main") == 0) ? timerType.MAIN : timerType.BONUS;
-        }
-        else {
-           source = promptWithOptions(Arrays.asList("src","dest"), "Is this the source or destination teleporter");
-           teleType = source.compareTo("source") == 0 ? teleportType.SOURCE : teleportType.DESTINATION;
+        } else {
+            source = promptWithOptions(Arrays.asList("src", "dest"), "Is this the source or destination teleporter");
+            teleType = source.compareTo("source") == 0 ? teleportType.SOURCE : teleportType.DESTINATION;
         }
 
-        Coordinate c1,c2;
-        long[] temp1 = {0,0,0};
-        long[] temp2 = {0,0,0};
+        Coordinate c1, c2;
+        long[] temp1 = {0, 0, 0};
+        long[] temp2 = {0, 0, 0};
 
         //Get 2 coordinates
-        while(!zMatch) {
+        while (!zMatch) {
 
             System.out.println("Create a zone by entering opposite corners of the base of the cuboid");
             System.out.println("z values must match for both corners");
@@ -132,17 +132,16 @@ public class ZonesMenu {
             System.out.println("Enter the second coordinate: (x y z) ");
             temp2 = promptForCoords();
 
-            if(temp1[2] == temp2[2]) {
+            if (temp1[2] == temp2[2]) {
                 zMatch = true;
-            }
-            else
+            } else
                 System.out.println("[Error]: Z values did not match");
 
 
         }
 
-        c1 = new Coordinate(temp1[0],temp1[1],temp1[2]);
-        c2 = new Coordinate(temp2[0],temp2[1],temp2[2]);
+        c1 = new Coordinate(temp1[0], temp1[1], temp1[2]);
+        c2 = new Coordinate(temp2[0], temp2[1], temp2[2]);
 
         //Get height
         System.out.println("Enter the height of this zone: ");
@@ -152,16 +151,15 @@ public class ZonesMenu {
         zHeight = (zHeight == 0) ? 1 : zHeight;
 
         //TODO update constructors in child classes
-        if(type.compareTo("timer") == 0)
-            zoneToAdd = new TimerZone(name,c1,c2,zHeight,tType,isStart);
+        if (type.compareTo("timer") == 0)
+            zoneToAdd = new TimerZone(name, c1, c2, zHeight, tType, isStart);
         else
-            zoneToAdd = new TeleportZone(name,c1,c2,zHeight, teleType,null);
+            zoneToAdd = new TeleportZone(name, c1, c2, zHeight, teleType, null);
 
         //Add the zone, print an error if this name is a duplicate
         try {
             zones.addZone(zoneToAdd);
-        }
-        catch (DuplicateEntryException e) {
+        } catch (DuplicateEntryException e) {
             Menus.status = e.getMessage();
         }
 
@@ -169,23 +167,35 @@ public class ZonesMenu {
 
     /**
      * Prompt to delete a zone.
+     *
      * @param zones
      */
     public static void deleteZonePrompt(ZoneList zones) {
-        if(zones.getCount() == 0)
+        if (zones.getCount() == 0)
             return;
 
         String response = "";
-        while(response.compareTo("y") != 0 && response.compareTo("n") != 0) {
+        while (response.compareTo("y") != 0 && response.compareTo("n") != 0) {
             clearScreen();
             System.out.println("Are you sure you want to delete " + zones.getSelectedZone().getID()
-            +" (y|n)");
+                    + " (y|n)");
             response = promptForString().toLowerCase();
         }
 
         //Delete zone otherwise do nothing
-        if(response.compareTo("y") == 0) {
+        if (response.compareTo("y") == 0) {
             zones.deleteZone();
+
+            Zone curr = zones.getSelectedZone();
+
+            //Item being deleted is a destination zone find the zone that targets it and set its dest to nothing
+            if (curr instanceof TeleportZone && ((TeleportZone) curr).getType() == teleportType.DESTINATION) {
+                for (Zone z : zones) {
+                    if (z instanceof TeleportZone && ((TeleportZone) z).getTarget().equals(curr.getID())) {
+                        ((TeleportZone) z).setTarget("");
+                    }
+                }
+            }
         }
     }
 
@@ -194,11 +204,24 @@ public class ZonesMenu {
         System.out.println("Enter the ID of the zone you wish to find");
         String input = promptForString();
 
-        if((index = zones.findByID(input)) != -1) {
+        if ((index = zones.findByID(input)) != -1) {
             zones.setCursor(index);
 
-        }
-        else
+        } else
             Menus.status = "ID: " + input + " was not found";
+    }
+
+    public static void setTarget(ZoneList zones) {
+        Zone curr = zones.getSelectedZone();
+
+        if (curr instanceof TeleportZone && ((TeleportZone) curr).getType() == teleportType.SOURCE) {
+            String name = MenuHelpers.promptForString("Enter the name of the zone you wish to target");
+            int index = zones.findByID(name);
+            if (index != -1) {
+                ((TeleportZone) curr).setTarget(name);
+            } else
+                Menus.status = "[Error]: Cannot target " + name + " as it does not exist";
+        } else
+            Menus.status = "[Error]: Can only add target to TeleportZones that are of type Source";
     }
 }

@@ -1,6 +1,7 @@
 package maps;
 
 import records.RecordList;
+import records.WR;
 import zoning.ZoneList;
 
 
@@ -15,7 +16,6 @@ public class Map {
     private int completions;
     private RecordList records;
     private ZoneList zones;
-
     /**
      * Default constructor
      */
@@ -90,6 +90,10 @@ public class Map {
         return records;
     }
 
+    public void setRecords(RecordList records) {
+        this.records = records;
+    }
+
     @Override
     public String toString() {
         refreshStats();
@@ -132,5 +136,10 @@ public class Map {
      */
     private void refreshStats() {
         completions = records.getCount();
+    }
+
+    public int getReplayID() {
+        records.setCursor(0);
+        return ((WR) records.getSelectedItem()).getReplayID();
     }
 }

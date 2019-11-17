@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import maps.MapList;
 import menus.MenuHelpers;
+import menus.Menus;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -60,8 +61,10 @@ public class WriteObject {
 		try {
 			writer.write(gson.toJson(maps));
 			writer.close();
+			Menus.status = "[Info]: Wrote to " + filename;
 		}
 		catch (IOException e) {
+			System.out.println("ERROR when reading from input file " + filename);
 			System.out.println(e.toString());
 		}
 

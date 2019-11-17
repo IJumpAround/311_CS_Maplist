@@ -40,7 +40,7 @@ public  class Menus {
         //Setup zones menu
         zoneMenu.addItem(1,"Add Zone", optionsEnum.ADD_ZONE);
         zoneMenu.addItem(2,"Delete Zone", optionsEnum.DELETE_ZONE);
-        zoneMenu.addItem(3,"View/Modify", optionsEnum.VIEW);
+        zoneMenu.addItem(3,"Set Target", optionsEnum.SET_TARGET);
         zoneMenu.addItem(4,"Search Zones", optionsEnum.SEARCH_ZONES);
         zoneMenu.addItem(5,"Next", optionsEnum.NEXT);
         zoneMenu.addItem(6,"Previous", optionsEnum.PREVIOUS);
@@ -49,10 +49,9 @@ public  class Menus {
         //Setup records menu
         recordMenu.addItem(1,"Add Record", optionsEnum.ADD_RECORD);
         recordMenu.addItem(2,"Delete Record", optionsEnum.DELETE_RECORD);
-        recordMenu.addItem(3,"View/Modify", optionsEnum.VIEW);
-        recordMenu.addItem(4,"Search Records", optionsEnum.SEARCH_RECORDS);
-        recordMenu.addItem(5,"Next", optionsEnum.NEXT);
-        recordMenu.addItem(6,"Previous", optionsEnum.PREVIOUS);
+        recordMenu.addItem(3,"Search Records", optionsEnum.SEARCH_RECORDS);
+        recordMenu.addItem(4,"Next", optionsEnum.NEXT);
+        recordMenu.addItem(5,"Previous", optionsEnum.PREVIOUS);
         recordMenu.addItem(0,"Back", optionsEnum.EXIT);
 
         mapSubMenu.addItem(1,"Zones", optionsEnum.VIEW_ZONES);

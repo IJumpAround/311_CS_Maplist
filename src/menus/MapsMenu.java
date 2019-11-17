@@ -6,6 +6,9 @@ import exceptions.DuplicateEntryException;
 import maps.Map;
 import maps.MapList;
 import menus.menuclasses.optionsEnum;
+import records.Record;
+import records.RecordList;
+import records.WR;
 
 import java.util.Arrays;
 
@@ -36,16 +39,16 @@ public class MapsMenu {
 
             //Call execute, load will return a maplist if it is called any other possibility returns null
             MapList temp = mapsExecute(maps, choice);
-            if(temp != null)
+            if(temp != null) {
                 maps = temp;
 
+            }
             //Clear screen before end of loop, print any error messages here so they show at the top of screen
             clearScreen();
             if(Menus.status.compareTo("") != 0) {
                 System.out.println(Menus.status);
                 Menus.status = "";
             }
-
         }
         return 0;
         //retur n choice;
@@ -88,8 +91,15 @@ public class MapsMenu {
             case LOAD: {
                 String proceed = promptWithOptions(Arrays.asList("y","n"),"Loading from a file will overwrite the current program data, continue?");
                 if(proceed.compareTo("y") == 0) {
+                    int replayGen = WR.getReplayIDGen();
+                    WR.setReplayIDGen(0);
                     String fname = promptForString("Enter the filename to load from", "ObjectGson.gson");
-                    return ReadObject.loadObject(fname);
+                    MapList loaded = ReadObject.loadObject(fname);
+                    if(loaded == null)
+                        WR.setReplayIDGen(replayGen);
+                    else
+                        Menus.status = "[Info]: Loaded from " + fname;
+                    return loaded;
                 }
             }
         }
@@ -134,7 +144,7 @@ public class MapsMenu {
             clearScreen();
             System.out.println("Are you sure you want to delete " + maps.getSelectedMap().getMapName() + "? \n"
                     + "Note this will delete all " + curr.getZones().getCount() + " zones "
-                    + "and " + curr.getCompletions() + "records for this map (y/n): ");
+                    + "and " + curr.getCompletions() + " records for this map (y/n): ");
             response = MenuHelpers.promptForString().toLowerCase();
         }
 
@@ -178,9 +188,11 @@ public class MapsMenu {
         response = MenuHelpers.promptForString();
         index = maps.findMapByName(response);
 
-        maps.setCursor(index);
         if(index == -1) {
             Menus.status = "Map: " + response + " was not found";
         }
+        else
+            maps.setCursor(index);
     }
+
 }

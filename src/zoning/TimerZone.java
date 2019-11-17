@@ -3,35 +3,35 @@ package zoning;
 import zoning.enums.timerType;
 
 public class TimerZone extends Zone {
-    private timerType type;    //Bonus or main
+    private timerType timeType;    //Bonus or main
     private boolean start;  //true if start zone, false if end zone
 
     public TimerZone() {
         super();
-        type = timerType.MAIN;
+        timeType = timerType.MAIN;
         start = true;
 
     }
 
-    public TimerZone(String id, Coordinate c1, Coordinate c2, long zh,timerType type, boolean start) {
+    public TimerZone(String id, Coordinate c1, Coordinate c2, long zh, timerType timeType, boolean start) {
         super(id, c1, c2, zh);
-        this.type = type;
+        this.timeType = timeType;
         this.start = start;
     }
 
     @Override
     public String prettyZone() {
-        String t = this.type == timerType.MAIN ? "Main" : "Bonus";
+        String t = this.timeType == timerType.MAIN ? "Main" : "Bonus";
         String start = this.start ? "Start" : "End";
         return super.prettyZone() + "\n"
                 +"Zone is a " + t + " " + start + " zone";
     }
 
     public timerType GetType() {
-        return type;
+        return timeType;
     }
-    public void setType(timerType type) {
-        this.type = type;
+    public void setTimeType(timerType timeType) {
+        this.timeType = timeType;
     }
 
 

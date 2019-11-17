@@ -6,12 +6,13 @@ import java.lang.reflect.Type;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 
 /**
  * Inherits from MenuList to create a recordList
  */
-public class RecordList extends ABCSelectionList {
+public class RecordList extends ABCSelectionList implements Iterable<Record> {
     private ArrayList<Record> records;
 
 
@@ -51,6 +52,7 @@ public class RecordList extends ABCSelectionList {
         }
         else
             record = new Record();
+
 
         //Set relevant properties
         record.setPlayerName(name);
@@ -101,7 +103,11 @@ public class RecordList extends ABCSelectionList {
     }
 
     public Record getSelectedItem() {
-        return records.get(cursor);
+        if(isCursorInbounds()) {
+            return records.get(cursor);
+        }
+        else
+            return null;
     }
 
     /**
@@ -199,6 +205,9 @@ public class RecordList extends ABCSelectionList {
     }
 
 
-
+    @Override
+    public Iterator<Record> iterator() {
+        return records.iterator();
+    }
 
 }

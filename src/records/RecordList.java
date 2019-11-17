@@ -59,14 +59,6 @@ public class RecordList extends ABCSelectionList {
         record.setTime(time);
 
         records.add(indexToInsert, record);
-
-        //Downgrade top10 or previous WR if necessary
-        if(indexToInsert < 10 && count > 10) {
-            downgradeRank10();
-        }
-        if(indexToInsert == 0 && count > 1)
-            downgradeOldWR();
-
         count++;
         updateAllRecords(mapTier);
     }
@@ -126,17 +118,17 @@ public class RecordList extends ABCSelectionList {
      * Called after inserting a new WR
      * Assumes the new WR has been inserted
      */
-    private void downgradeOldWR() {
-        Record rec = new Top10((Top10) records.get(1));
-        records.set(1,rec);
+    private void downgradeOldWR(int index) {
+        Record rec = new Top10((Top10) records.get(index));
+        records.set(index,rec);
     }
 
     /**
      * Called when there are at least 10 completions, and someone in top10 gets bumped out
      */
-    private void downgradeRank10() {
-        Record rec = new Record(records.get(10));
-        records.set(10,rec);
+    private void downgradeRank10(int index) {
+        Record rec = new Record(records.get(index));
+        records.set(index,rec);
     }
 
     /**
@@ -146,9 +138,15 @@ public class RecordList extends ABCSelectionList {
      * @param tier
      */
     private void updateAllRecords(int tier) {
+        
         Record curr;
         for(int i = 0; i < count; i++) {
             curr = records.get(i);
+            if(curr instanceof WR && i != 0)
+                downgradeOldWR(i);
+            else if(curr instanceof Top10 && i >9) {
+                downgradeRank10(i);
+            }
             float points = calculateScore(i,tier);
             curr.setPoints(points);
             curr.setPlace(i+1);
@@ -181,6 +179,10 @@ public class RecordList extends ABCSelectionList {
                 return rec;
         }
         return null;
+    }
+
+    public void deleteRecord() {
+
     }
 
 

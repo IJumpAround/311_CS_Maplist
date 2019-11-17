@@ -89,4 +89,8 @@ public class RecordsMenu {
         records.addRecord(playername,steamID,dateOfRun,time,tier);
     }
 
+    public static void deleteRecord() {
+
+    }
+
 }

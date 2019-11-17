@@ -43,7 +43,6 @@ public class WriteObject {
 	 * @param maps
 	 */
 	public static void writeObject(String filename, MapList maps) {
-
 		try {
 			boolean result = InitWriter(filename);
 			if(!result)
@@ -53,19 +52,7 @@ public class WriteObject {
 			System.out.println(e.toString());
 
 		}
-		GsonBuilder builder = new GsonBuilder();
-		builder.setPrettyPrinting().serializeNulls();
-		//builder.setFieldNamingStrategy(new FieldNamingStrategy();
-
-		Gson gson;
-		try {
-			gson = builder.create();
-		}
-		catch(Exception e) {
-			System.out.println("Unhandled exception when building the Gson object");
-			System.out.println(e.toString());
-			return;
-		}
+		Gson gson = GsonHelpers.getGson();
 
 		//System.out.println(gson.toJson(maps));
 
@@ -77,5 +64,7 @@ public class WriteObject {
 		catch (IOException e) {
 			System.out.println(e.toString());
 		}
+
 	}
+
 }

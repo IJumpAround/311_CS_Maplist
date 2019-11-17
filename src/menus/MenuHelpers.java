@@ -119,12 +119,12 @@ public class MenuHelpers {
      */
     public static String promptForString(String prompt, String defaultOption) {
         String line = "";
-        System.out.println(prompt + " (default=" + defaultOption);
+        System.out.println(prompt + " (default=" + defaultOption +")");
 
         System.out.print(">");
-        if (Menus.reader.hasNext()) {
+       // if (Menus.reader.()) {
             line = Menus.reader.nextLine().strip();
-        }
+        //}
 
         if(line.compareTo("") == 0)
             return defaultOption;

@@ -43,7 +43,13 @@ public class RecordsMenu {
         //retur n choice;
     }
 
-    public static int recordsExecute(RecordList records, optionsEnum choice, int maptier) {
+    /**
+     * Execution logic for a record menu. Implements the menu choices shown
+     * @param records RecordList
+     * @param choice menu choice the user picker
+     * @param maptier map tier for point assignment
+     */
+    public static void recordsExecute(RecordList records, optionsEnum choice, int maptier) {
 
         switch (choice){
 
@@ -51,7 +57,7 @@ public class RecordsMenu {
                 addRecordPrompt(records, maptier);
                 break;
             case DELETE_RECORD:
-                deleteRecordPrompt(records);
+                deleteRecordPrompt(records,maptier);
                 break;
             case SEARCH_RECORDS:
                 searchRecordPrompt(records);
@@ -67,24 +73,29 @@ public class RecordsMenu {
             case NONE:
                 break;
         }
-        return -1;
     }
 
+    /**
+     * Prompt the user for various information to add a record to this map.
+     * Doesn't allow duplicates, selects the duplicate item if there is a duplicate.
+     * @param records RecordList
+     * @param tier map tier, used for assigning points
+     */
     public static void addRecordPrompt(RecordList records, int tier) {
-        String input = "";
         String steamID = "";
         String playername = "";
         LocalDateTime dateOfRun = LocalDateTime.now();
         Duration time;
-        float points = 0;
-        int place;
 
         playername = MenuHelpers.promptForString("Player Name");
         steamID = MenuHelpers.promptForString("Player's SteamID:");
         time = MenuHelpers.promptForTime();
 
-        //TODO no duplicates based on steamID
-        records.addRecord(playername,steamID,dateOfRun,time,tier);
+        if(!records.findRecordBySteamID(steamID)) {
+            records.addRecord(playername, steamID, dateOfRun, time, tier);
+        }
+        else
+            Menus.status = "[Error]: SteamID: " + steamID + " already has a time on this map";
     }
 
     /**
@@ -92,18 +103,22 @@ public class RecordsMenu {
      * Prompts the user to confirm deletion first
      * @param records RecordList
      */
-    public static void deleteRecordPrompt(RecordList records) {
+    public static void deleteRecordPrompt(RecordList records, int tier) {
         boolean delete;
         Record curr = records.getSelectedItem();
 
         delete = MenuHelpers.promptForComfirmation("Are you sure you want to delete " + curr.getPlayerName() + "'s record?");
         if(delete) {
-            records.deleteRecord();
+            records.deleteRecord(tier);
         }
     }
 
     /**
      * Prompt the user for a search value, set cursor equal to that value if it's found. Otherwise cursor stays the same
+     * Prompts for:
+     *      playername
+     *      steamID
+     *      time
      * @param records RecordList
      */
     public static void searchRecordPrompt(RecordList records) {
@@ -123,11 +138,8 @@ public class RecordsMenu {
             param = String.valueOf(val);
         }
 
-
         if(!found) {
             Menus.status = "[Message]: " + searchOn + " " + param + " was not found";
         }
-
     }
-
 }

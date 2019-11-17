@@ -34,7 +34,7 @@ public class ReadObject {
         }
 
         //Convert file to Maplist
-        Gson gson = new Gson();
+        Gson gson = GsonHelpers.getGson();
         MapList maps = gson.fromJson(builder.toString(),MapList.class);
 
         objReader.close();

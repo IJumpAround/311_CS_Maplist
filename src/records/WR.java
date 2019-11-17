@@ -1,18 +1,20 @@
 package records;
 
 public class WR extends Top10{
-    private int replayID;
     private static int replayIDGen = 0;
+    private int replayID;
 
 
     public WR() {
         super();
+        obj = "WR";
         this.replayID = replayIDGen;
         replayIDGen++;
     }
 
     public WR(float pointBonus) {
         super(pointBonus);
+        obj = "WR";
         this.replayID = replayIDGen;
         replayIDGen++;
     }

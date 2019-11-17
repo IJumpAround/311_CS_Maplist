@@ -1,6 +1,8 @@
 package records;
 import abc.ABCSelectionList;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
  */
 public class RecordList extends ABCSelectionList {
     private ArrayList<Record> records;
+
 
     public RecordList() {
         records = new ArrayList<>();
@@ -178,7 +181,7 @@ public class RecordList extends ABCSelectionList {
      * @return either the record is returned or null is returned if not found
      */
     public boolean findRecordByPlace(int place) {
-        if (place < count && place > 0) {
+        if (place <= count && place > 0) {
             cursor = place - 1;
             return true;
         }
@@ -188,13 +191,16 @@ public class RecordList extends ABCSelectionList {
     /**
      * Delete the record currently selected by the cursor
      */
-    public void deleteRecord() {
+    public void deleteRecord(int tier) {
         if(count > 0) {
             records.remove(cursor);
             count--;
             clampCursor();
+            updateAllRecords(tier);
         }
     }
+
+
 
 
 }

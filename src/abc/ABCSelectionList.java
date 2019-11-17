@@ -39,7 +39,10 @@ public abstract class ABCSelectionList {
     public int getCursor() {
         return cursor;
     }
-    public void setCursor(int val) { cursor = val; }
+    public void setCursor(int val) {
+        cursor = val;
+        clampCursor();
+    }
 
     /**
      * Step cursor forwards by one element.

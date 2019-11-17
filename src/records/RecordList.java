@@ -138,7 +138,7 @@ public class RecordList extends ABCSelectionList {
      * @param tier
      */
     private void updateAllRecords(int tier) {
-        
+
         Record curr;
         for(int i = 0; i < count; i++) {
             curr = records.get(i);
@@ -156,16 +156,20 @@ public class RecordList extends ABCSelectionList {
 
     /**
      * Retrieve a record by SteamID of the completing player.
-     * @param id
+     * @param id of player to search for
      * @return either the record is returned or null is returned if not found
      */
 
-    public Record GetRecordByPlayer(String id) {
-        for(Record rec: this.records) {
-            if(rec.getSteamID().compareTo(id) == 0)
-                return rec;
+    public boolean findRecordBySteamID(String id) {
+        int c = cursor;
+        for(int i = 0; i < count; i++) {
+            if(records.get(i).getSteamID().equals(id)) {
+                c = i;
+                return true;
+            }
         }
-        return null;
+        cursor = c;
+        return false;
     }
 
     /**
@@ -173,16 +177,23 @@ public class RecordList extends ABCSelectionList {
      * @param place
      * @return either the record is returned or null is returned if not found
      */
-    public Record GetRecordByPlace(int place) {
-        for(Record rec: this.records) {
-            if(rec.getPlace() == place)
-                return rec;
+    public boolean findRecordByPlace(int place) {
+        if (place < count && place > 0) {
+            cursor = place - 1;
+            return true;
         }
-        return null;
+        return false;
     }
 
+    /**
+     * Delete the record currently selected by the cursor
+     */
     public void deleteRecord() {
-
+        if(count > 0) {
+            records.remove(cursor);
+            count--;
+            clampCursor();
+        }
     }
 
 

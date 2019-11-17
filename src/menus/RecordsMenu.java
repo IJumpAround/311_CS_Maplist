@@ -1,10 +1,12 @@
 package menus;
 
 import menus.menuclasses.optionsEnum;
+import records.Record;
 import records.RecordList;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 import static menus.MenuHelpers.clearScreen;
 import static menus.MenuHelpers.outputCurrentItem;
@@ -49,14 +51,10 @@ public class RecordsMenu {
                 addRecordPrompt(records, maptier);
                 break;
             case DELETE_RECORD:
-                //TODO implement this
-                //deleteRecordPrompt(records);
-                break;
-            case VIEW:
-                //recordsSubMenu(records.getSelectedMap());
+                deleteRecordPrompt(records);
                 break;
             case SEARCH_RECORDS:
-               // searchRecords(records);
+                searchRecordPrompt(records);
                 break;
             case NEXT:
                 records.next();
@@ -89,7 +87,46 @@ public class RecordsMenu {
         records.addRecord(playername,steamID,dateOfRun,time,tier);
     }
 
-    public static void deleteRecord() {
+    /**
+     * Delete the currently selected record.
+     * Prompts the user to confirm deletion first
+     * @param records RecordList
+     */
+    public static void deleteRecordPrompt(RecordList records) {
+        boolean delete;
+        Record curr = records.getSelectedItem();
+
+        delete = MenuHelpers.promptForComfirmation("Are you sure you want to delete " + curr.getPlayerName() + "'s record?");
+        if(delete) {
+            records.deleteRecord();
+        }
+    }
+
+    /**
+     * Prompt the user for a search value, set cursor equal to that value if it's found. Otherwise cursor stays the same
+     * @param records RecordList
+     */
+    public static void searchRecordPrompt(RecordList records) {
+        String searchOn,searchValue,param;
+        boolean found = false;
+
+        searchOn = MenuHelpers.promptWithOptions(Arrays.asList("steamID","place"),"Search on which value?");
+
+        if(searchOn.equals("steamID")) {
+            searchValue = MenuHelpers.promptForString("Enter the " + searchOn + " to search for");
+            found = records.findRecordBySteamID(searchValue);
+            param = searchValue;
+        }
+        else {
+            int val = MenuHelpers.promptForNumber("Enter the record number you wish to see");
+            found = records.findRecordByPlace(val);
+            param = String.valueOf(val);
+        }
+
+
+        if(!found) {
+            Menus.status = "[Message]: " + searchOn + " " + param + " was not found";
+        }
 
     }
 

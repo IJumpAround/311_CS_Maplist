@@ -4,7 +4,7 @@ import abc.ABCSelectionList;
 
 import java.time.Duration;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -42,7 +42,7 @@ public class MenuHelpers {
      * @param prompt  prompt to show the user
      * @return returns the string they entered
      */
-    public static String promptForOptions(List<String> options, String prompt) {
+    public static String promptWithOptions(List<String> options, String prompt) {
         String input = "";
         String optionsFormatter = "(" + String.join("|",options) + ")";
 
@@ -269,5 +269,18 @@ public class MenuHelpers {
             }
         }
         return count;
+    }
+
+    /**
+     * Prompt for a yes/no question and convert it to boolean
+     * @param prompt prompt to display
+     * @return true if yes was chosen, false otherwise
+     */
+    public static boolean promptForComfirmation(String prompt) {
+        String line = "";
+
+        line = promptWithOptions(Arrays.asList("y","n"),prompt);
+
+        return (line.compareTo("y") == 0);
     }
 }

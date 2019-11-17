@@ -86,7 +86,7 @@ public class MapsMenu {
                 WriteObject.writeObject(filename,maps);
                 break;
             case LOAD: {
-                String proceed = promptForOptions(Arrays.asList("y","n"),"Loading from a file will overwrite the current program data, continue?");
+                String proceed = promptWithOptions(Arrays.asList("y","n"),"Loading from a file will overwrite the current program data, continue?");
                 if(proceed.compareTo("y") == 0) {
                     String fname = promptForString("Enter the filename to load from", "ObjectGson.gson");
                     return ReadObject.loadObject(fname);

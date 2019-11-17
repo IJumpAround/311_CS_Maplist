@@ -27,7 +27,7 @@ public class WriteObject {
 		String response = "";
 		//Ask if they want to overwrite
 		if(file.exists()) {
-			response = MenuHelpers.promptForOptions(Arrays.asList("y","n"),"File: " + filename + " already exists, overwrite?");
+			response = MenuHelpers.promptWithOptions(Arrays.asList("y","n"),"File: " + filename + " already exists, overwrite?");
 		}
 
 		if(response.compareTo("y") == 0 || response.compareTo("") == 0) {

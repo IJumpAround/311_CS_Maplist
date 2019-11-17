@@ -1,8 +1,9 @@
 package records;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Holds information about a single completion on a given map
@@ -56,6 +57,7 @@ public class Record implements Comparable<Record> {
 
     /**
      * overriden to allow sorting based on time
+     *
      * @param rec
      * @return
      */
@@ -65,11 +67,34 @@ public class Record implements Comparable<Record> {
     }
 
     public String formattedTime() {
-        return (time.toHours() + ":"+ time.toMinutes() + ":" + time.getSeconds());
+        long totalSeconds = time.getSeconds();
+        int nanos = time.getNano();
+
+        long hours, minutes, seconds, millis;
+
+        hours = Duration.of(totalSeconds, ChronoUnit.SECONDS).toHours();
+        minutes = Duration.of(totalSeconds, ChronoUnit.SECONDS).toMinutes() % 60;
+        seconds = Duration.of(totalSeconds, ChronoUnit.SECONDS).toSeconds() % 3600;
+        millis = Duration.of(nanos, ChronoUnit.NANOS).toMillis();
+
+
+        return String.format("%02d:%02d:%02d.%3d", hours, minutes, seconds, millis);
+    }
+
+    public String prettyRecord() {
+        String date = dateOfRun.format( DateTimeFormatter.ofPattern("mm/dd/yyyy"));
+        return String.format(
+                "Player:      %-15s\n"
+                        + "Place:       %-15d\n"
+                        + "Date Of Run: %-15s\n"
+                        + "Points:      %-15f\n"
+                        + "Steam_ID:    %-15s\n"
+                , playerName,  place, date, points, steamID);
+
+
     }
 
     //Getters and setters
-
     public String getPlayerName() {
         return playerName;
     }

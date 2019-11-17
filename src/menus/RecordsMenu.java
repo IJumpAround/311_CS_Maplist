@@ -5,10 +5,9 @@ import records.RecordList;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Arrays;
 
-import static menus.MenuHelpers.*;
+import static menus.MenuHelpers.clearScreen;
+import static menus.MenuHelpers.outputCurrentItem;
 
 
 public class RecordsMenu {
@@ -46,10 +45,11 @@ public class RecordsMenu {
 
         switch (choice){
 
-            case ADD_ZONE:
+            case ADD_RECORD:
                 addRecordPrompt(records, maptier);
                 break;
             case DELETE_RECORD:
+                //TODO implement this
                 //deleteRecordPrompt(records);
                 break;
             case VIEW:
@@ -85,6 +85,7 @@ public class RecordsMenu {
         steamID = MenuHelpers.promptForString("Player's SteamID:");
         time = MenuHelpers.promptForTime();
 
+        //TODO no duplicates based on steamID
         records.addRecord(playername,steamID,dateOfRun,time,tier);
     }
 

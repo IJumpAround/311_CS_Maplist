@@ -22,7 +22,7 @@ public class RecordList extends ABCSelectionList {
 
         if(records.size() > 0) {
             Record curr = getSelectedItem();
-            str =  curr.formattedTime();
+            str =  curr.formattedTime() + "\n" + curr.prettyRecord();
         }
         return str;
     }
@@ -38,6 +38,9 @@ public class RecordList extends ABCSelectionList {
     public void addRecord(String name, String id, LocalDateTime dateOfRun, Duration time, int mapTier) {
         int indexToInsert = findSpot(time);
         Record record = null;
+
+        //TODO double check wr point bonus is working on initial entry, First record had zero points.
+        //TODO try deleteing all records and adding new one, or add record to new map
         if(indexToInsert == 0) {
             record = new WR(100);
         }
@@ -63,13 +66,6 @@ public class RecordList extends ABCSelectionList {
         }
 
         updateAllRecords(mapTier);
-
-
-
-
-
-
-
         count++;
     }
 
@@ -79,7 +75,7 @@ public class RecordList extends ABCSelectionList {
      * @return
      */
     public int findSpot(Duration time) {
-        int index = count-1;
+        int index = count;
         if(count == 0)
             return 0;
 
@@ -120,7 +116,8 @@ public class RecordList extends ABCSelectionList {
      * @return
      */
     private float calculateScore(int place, int tier) {
-        return (float)(tier * count) / place;
+        int p = (place > 0) ? place : 1;
+        return (float)(tier * count) / p;
     }
 
     /**

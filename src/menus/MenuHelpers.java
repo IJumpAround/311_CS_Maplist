@@ -5,6 +5,7 @@ import abc.ABCSelectionList;
 import java.time.Duration;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Various helper methods for prompting the user during menu interaction
@@ -41,10 +42,9 @@ public class MenuHelpers {
      * @param prompt  prompt to show the user
      * @return returns the string they entered
      */
-    public static String promptForOptions(ArrayList<String> options, String prompt) {
+    public static String promptForOptions(List<String> options, String prompt) {
         String input = "";
-        String optionsFormatter = options.toString();
-        optionsFormatter = optionsFormatter.replace(',', '|').replace('[', '(').replace(']', ')');
+        String optionsFormatter = "(" + String.join("|",options) + ")";
 
         while (!options.contains(input)) {
             System.out.println(prompt + " " + optionsFormatter);
@@ -116,6 +116,7 @@ public class MenuHelpers {
      *
      * @return the number entered
      */
+    //TODO comma in number still parses IE 39, -> 39.  0
     public static int promptForNumber() {
         String input;
         int value = -1;

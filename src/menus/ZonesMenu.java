@@ -108,13 +108,13 @@ public class ZonesMenu {
         teleportType teleType = null;
         boolean isStart = false;
         if(type.compareTo("timer") == 0) {
-            input = promptForOptions(new ArrayList<>(Arrays.asList("start", "end")), "Is this a start or end zone");
+            input = promptForOptions(Arrays.asList("start", "end"), "Is this a start or end zone");
             isStart = input.compareTo("start") == 0;
-            input = promptForOptions(new ArrayList<>(Arrays.asList("main", "bonus")), "Is this a main or bonus zone");
+            input = promptForOptions(Arrays.asList("main", "bonus"), "Is this a main or bonus zone");
             tType = (input.compareTo("main") == 0) ? timerType.MAIN : timerType.BONUS;
         }
         else {
-           source = promptForOptions(new ArrayList<>(Arrays.asList("src","dest")), "Is this the source or destination teleporter");
+           source = promptForOptions(Arrays.asList("src","dest"), "Is this the source or destination teleporter");
            teleType = source.compareTo("source") == 0 ? teleportType.SOURCE : teleportType.DESTINATION;
         }
 

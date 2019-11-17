@@ -1,10 +1,7 @@
 package maps;
 
-import records.Record;
 import records.RecordList;
 import zoning.ZoneList;
-
-import java.util.ArrayList;
 
 
 public class Map {
@@ -71,6 +68,7 @@ public class Map {
     }
 
     public int getCompletions() {
+        refreshStats();
         return completions;
     }
 
@@ -85,6 +83,7 @@ public class Map {
 
     @Override
     public String toString() {
+        refreshStats();
         return "Map{" +
                 "mapName='" + mapName + '\'' +
                 ", tier=" + tier +
@@ -95,6 +94,7 @@ public class Map {
     }
 
     public String toPrettyString() {
+        refreshStats();
         String wr;
         if(records.getCount() > 0)
             wr = records.getWRFormatted();
@@ -105,7 +105,8 @@ public class Map {
                 +"WR:          %-15s\n"
                 +"Tier:        %-15d\n"
                 +"Completions: %-15d\n"
-                ,mapName,wr,tier,completions);
+                +"Zones:       %-15d\n"
+                ,mapName,wr,tier,completions,zones.getCount());
 //
     }
 
@@ -115,5 +116,9 @@ public class Map {
 
     public void setZones(ZoneList zones) {
         this.zones = zones;
+    }
+
+    private void refreshStats() {
+        completions = records.getCount();
     }
 }

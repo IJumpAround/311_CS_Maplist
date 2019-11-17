@@ -1,4 +1,4 @@
-package ObjectBuilder;
+package objectBuilder;
 
 import maps.MapList;
 import com.google.gson.Gson;

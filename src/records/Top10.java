@@ -1,5 +1,6 @@
 package records;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -14,6 +15,21 @@ public class Top10 extends Record {
         pointBonus = 0;
     }
 
+    Top10(float pts) {
+        super();
+        this.pointBonus = pts;
+    }
+
+    Top10(Top10 target) {
+        this.steamID = target.steamID;
+        this.playerName = target.playerName;
+        this.dateOfRun = target.dateOfRun;
+        this.setTime(target.getTime());
+        this.points = target.points;
+        this.pointBonus = target.pointBonus;
+        this.setPlace(target.getPlace());
+    }
+
     /**
      * Creates a top 10 record entry
      * @param playerName
@@ -25,7 +41,7 @@ public class Top10 extends Record {
      * @param pointBonus
      */
     public Top10(String playerName, String steamID, LocalDateTime dateOfRun, float points,
-                 LocalTime time, int place, float pointBonus) {
+                 Duration time, int place, float pointBonus) {
 
         super(playerName, steamID, dateOfRun, points, time, place);
         this.pointBonus = pointBonus;
@@ -48,5 +64,10 @@ public class Top10 extends Record {
 
     public void setPointBonus(float pointBonus) {
         this.pointBonus = pointBonus;
+    }
+
+    @Override
+    public void setPoints(float points) {
+        this.points = points + this.pointBonus;
     }
 }

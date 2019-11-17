@@ -1,4 +1,4 @@
-package ABC;
+package abc;
 
 /**
  * Abstract base class that implements some menu selection functionality

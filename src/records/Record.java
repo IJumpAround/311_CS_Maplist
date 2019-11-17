@@ -1,4 +1,5 @@
 package records;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -11,7 +12,7 @@ public class Record implements Comparable<Record> {
     protected String steamID;
     protected LocalDateTime dateOfRun;
     protected float points;
-    private LocalTime time;
+    private Duration time;
     private int place;
 
     public Record() {
@@ -23,13 +24,22 @@ public class Record implements Comparable<Record> {
         this.place = 0;
     }
 
-    public Record(String playerName, String steamID, LocalDateTime dateOfRun, float points, LocalTime time, int place) {
+    public Record(String playerName, String steamID, LocalDateTime dateOfRun, float points, Duration time, int place) {
         this.playerName = playerName;
         this.steamID = steamID;
         this.dateOfRun = dateOfRun;
         this.points = points;
         this.time = time;
         this.place = place;
+    }
+
+    public Record(Record record) {
+        steamID = record.steamID;
+        playerName = record.playerName;
+        dateOfRun = record.dateOfRun;
+        points = record.points;
+        time = record.time;
+        place = record.place;
     }
 
     @Override
@@ -54,10 +64,8 @@ public class Record implements Comparable<Record> {
         return this.time.compareTo(rec.time);
     }
 
-
     public String formattedTime() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss.SSS");
-        return time.format(formatter);
+        return (time.toHours() + ":"+ time.toMinutes() + ":" + time.getSeconds());
     }
 
     //Getters and setters
@@ -94,11 +102,11 @@ public class Record implements Comparable<Record> {
         this.points = points;
     }
 
-    public LocalTime getTime() {
+    public Duration getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time) {
+    public void setTime(Duration time) {
         this.time = time;
     }
 

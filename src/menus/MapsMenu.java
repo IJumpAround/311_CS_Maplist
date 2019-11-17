@@ -1,7 +1,7 @@
 package menus;
 
-import ObjectBuilder.ReadObject;
-import ObjectBuilder.WriteObject;
+import objectBuilder.ReadObject;
+import objectBuilder.WriteObject;
 import exceptions.DuplicateEntryException;
 import maps.Map;
 import maps.MapList;
@@ -10,6 +10,7 @@ import menus.menuclasses.optionsEnum;
 import static menus.MenuHelpers.clearScreen;
 import static menus.MenuHelpers.outputCurrentItem;
 import static menus.ZonesMenu.zonesMenu;
+import static menus.RecordsMenu.recordsMenu;
 
 public class MapsMenu {
 
@@ -153,7 +154,7 @@ public class MapsMenu {
 
         switch (choice) {
             case VIEW_RECORDS:
-                //TODO add call to records menu
+                recordsMenu(map.getRecords(),map.getTier());
                 break;
             case VIEW_ZONES:
                 zonesMenu(map.getZones());

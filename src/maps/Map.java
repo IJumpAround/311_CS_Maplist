@@ -1,6 +1,7 @@
 package maps;
 
 import records.Record;
+import records.RecordList;
 import zoning.ZoneList;
 
 import java.util.ArrayList;
@@ -10,7 +11,7 @@ public class Map {
     private String mapName;
     private short tier;
     private int completions;
-    private ArrayList<Record> records;
+    private RecordList records;
     private ZoneList zones;
 
     /**
@@ -20,7 +21,7 @@ public class Map {
         this.mapName = "Null";
         this.tier = 0;
         this.completions = 0;
-        this.records = new ArrayList<>();
+        this.records = new RecordList();
         this.zones = new ZoneList();
 
     }
@@ -33,7 +34,7 @@ public class Map {
      * @param records list of records
      * @param zones list of zones
      */
-    public Map(String mapName, short tier, int completions, ArrayList<Record> records, ZoneList zones) {
+    public Map(String mapName, short tier, int completions, RecordList records, ZoneList zones) {
         this.mapName = mapName;
         this.tier = tier;
         this.completions = completions;
@@ -49,7 +50,7 @@ public class Map {
         this.mapName = mapName;
         this.tier = tier;
         this.completions = 0;
-        this.records = new ArrayList<>();
+        this.records = new RecordList();
         this.zones = new ZoneList();
     }
 
@@ -77,35 +78,10 @@ public class Map {
         this.completions = completions;
     }
 
-    public ArrayList<Record> getRecords() {
+    public RecordList getRecords() {
         return records;
     }
 
-    /**
-     * Retrieve a record by place
-     * @param place
-     * @return either the record is returned or null is returned if not found
-     */
-    public Record GetRecordByPlace(int place) {
-        for(Record rec: this.records) {
-            if(rec.getPlace() == place)
-                return rec;
-        }
-        return null;
-    }
-
-    /**
-     * Retrieve a record by SteamID of the completing player.
-     * @param id
-     * @return either the record is returned or null is returned if not found
-     */
-    public Record GetRecordByPlayer(String id) {
-        for(Record rec: this.records) {
-            if(rec.getSteamID().compareTo(id) == 0)
-                return rec;
-        }
-        return null;
-    }
 
     @Override
     public String toString() {
@@ -120,8 +96,8 @@ public class Map {
 
     public String toPrettyString() {
         String wr;
-        if(records.size() > 0)
-            wr = records.get(0).formattedTime();
+        if(records.getCount() > 0)
+            wr = records.getWRFormatted();
         else
             wr = "N/A";
         return String.format(

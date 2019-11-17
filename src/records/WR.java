@@ -2,16 +2,19 @@ package records;
 
 public class WR extends Top10{
     private int replayID;
+    private static int replayIDGen = 0;
+
 
     public WR() {
+        super();
+        this.replayID = replayIDGen;
+        replayIDGen++;
     }
 
-    /**
-     * Create WR object
-     * @param replayID
-     */
-    public WR(int replayID) {
-        this.replayID = replayID;
+    public WR(float pointBonus) {
+        super(pointBonus);
+        this.replayID = replayIDGen;
+        replayIDGen++;
     }
 
     @Override
@@ -33,5 +36,7 @@ public class WR extends Top10{
     public void setReplayID(int replayID) {
         this.replayID = replayID;
     }
+
 }
+
 

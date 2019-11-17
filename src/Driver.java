@@ -14,8 +14,6 @@ import static java.lang.System.exit;
 public class Driver {
 
     public static void main(String[] args) {
-        timerPromptTest();
-        exit(0);
         MapList maps;
         if(args.length == 0) {
             maps = new MapList();
@@ -39,12 +37,7 @@ public class Driver {
 
     }
 
-    public static void recordTests() {
-        Record test = new Record();
-        test.setTime(LocalTime.now());
 
-        System.out.println(test.formattedTime());
-    }
 
 //    public static void menuDriver(MapList list) {
 //        int option = -1;

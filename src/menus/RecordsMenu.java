@@ -12,7 +12,7 @@ import static menus.MenuHelpers.*;
 
 
 public class RecordsMenu {
-    public static int zonesMenu(RecordList records) {
+    public static int recordsMenu(RecordList records, int maptier) {
         optionsEnum choice;
         clearScreen();
 
@@ -26,7 +26,7 @@ public class RecordsMenu {
             Menus.recordMenu.DisplayMenu();
             outputCurrentItem(records);
             choice = Menus.recordMenu.promptForMenuChoice();
-            recordsExecute(records, choice);
+            recordsExecute(records, choice, maptier);
 
             //Clear screen before end of loop, print any error messages here so they show at the top of screen
             clearScreen();
@@ -42,12 +42,12 @@ public class RecordsMenu {
         //retur n choice;
     }
 
-    public static int recordsExecute(RecordList records, optionsEnum choice) {
+    public static int recordsExecute(RecordList records, optionsEnum choice, int maptier) {
 
         switch (choice){
 
             case ADD_ZONE:
-                addRecordPrompt(records);
+                addRecordPrompt(records, maptier);
                 break;
             case DELETE_RECORD:
                 //deleteRecordPrompt(records);
@@ -72,27 +72,20 @@ public class RecordsMenu {
         return -1;
     }
 
-    public static void addRecordPrompt(RecordList records) {
+    public static void addRecordPrompt(RecordList records, int tier) {
         String input = "";
-        /*
-        need playername
-            String steamID
-            LocalDateTime dateOfRun
-            float points nvm points should be generated
-            LocalTime time
-            int place
-         */
-
         String steamID = "";
+        String playername = "";
         LocalDateTime dateOfRun = LocalDateTime.now();
         Duration time;
         float points = 0;
         int place;
 
-        //ArrayList options = new ArrayList(Arrays.asList(
+        playername = MenuHelpers.promptForString("Player Name");
         steamID = MenuHelpers.promptForString("Player's SteamID:");
         time = MenuHelpers.promptForTime();
 
+        records.addRecord(playername,steamID,dateOfRun,time,tier);
     }
 
 }

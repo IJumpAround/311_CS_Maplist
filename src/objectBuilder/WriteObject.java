@@ -1,6 +1,5 @@
-package ObjectBuilder;
+package objectBuilder;
 
-import com.google.gson.FieldNamingStrategy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import maps.MapList;
@@ -8,8 +7,6 @@ import maps.MapList;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.Buffer;
-import java.util.Scanner;
 
 public class WriteObject {
 	public static BufferedWriter writer;

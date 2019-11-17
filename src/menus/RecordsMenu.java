@@ -3,6 +3,7 @@ package menus;
 import menus.menuclasses.optionsEnum;
 import records.RecordList;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
@@ -77,19 +78,21 @@ public class RecordsMenu {
         need playername
             String steamID
             LocalDateTime dateOfRun
-            float points
+            float points nvm points should be generated
             LocalTime time
             int place
          */
 
         String steamID = "";
         LocalDateTime dateOfRun = LocalDateTime.now();
-        LocalTime time;
+        Duration time;
         float points = 0;
         int place;
 
         //ArrayList options = new ArrayList(Arrays.asList(
-        steamID = MenuHelpers.promptForString();
+        steamID = MenuHelpers.promptForString("Player's SteamID:");
+        time = MenuHelpers.promptForTime();
+
     }
 
 }

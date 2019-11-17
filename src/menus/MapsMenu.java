@@ -98,8 +98,8 @@ public class MapsMenu {
         String name;
         short tier = 0;
         clearScreen();
-        System.out.println("Enter the map name: ");
-        name = MenuHelpers.promptForString();
+        //System.out.println("Enter the map name: ");
+        name = MenuHelpers.promptForString("Enter the map name");
 
         while(tier < 1 || tier > 10) {
             System.out.println("Enter the map Tier (1-10): ");

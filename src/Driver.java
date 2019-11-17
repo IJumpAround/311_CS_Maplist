@@ -1,17 +1,21 @@
+import java.time.Duration;
 import java.time.LocalTime;
+
+import menus.MenuHelpers;
 import menus.Menus;
 import records.Record;
 import maps.Map;
 import maps.MapList;
 import menus.MapsMenu;
 
-
+import static java.lang.System.exit;
 
 
 public class Driver {
 
     public static void main(String[] args) {
-
+        timerPromptTest();
+        exit(0);
         MapList maps;
         if(args.length == 0) {
             maps = new MapList();
@@ -61,9 +65,12 @@ public class Driver {
 //    }
 
 
+    public static void timerPromptTest() {
+        Menus.setupMenus();
+        Duration time;
 
-    public static void ZonesMenu(Map map) {
-
+        time = MenuHelpers.promptForTime();
+        System.out.println(time);
     }
 
 

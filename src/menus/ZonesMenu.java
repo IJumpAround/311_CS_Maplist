@@ -154,7 +154,7 @@ public class ZonesMenu {
         if (type.compareTo("timer") == 0)
             zoneToAdd = new TimerZone(name, c1, c2, zHeight, tType, isStart);
         else
-            zoneToAdd = new TeleportZone(name, c1, c2, zHeight, teleType, null);
+            zoneToAdd = new TeleportZone(name, c1, c2, zHeight, teleType, "");
 
         //Add the zone, print an error if this name is a duplicate
         try {
@@ -168,7 +168,7 @@ public class ZonesMenu {
     /**
      * Prompt to delete a zone.
      *
-     * @param zones
+     * @param zones zonelist
      */
     public static void deleteZonePrompt(ZoneList zones) {
         if (zones.getCount() == 0)
@@ -183,8 +183,7 @@ public class ZonesMenu {
         }
 
         //Delete zone otherwise do nothing
-        if (response.compareTo("y") == 0) {
-            zones.deleteZone();
+        if (response.equals("y")) {
 
             Zone curr = zones.getSelectedZone();
 
@@ -196,6 +195,7 @@ public class ZonesMenu {
                     }
                 }
             }
+            zones.deleteZone();
         }
     }
 

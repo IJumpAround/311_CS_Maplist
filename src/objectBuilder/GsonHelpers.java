@@ -30,6 +30,7 @@ public class GsonHelpers {
     public static void registerAllTypes() {
 
         RuntimeTypeAdapterFactory<Record> recordAdapter = RuntimeTypeAdapterFactory.of(Record.class)
+                .registerSubtype(Record.class)
                 .registerSubtype(Top10.class)
                 .registerSubtype(WR.class);
 

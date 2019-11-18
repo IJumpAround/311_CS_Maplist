@@ -14,13 +14,13 @@ public class TeleportZone extends Zone {
     TeleportZone() {
         super();
         teleType = teleportType.SOURCE;
-        target = null;
+        target = "";
     }
 
     public TeleportZone(String id, Coordinate c1, Coordinate c2, long zh) {
         super(id, c1, c2, zh);
         teleType = teleportType.SOURCE;
-        target = null;
+        target = "";
     }
 
     /**
@@ -46,7 +46,7 @@ public class TeleportZone extends Zone {
     @Override
     public String prettyZone() {
         String t = this.teleType == teleportType.SOURCE ? "Source" : "Destination";
-        String targ = this.target != null ? this.target : "None";
+        String targ = !this.target.equals("") ? this.target : "None";
         targ = this.teleType == teleportType.SOURCE ? targ : "N/A";
 
         return super.prettyZone() + "\n"

@@ -44,28 +44,42 @@ public class WriteObject {
 	 * @param maps
 	 */
 	public static void writeObject(String filename, MapList maps) {
-		try {
-			boolean result = InitWriter(filename);
-			if(!result)
-				return;
-		}
-		catch (IOException e) {
-			System.out.println(e.toString());
-
-		}
+//		try {
+//			boolean result = InitWriter(filename);
+//			if(!result)
+//				return;
+//		}
+//		catch (IOException e) {
+//			System.out.println(e.toString());
+//
+//		}
 		Gson gson = GsonHelpers.getGson();
 
 		//System.out.println(gson.toJson(maps));
 
 		//Write Json to file
 		try {
-			writer.write(gson.toJson(maps));
+			String result = gson.toJson(maps);
+
+			InitWriter(filename);
+			writer.write(result);
 			writer.close();
 			Menus.status = "[Info]: Wrote to " + filename;
 		}
 		catch (IOException e) {
 			System.out.println("ERROR when reading from input file " + filename);
 			System.out.println(e.toString());
+
+		}
+		catch(Exception e) {
+			Menus.status = e.toString();
+			System.out.println(e.toString());
+			System.out.println("ERROR DID NOT WRITE TO FILE");
+		}
+		try {
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
 	}

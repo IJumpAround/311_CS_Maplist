@@ -80,7 +80,7 @@ public class Record implements Comparable<Record> {
         millis = Duration.of(nanos, ChronoUnit.NANOS).toMillis();
 
 
-        return String.format("%02d:%02d:%02d.%3d", hours, minutes, seconds, millis);
+        return String.format("%02d:%02d:%02d.%03d", hours, minutes, seconds, millis);
     }
 
     public String prettyRecord() {

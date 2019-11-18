@@ -126,7 +126,11 @@ public class RecordList extends ABCSelectionList implements Iterable<Record> {
      * Assumes the new WR has been inserted
      */
     private void downgradeOldWR(int index) {
-        Record rec = new Top10((Top10) records.get(index));
+        WR temp = (WR)records.get(index);
+        Top10 rec = new Top10((Top10) records.get(index));
+        rec.setPointBonus(25);
+        float t = temp.getPointBonus();
+        rec.setPoints(temp.getPoints() - t);
         records.set(index,rec);
     }
 
@@ -135,6 +139,7 @@ public class RecordList extends ABCSelectionList implements Iterable<Record> {
      */
     private void downgradeRank10(int index) {
         Record rec = new Record(records.get(index));
+        rec.setPoints(rec.getPoints()-25);
         records.set(index,rec);
     }
 

@@ -208,7 +208,7 @@ public class MenuHelpers {
                     coords[1] = Long.parseLong(s[1]);
                     coords[2] = Long.parseLong(s[2]);
                     done = true;
-                } catch (NumberFormatException e) {
+                } catch (Exception e) {
                     System.out.println("Enter three numbers space separated");
                 }
             }

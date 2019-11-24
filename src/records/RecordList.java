@@ -1,8 +1,6 @@
 package records;
 import abc.ABCSelectionList;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,13 +11,21 @@ import java.util.Iterator;
  * Inherits from MenuList to create a recordList
  */
 public class RecordList extends ABCSelectionList implements Iterable<Record> {
-    private ArrayList<Record> records;
+    private ArrayList<Record> records;  //List of records held in this object
 
-
+    /**
+     * Default constructor
+     */
     public RecordList() {
+        super();
+        initializeType();
         records = new ArrayList<>();
     }
 
+    /**
+     * Formats the currently selected item for printing to the screen
+     * @return string formatted
+     */
     @Override
     public String prettyCurrentItem() {
         String str = "";
@@ -71,13 +77,12 @@ public class RecordList extends ABCSelectionList implements Iterable<Record> {
      * @param time time to insert
      * @return index of slot
      */
-    public int findSpot(Duration time) {
+    private int findSpot(Duration time) {
         int index = count;
         if(count == 0)
             return 0;
 
         for(int i = 0; i < count; i++) {
-            //T
             if(records.get(i).getTime().compareTo(time) > 0) {
                 return i;
             }
@@ -85,6 +90,10 @@ public class RecordList extends ABCSelectionList implements Iterable<Record> {
         return index;
     }
 
+    /**
+     * Get the fastest time and return its formatted string
+     * @return string
+     */
     public String getWRFormatted() {
         if(count > 0)
             return records.get(0).formattedTime();
@@ -95,13 +104,13 @@ public class RecordList extends ABCSelectionList implements Iterable<Record> {
 
     @Override
     protected void initializeType() {
-        type = "Record";
+        typeName = "Record";
     }
 
-    public RecordList(ArrayList<Record> records) {
-        this.records = records;
-    }
-
+    /**
+     * Return the item pointed to by cursor
+     * @return Record (WR Top10 or Record)
+     */
     public Record getSelectedItem() {
         if(isCursorInbounds()) {
             return records.get(cursor);
@@ -171,22 +180,20 @@ public class RecordList extends ABCSelectionList implements Iterable<Record> {
      * @param id of player to search for
      * @return either the record is returned or null is returned if not found
      */
-
     public boolean findRecordBySteamID(String id) {
         int c = cursor;
         for(int i = 0; i < count; i++) {
             if(records.get(i).getSteamID().equals(id)) {
-                c = i;
+                cursor = i;
                 return true;
             }
         }
-        cursor = c;
         return false;
     }
 
     /**
      * Retrieve a record by place
-     * @param place
+     * @param place map rank
      * @return either the record is returned or null is returned if not found
      */
     public boolean findRecordByPlace(int place) {

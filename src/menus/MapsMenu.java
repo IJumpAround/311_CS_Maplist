@@ -6,8 +6,6 @@ import exceptions.DuplicateEntryException;
 import maps.Map;
 import maps.MapList;
 import menus.menuclasses.optionsEnum;
-import records.Record;
-import records.RecordList;
 import records.WR;
 
 import java.util.Arrays;
@@ -21,10 +19,10 @@ public class MapsMenu {
     /**
      * Initial goal was to make this generic so that we didn't need 3 copies of what is essentially the same
      * code, but ran out of time.
-     * @param maps
-     * @return
+     * Essentially the driver class for the mapsmenu interface
+     * @param maps List of all maps in the program
      */
-    public static int mapsMenu(MapList maps) {
+    public static void mapsMenu(MapList maps) {
         optionsEnum choice;
         Menus.setupMenus();
         clearScreen();
@@ -37,11 +35,10 @@ public class MapsMenu {
             outputCurrentItem(maps);
             choice = Menus.mapMenu.promptForMenuChoice();
 
-            //Call execute, load will return a maplist if it is called any other possibility returns null
+            //Call execute. Load will return a maplist if it is called, any other possibility returns null
             MapList temp = mapsExecute(maps, choice);
             if(temp != null) {
-                maps = temp;
-
+                maps = temp;    //load in the new mapList if necessary
             }
             //Clear screen before end of loop, print any error messages here so they show at the top of screen
             clearScreen();
@@ -50,11 +47,15 @@ public class MapsMenu {
                 Menus.status = "";
             }
         }
-        return 0;
-        //retur n choice;
     }
 
-    public static MapList mapsExecute(MapList maps, optionsEnum choice) {
+    /**
+     * Executes the chosen command entered by the user.
+     * @param maps maplist
+     * @param choice menu choice the user made
+     * @return Almost alway returns null. Will only return a maplist when the user chooses to load from a file
+     */
+    private static MapList mapsExecute(MapList maps, optionsEnum choice) {
 
         switch (choice){
 
@@ -65,6 +66,7 @@ public class MapsMenu {
                 deleteMapPrompt(maps);
                 break;
             case VIEW:
+                //Bring up zone/record submenu for the current map
                 Map curr = maps.getSelectedMap();
                 if(curr != null)
                     mapsSubMenu(maps.getSelectedMap());
@@ -80,15 +82,14 @@ public class MapsMenu {
             case PREVIOUS:
                 maps.prev();
                 break;
-            case EXIT:
-                break;
-            case NONE:
-                break;
             case WRITE:
+                //Prompt for a filename then begin the save process
                 String filename = promptForString("Enter a filename","ObjectGson.gson");
                 WriteObject.writeObject(filename,maps);
                 break;
             case LOAD: {
+                //prompt the user to load from a file then begin loading from the file
+                //Returns the loaded mapList to the calling function
                 String proceed = promptWithOptions(Arrays.asList("y","n"),"Loading from a file will overwrite the current program data, continue?");
                 if(proceed.compareTo("y") == 0) {
                     int replayGen = WR.getReplayIDGen();
@@ -102,19 +103,21 @@ public class MapsMenu {
                     return loaded;
                 }
             }
+            case EXIT:
+            case NONE:
+                break;
         }
         return null;
     }
 
     /**
-     * Prompt the user for a mapname and add a new map to the maplist
+     * Prompt the user for information required to make a map, then add it to the list of maps.
      * @param maps map list
      */
-    public static void addMapPrompt(MapList maps) {
+    private static void addMapPrompt(MapList maps) {
         String name;
         short tier = 0;
         clearScreen();
-        //System.out.println("Enter the map name: ");
         name = MenuHelpers.promptForString("Enter the map name");
 
         while(tier < 1 || tier > 10) {
@@ -129,14 +132,15 @@ public class MapsMenu {
     }
 
     /**
-     * Delete the currently selected map
-     * @param maps
+     * Delete the currently selected map.
+     * Prompts the user to make sure they want to delete the selected map
+     * @param maps maplist
      */
-    public static void deleteMapPrompt(MapList maps) {
-        String response = "";
-
+    private static void deleteMapPrompt(MapList maps) {
         if(maps.getCount() == 0)
             return;
+        String response = "";
+
 
         Map curr = maps.getSelectedMap();
 
@@ -156,13 +160,12 @@ public class MapsMenu {
 
     /**
      * When selecting an individual map, choose to edit either zones or records
-     * @param map
+     * @param map to show information about
      */
-    public static void mapsSubMenu(Map map) {
+    private static void mapsSubMenu(Map map) {
         optionsEnum choice;
 
         //Clear screen and print options for this submenu
-        //exit, zones or records
         clearScreen();
         Menus.mapSubMenu.DisplayMenu();
         choice = Menus.mapSubMenu.promptForMenuChoice();
@@ -179,19 +182,24 @@ public class MapsMenu {
         }
     }
 
-    public static void searchMaps(MapList maps) {
+    /**
+     * Search the maplist for a name entered by the user.
+     * @param maps list of maps
+     */
+    private static void searchMaps(MapList maps) {
         int index;
-        String response = "";
+        String response;
 
         clearScreen();
-        System.out.println("Enter the mapname you want to search form");
+        System.out.println("Enter the mapname you want to search for");
         response = MenuHelpers.promptForString();
         index = maps.findMapByName(response);
 
+        //Set a status message if not found
         if(index == -1) {
             Menus.status = "Map: " + response + " was not found";
         }
-        else
+        else //otherwise select the found map
             maps.setCursor(index);
     }
 

@@ -2,23 +2,35 @@ package zoning;
 
 import zoning.enums.timerType;
 
+/**
+ * Inherits from Zone
+ * TimerZones start or stop the timer depending on if they are a start or end zone.
+ * Each map has a timer start and end.
+ * Each map optionally can have a bonus start and end
+ */
 public class TimerZone extends Zone {
     private timerType timeType;    //Bonus or main
-    private boolean start;  //true if start zone, false if end zone
+    private boolean start;         //true if start zone, false if end zone
 
-    public TimerZone() {
-        super();
-        timeType = timerType.MAIN;
-        start = true;
-
-    }
-
+    /**
+     * Param constructor
+     * @param id string identifier for this zone
+     * @param c1 first corner of base
+     * @param c2 opposite corner of base
+     * @param zh height of zone
+     * @param timeType bonus or main
+     * @param start start or end
+     */
     public TimerZone(String id, Coordinate c1, Coordinate c2, long zh, timerType timeType, boolean start) {
         super(id, c1, c2, zh);
         this.timeType = timeType;
         this.start = start;
     }
 
+    /**
+     * Append timerzone information to the prettified string
+     * @return formatted string
+     */
     @Override
     public String prettyZone() {
         String t = this.timeType == timerType.MAIN ? "Main" : "Bonus";
@@ -27,23 +39,4 @@ public class TimerZone extends Zone {
                 +"Zone is a " + t + " " + start + " zone";
     }
 
-    public timerType GetType() {
-        return timeType;
-    }
-    public void setTimeType(timerType timeType) {
-        this.timeType = timeType;
-    }
-
-
-    public boolean IsStart() {
-        return start;
-    }
-
-    public boolean IsEnd() {
-        return start;
-    }
-
-    public void setStart(boolean start) {
-        this.start = start;
-    }
 }

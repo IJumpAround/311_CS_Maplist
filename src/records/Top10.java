@@ -3,23 +3,33 @@ package records;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+/**
+ * Inherits functionality from record and adds a point bonus for being in the top 10
+ */
 public class Top10 extends Record {
-    protected float pointBonus;
-
+    float pointBonus;   //bonus points for being in the top 10
 
     /**
-     *
+     * Default constructor
      */
     Top10() {
         super();
         pointBonus = 0;
     }
 
+    /**
+     * Constructor to set bonus points
+     * @param pts set bonus points to this
+     */
     Top10(float pts) {
         super();
         this.pointBonus = pts;
     }
 
+    /**
+     * Copy constructor
+     * @param target target Top10
+     */
     Top10(Top10 target) {
         this.steamID = target.steamID;
         this.playerName = target.playerName;
@@ -30,6 +40,7 @@ public class Top10 extends Record {
         this.setPlace(target.getPlace());
     }
 
+    @SuppressWarnings("EmptyMethod")
     @Override
     public String prettyRecord() {
         return super.prettyRecord();
@@ -37,13 +48,13 @@ public class Top10 extends Record {
 
     /**
      * Creates a top 10 record entry
-     * @param playerName
-     * @param steamID
-     * @param dateOfRun
-     * @param points
-     * @param time
-     * @param place
-     * @param pointBonus
+     * @param playerName playername
+     * @param steamID player's steamid
+     * @param dateOfRun date
+     * @param points points
+     * @param time time
+     * @param place rank
+     * @param pointBonus bonus points
      */
     public Top10(String playerName, String steamID, LocalDateTime dateOfRun, float points,
                  Duration time, int place, float pointBonus) {
@@ -63,11 +74,11 @@ public class Top10 extends Record {
                 '}';
     }
 
-    public float getPointBonus() {
+    float getPointBonus() {
         return pointBonus;
     }
 
-    public void setPointBonus(float pointBonus) {
+    void setPointBonus(float pointBonus) {
         this.pointBonus = pointBonus;
     }
 

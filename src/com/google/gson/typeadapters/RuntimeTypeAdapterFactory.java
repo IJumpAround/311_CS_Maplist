@@ -1,4 +1,7 @@
 /*
+  NOTE: This is a third party extra library part of the GSON libraries, I did not write this!
+ */
+/*
  * Copyright (C) 2011 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -181,7 +184,7 @@ public final class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
      * @throws IllegalArgumentException if either {@code type} or {@code label}
      *     have already been registered on this type adapter.
      */
-    public RuntimeTypeAdapterFactory<T> registerSubtype(Class<? extends T> type, String label) {
+    private RuntimeTypeAdapterFactory<T> registerSubtype(Class<? extends T> type, String label) {
         if (type == null || label == null) {
             throw new NullPointerException();
         }

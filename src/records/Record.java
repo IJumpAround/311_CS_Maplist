@@ -6,18 +6,22 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 /**
- * Holds information about a single completion on a given map
+ * Holds information about a single completion on a given map.
+ * Implements compareTo for sorting
  */
 public class Record implements Comparable<Record> {
 
-    protected String playerName;
-    protected String steamID;
-    protected LocalDateTime dateOfRun;
-    protected float points;
-    private Duration time;
-    private int place;
+    String playerName;          //Name of the player whos record this is
+    String steamID;             //SteamID of the player
+    LocalDateTime dateOfRun;    //Date the run happened
+    float points;               //Points earned from this time
+    private Duration time;      //Actual time
+    private int place;          //Map rank
 
 
+    /**
+     * Default constructor
+     */
     public Record() {
         this.playerName = "";
         this.steamID = "";
@@ -27,6 +31,15 @@ public class Record implements Comparable<Record> {
         this.place = 0;
     }
 
+    /**
+     * Alternate constructor
+     * @param playerName name
+     * @param steamID steamid
+     * @param dateOfRun date
+     * @param points score
+     * @param time run time
+     * @param place map rank
+     */
     public Record(String playerName, String steamID, LocalDateTime dateOfRun, float points, Duration time, int place) {
         this.playerName = playerName;
         this.steamID = steamID;
@@ -36,6 +49,10 @@ public class Record implements Comparable<Record> {
         this.place = place;
     }
 
+    /**
+     * Copy constructor
+     * @param record target record to copy
+     */
     public Record(Record record) {
         steamID = record.steamID;
         playerName = record.playerName;
@@ -59,16 +76,19 @@ public class Record implements Comparable<Record> {
 
     /**
      * overriden to allow sorting based on time
-     *
-     * @param rec
-     * @return
+     * @param rec record we are comparing this to
+     * @return < 0 if less, 0 if equal, > 0 if larger
      */
     @Override
     public int compareTo(Record rec) {
         return this.time.compareTo(rec.time);
     }
 
-    public String formattedTime() {
+    /**
+     * Formats the duration for display
+     * @return string formatted time
+     */
+    String formattedTime() {
         long totalSeconds = time.getSeconds();
         int nanos = time.getNano();
 
@@ -83,6 +103,11 @@ public class Record implements Comparable<Record> {
         return String.format("%02d:%02d:%02d.%03d", hours, minutes, seconds, millis);
     }
 
+    /**
+     * Formats the entire record for display
+     * Calls formattedTime()
+     * @return formatted string
+     */
     public String prettyRecord() {
         String date = dateOfRun.format( DateTimeFormatter.ofPattern("MM/dd/yyyy"));
         return String.format(
@@ -101,15 +126,15 @@ public class Record implements Comparable<Record> {
         return playerName;
     }
 
-    public void setPlayerName(String playerName) {
+    void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
 
-    public String getSteamID() {
+    String getSteamID() {
         return steamID;
     }
 
-    public void setSteamID(String steamID) {
+    void setSteamID(String steamID) {
         this.steamID = steamID;
     }
 
@@ -117,11 +142,11 @@ public class Record implements Comparable<Record> {
         return dateOfRun;
     }
 
-    public void setDateOfRun(LocalDateTime dateOfRun) {
+    void setDateOfRun(LocalDateTime dateOfRun) {
         this.dateOfRun = dateOfRun;
     }
 
-    public float getPoints() {
+    float getPoints() {
         return points;
     }
 
@@ -129,19 +154,19 @@ public class Record implements Comparable<Record> {
         this.points = points;
     }
 
-    public Duration getTime() {
+    Duration getTime() {
         return time;
     }
 
-    public void setTime(Duration time) {
+    void setTime(Duration time) {
         this.time = time;
     }
 
-    public int getPlace() {
+    int getPlace() {
         return place;
     }
 
-    public void setPlace(int place) {
+    void setPlace(int place) {
         this.place = place;
     }
 }

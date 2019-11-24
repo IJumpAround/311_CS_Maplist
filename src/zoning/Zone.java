@@ -8,10 +8,9 @@ import exceptions.InvalidDimensions;
  * A zone is always a rectangular cuboid. This means we only need two corners and a height to define a zone.
  */
 public class Zone {
-    public static int idGen = 0;
-    protected Coordinate[] corners;     //4 corners for the zone box
-    protected long zHeight;             //Height of the zone
-    protected String ID;                //identifier of the zone
+    private Coordinate[] corners;     //4 corners for the zone box
+    private long zHeight;             //Height of the zone
+    private String ID;                //identifier of the zone
 
     /**
      * Default constructor
@@ -49,7 +48,7 @@ public class Zone {
      * @param c3 opposite corner coordinate
      * @throws InvalidDimensions thrown if c1 and c3 do not have the same z value
      */
-    protected void SetCorners(Coordinate c1, Coordinate c3) throws InvalidDimensions {
+    private void SetCorners(Coordinate c1, Coordinate c3) throws InvalidDimensions {
 
         if(c1.getZ() != c3.getZ())
             throw new InvalidDimensions("Coord1: " + c1.toString() + "\tCoord2: " + c3.toString());
@@ -60,29 +59,13 @@ public class Zone {
         this.corners[3] = new Coordinate(c3.getX(), c1.getY(), c1.getZ());
     }
 
-    public Coordinate[] getCorners() {
-        return corners;
-    }
-
-    public long getzHeight() {
-        return zHeight;
-    }
-
-    public void setzHeight(long zHeight) {
-        this.zHeight = zHeight;
-    }
-
     public String getID() {
         return ID;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
-    }
-
     /**
      * Prettify zone information for display
-     * @return
+     * @return formatted string
      */
     public String prettyZone() {
         return "Zone ID: " + ID + "\n"

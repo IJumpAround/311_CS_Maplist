@@ -4,19 +4,16 @@ package zoning;
  * Holds coordinates for a position in a 3D plane.
  */
 public class Coordinate {
-    private long x;
-    private long y;
-    private long z;
+    private long x; // x coord
+    private long y; // y coord
+    private long z; // z coord
 
     /**
-     * Default constructor, initialize everything to 0
+     * Parameter constructor
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param z z coordinate
      */
-    public Coordinate(){
-        x = 0;
-        y = 0;
-        z = 0;
-    }
-
     public Coordinate(long x, long y, long z) {
         this.x = x;
         this.y = y;
@@ -27,7 +24,7 @@ public class Coordinate {
      * Copy constructor
      * @param c A coordinate to copy into this one
      */
-    public Coordinate(Coordinate c) {
+    Coordinate(Coordinate c) {
         this.x = c.x;
         this.y = c.y;
         this.z = c.z;
@@ -36,7 +33,7 @@ public class Coordinate {
     /**
      * Getters and setters
      */
-    public long getX() {
+    long getX() {
         return x;
     }
 
@@ -44,7 +41,7 @@ public class Coordinate {
         this.x = x;
     }
 
-    public long getY() {
+    long getY() {
         return y;
     }
 
@@ -52,7 +49,7 @@ public class Coordinate {
         this.y = y;
     }
 
-    public long getZ() {
+    long getZ() {
         return z;
     }
 

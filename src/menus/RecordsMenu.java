@@ -11,18 +11,24 @@ import java.util.Arrays;
 import static menus.MenuHelpers.clearScreen;
 import static menus.MenuHelpers.outputCurrentItem;
 
+/**
+ * Pretty much the same code as MapsMenu tweaked to display/modify records
+ * Again this should have been done generically.
+ */
+class RecordsMenu {
 
-public class RecordsMenu {
-    public static int recordsMenu(RecordList records, int maptier) {
+    /**
+     * Main loop for recordsMenu logic
+     * @param records list of records in the current map
+     * @param maptier tier of the current map (for point calculation)
+     */
+    static void recordsMenu(RecordList records, int maptier) {
         optionsEnum choice;
         clearScreen();
 
         //Leaving via exit then re-entering leave choice set to EXIT. The loop exits immediately in that case
         Menus.recordMenu.clearChoice();
 
-        /**
-         * Main loop for menu options
-         */
         while (Menus.recordMenu.getMenuChoice() != optionsEnum.EXIT) {
             Menus.recordMenu.DisplayMenu();
             outputCurrentItem(records);
@@ -37,10 +43,7 @@ public class RecordsMenu {
                 System.out.println(Menus.status);
                 Menus.status = "";
             }
-
         }
-        return 0;
-        //retur n choice;
     }
 
     /**
@@ -49,7 +52,7 @@ public class RecordsMenu {
      * @param choice menu choice the user picker
      * @param maptier map tier for point assignment
      */
-    public static void recordsExecute(RecordList records, optionsEnum choice, int maptier) {
+     private static void recordsExecute(RecordList records, optionsEnum choice, int maptier) {
 
         switch (choice){
 
@@ -69,7 +72,6 @@ public class RecordsMenu {
                 records.prev();
                 break;
             case EXIT:
-                break;
             case NONE:
                 break;
         }
@@ -81,9 +83,9 @@ public class RecordsMenu {
      * @param records RecordList
      * @param tier map tier, used for assigning points
      */
-    public static void addRecordPrompt(RecordList records, int tier) {
-        String steamID = "";
-        String playername = "";
+    private static void addRecordPrompt(RecordList records, int tier) {
+        String steamID;
+        String playername;
         LocalDateTime dateOfRun = LocalDateTime.now();
         Duration time;
 
@@ -103,7 +105,7 @@ public class RecordsMenu {
      * Prompts the user to confirm deletion first
      * @param records RecordList
      */
-    public static void deleteRecordPrompt(RecordList records, int tier) {
+    private static void deleteRecordPrompt(RecordList records, int tier) {
         boolean delete;
         Record curr = records.getSelectedItem();
 
@@ -121,9 +123,9 @@ public class RecordsMenu {
      *      time
      * @param records RecordList
      */
-    public static void searchRecordPrompt(RecordList records) {
+    private static void searchRecordPrompt(RecordList records) {
         String searchOn,searchValue,param;
-        boolean found = false;
+        boolean found;
 
         searchOn = MenuHelpers.promptWithOptions(Arrays.asList("steamID","place"),"Search on which value?");
 

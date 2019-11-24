@@ -1,16 +1,27 @@
 package records;
 
+/**
+ * Inherits from Record and Top10
+ * A wr run has a replay so other players can see how the player completed the map
+ */
 public class WR extends Top10{
-    private static int replayIDGen;
-    private int replayID;
+    private static int replayIDGen; //Static value that prevents multiple instances of WR's from having the same replay
+    private int replayID;           //Actual replay id
 
 
+    /**
+     * Default constructor
+     */
     public WR() {
         super();
         this.replayID = replayIDGen;
         replayIDGen++;
     }
 
+    /**
+     * param constructor
+     * @param pointBonus bonus points for wr
+     */
     public WR(float pointBonus) {
         super(pointBonus);
         this.replayID = replayIDGen;
@@ -29,6 +40,10 @@ public class WR extends Top10{
                 '}';
     }
 
+    /**
+     * Append replay ID to this pretty string
+     * @return formatted string
+     */
     @Override
     public String prettyRecord() {
         return super.prettyRecord()

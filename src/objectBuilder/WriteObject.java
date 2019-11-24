@@ -1,7 +1,6 @@
 package objectBuilder;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import maps.MapList;
 import menus.MenuHelpers;
 import menus.Menus;
@@ -13,17 +12,19 @@ import java.io.IOException;
 import java.util.Arrays;
 
 
+/**
+ * Serializes the all objects contained in the current maplist and writes them to a file
+ */
 public class WriteObject {
-	public static BufferedWriter writer;
+	private static BufferedWriter writer;
 
 
 	/**
 	 * Open file for writing. If the file already exists, prompt the user if they inteded to overwrite it.
 	 * @param filename file
-	 * @return true to write, false to cancel
 	 * @throws IOException IO
 	 */
-	public static boolean InitWriter(String filename) throws IOException {
+	private static void InitWriter(String filename) throws IOException {
 		File file = new File(filename);
 		String response = "";
 		//Ask if they want to overwrite
@@ -33,9 +34,7 @@ public class WriteObject {
 
 		if(response.compareTo("y") == 0 || response.compareTo("") == 0) {
 			writer = new BufferedWriter(new FileWriter(filename));
-			return true;
 		}
-		return false;
 	}
 
 	/**
@@ -44,23 +43,14 @@ public class WriteObject {
 	 * @param maps
 	 */
 	public static void writeObject(String filename, MapList maps) {
-//		try {
-//			boolean result = InitWriter(filename);
-//			if(!result)
-//				return;
-//		}
-//		catch (IOException e) {
-//			System.out.println(e.toString());
-//
-//		}
 		Gson gson = GsonHelpers.getGson();
-
-		//System.out.println(gson.toJson(maps));
 
 		//Write Json to file
 		try {
+			//Convert to GSON
 			String result = gson.toJson(maps);
 
+			//open the file after serialization has succeeded
 			InitWriter(filename);
 			writer.write(result);
 			writer.close();

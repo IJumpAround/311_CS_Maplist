@@ -7,8 +7,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * ReadObject deserializes the inputfile to create a MapList object.
+ */
 public class ReadObject {
-    private static Scanner objReader;
 
     /**
      * Load maplist information from a gson file
@@ -19,7 +21,9 @@ public class ReadObject {
 
         StringBuilder builder = new StringBuilder();
         File file = new File(filename);
+
         //Open file
+        Scanner objReader;
         try {
             objReader = new Scanner(file);
         }

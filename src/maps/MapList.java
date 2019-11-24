@@ -1,59 +1,52 @@
 package maps;
 import exceptions.DuplicateEntryException;
 import abc.ABCSelectionList;
-import records.Record;
-import zoning.Zone;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * Contains arraylist of Map objects.
+ * Extends ABCSelection list to hold map objects
+ * Uses an arraylist to store map objects
  * Uses cursor functionality to select modify and display information.
  */
 public class MapList extends ABCSelectionList implements Iterable<Map>{
-    //private int cursor;
-    private ArrayList<Map> maps;
-    private ArrayList<String> names;
+    private ArrayList<Map> maps;        //all maps in the program
+    private ArrayList<String> names;    //Names of all maps
 
+    /**
+     * Default constructor
+     */
     public MapList() {
         super();
+        initializeType();
         maps = new ArrayList<>();
         names = new ArrayList<>();
     }
 
-    public MapList(ArrayList<Map> maps) {
-        super(maps.size());
-        this.maps = maps;
-        names = new ArrayList<>();
-
-        for (Map map: maps) {
-            names.add(map.getMapName());
-        }
-    }
-
-
-    public MapList(MapList target) {
-        super(target);
-        this.maps = new ArrayList<Map>(target.maps);
-        this.names = new ArrayList<String>(target.names);
-    }
-
-
+    /**
+     * Implements prettyCurrentItem() to display information about the selected map
+     * @return the formatted string or a blank string if there are no maps
+     */
     @Override
     public String prettyCurrentItem() {
         String str = "";
 
         if(maps.size() > 0) {
+            if(!isCursorInbounds())
+                clampCursor();
             Map curr = getSelectedMap();
             str =  curr.toPrettyString();
         }
         return str;
     }
 
+    /**
+     * Set map type
+     */
     @Override
     protected void initializeType() {
-        type = "Map";
+        typeName = "Map";
     }
 
     /**
@@ -68,30 +61,12 @@ public class MapList extends ABCSelectionList implements Iterable<Map>{
     }
 
     /**
-     * Wrapper for _addMap()
-     */
-    public void addMap(String name, short tier, int completions, ArrayList<Record> records, ArrayList<Zone> zones) throws DuplicateEntryException {
-        _addMap(name, tier, completions, records, zones);
-    }
-
-    /**
-     * Wrapper for addMap()
+     * Adds a new map to the maplist.
+     * @param name name of the map being added
+     * @param tier difficulty of the map being added (1-10)
+     * @throws DuplicateEntryException duplicate map names are not allowed
      */
     public void addMap(String name, short tier) throws DuplicateEntryException {
-        _addMap(name,tier,0,null,null);
-    }
-
-
-    /**
-     * Add a map to the program
-     * @param name name of the map being added
-     * @param tier the difficulty tier (1-10)
-     * @param completions the number of completions
-     * @param records list of records
-     * @param zones list of zones
-     */
-    private void _addMap(String name, short tier, int completions, ArrayList<Record> records, ArrayList<Zone> zones) throws DuplicateEntryException {
-        //something something add map
         if(!mapNameExists(name)) {
             maps.add(new Map(name, tier));
             names.add(name);
@@ -99,19 +74,14 @@ public class MapList extends ABCSelectionList implements Iterable<Map>{
         }
         else
             throw new DuplicateEntryException("[Error]: " + name + " already exists");
-
-    }
-
-    public ArrayList<String> getMapNames() {
-        return names;
     }
 
     /**
      * Does the given mapname already exist?
-     * @param name
-     * @return
+     * @param name name to search for
+     * @return boolean
      */
-    public boolean mapNameExists(String name) {
+    private boolean mapNameExists(String name) {
 
         for(String n: names) {
             if(n.compareTo(name) == 0) {
@@ -135,7 +105,7 @@ public class MapList extends ABCSelectionList implements Iterable<Map>{
     /**
      * Search for a map by its name and select it.
      * @param name String mapname
-     * @return
+     * @return name of map to search for
      */
     public int findMapByName(String name) {
         Map curr;
@@ -147,6 +117,10 @@ public class MapList extends ABCSelectionList implements Iterable<Map>{
         return -1;
     }
 
+    /**
+     * So maps can be looped over using for each
+     * @return Iterator
+     */
     @Override
     public Iterator<Map> iterator() {
         return maps.iterator();

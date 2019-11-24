@@ -10,24 +10,23 @@ import java.util.Arrays;
 
 import static menus.MenuHelpers.*;
 
-public class ZonesMenu {
+/**
+ * Similar structure and logic to mapsmenu
+ */
+class ZonesMenu {
 
     /**
      * Display an interface for manipulating zones.
-     *
-     * @param zones
-     * @return
+     * @param zones list of zones from this map
      */
-    public static int zonesMenu(ZoneList zones) {
+    static void zonesMenu(ZoneList zones) {
         optionsEnum choice;
         clearScreen();
 
         //Leaving via exit then re-entering leave choice set to EXIT. The loop exits immediately in that case
         Menus.zoneMenu.clearChoice();
 
-        /**
-         * Main loop for menu options
-         */
+        //main loop for zones
         while (Menus.zoneMenu.getMenuChoice() != optionsEnum.EXIT) {
             Menus.zoneMenu.DisplayMenu();
             outputCurrentItem(zones);
@@ -40,13 +39,15 @@ public class ZonesMenu {
                 System.out.println(Menus.status);
                 Menus.status = "";
             }
-
         }
-        return 0;
-        //retur n choice;
     }
 
-    public static int zonesExecute(ZoneList zones, optionsEnum choice) {
+    /**
+     * Execute logic for whatever choices are available in this menu.
+     * @param zones zones being operated on
+     * @param choice choice made the user
+     */
+    private static void zonesExecute(ZoneList zones, optionsEnum choice) {
 
         switch (choice) {
 
@@ -69,28 +70,25 @@ public class ZonesMenu {
                 setTarget(zones);
                 break;
             case EXIT:
-                break;
             case NONE:
                 break;
         }
-        return -1;
     }
 
     /**
      * Zones are created as rectangular cuboids.
      * The user is asked for two coordinates, two opposite corners of the objects base.
      * The user is then asked to provide the height of the zone from which the remaining points can be determined.
-     *
-     * @param zones
+     * @param zones ZoneList new zone is being added to
      */
-    public static void addZonePrompt(ZoneList zones) {
+    private static void addZonePrompt(ZoneList zones) {
         Zone zoneToAdd;
         boolean zMatch = false;
-        String name = "";
+        String name;
         String type = "";
-        clearScreen();
-        int zHeight = 0;
+        int zHeight;
 
+        clearScreen();
         System.out.println("Enter a name or identifier for this zone: ");
         name = promptForString();
 
@@ -101,18 +99,20 @@ public class ZonesMenu {
         }
 
 
-        //Prompts specific to each zone type
-        String source = "";
-        String input = "";
+        //Prompts specific to each zone type (teleport or timer)
+        String source;
+        String input;
         timerType tType = null;
         teleportType teleType = null;
         boolean isStart = false;
         if (type.compareTo("timer") == 0) {
+            //timer
             input = promptWithOptions(Arrays.asList("start", "end"), "Is this a start or end zone");
             isStart = input.compareTo("start") == 0;
             input = promptWithOptions(Arrays.asList("main", "bonus"), "Is this a main or bonus zone");
             tType = (input.compareTo("main") == 0) ? timerType.MAIN : timerType.BONUS;
         } else {
+            //teleporter
             source = promptWithOptions(Arrays.asList("src", "dest"), "Is this the source or destination teleporter");
             teleType = source.equals("src") ? teleportType.SOURCE : teleportType.DESTINATION;
         }
@@ -123,7 +123,6 @@ public class ZonesMenu {
 
         //Get 2 coordinates
         while (!zMatch) {
-
             System.out.println("Create a zone by entering opposite corners of the base of the cuboid");
             System.out.println("z values must match for both corners");
             System.out.println("Enter the first coordinate: (x y z) ");
@@ -132,6 +131,7 @@ public class ZonesMenu {
             System.out.println("Enter the second coordinate: (x y z) ");
             temp2 = promptForCoords();
 
+            //Check z values match
             if (temp1[2] == temp2[2]) {
                 zMatch = true;
             } else
@@ -150,7 +150,7 @@ public class ZonesMenu {
         //Default to 1
         zHeight = (zHeight == 0) ? 1 : zHeight;
 
-        //TODO update constructors in child classes
+        //Choose which instance of base class to instantiate
         if (type.compareTo("timer") == 0)
             zoneToAdd = new TimerZone(name, c1, c2, zHeight, tType, isStart);
         else
@@ -167,13 +167,13 @@ public class ZonesMenu {
 
     /**
      * Prompt to delete a zone.
-     *
      * @param zones zonelist
      */
-    public static void deleteZonePrompt(ZoneList zones) {
+    private static void deleteZonePrompt(ZoneList zones) {
         if (zones.getCount() == 0)
             return;
 
+        //Make sure they want to delete this zone
         String response = "";
         while (response.compareTo("y") != 0 && response.compareTo("n") != 0) {
             clearScreen();
@@ -199,8 +199,12 @@ public class ZonesMenu {
         }
     }
 
-    public static void searchZones(ZoneList zones) {
-        int index = 0;
+    /**
+     * Search the list of zones by name
+     * @param zones list to search
+     */
+    private static void searchZones(ZoneList zones) {
+        int index;
         System.out.println("Enter the ID of the zone you wish to find");
         String input = promptForString();
 
@@ -214,17 +218,21 @@ public class ZonesMenu {
     /**
      * Set the target of a teleport source zone
      * Does not allow targeting non dest type Teleport zones as destination
-     * @param zones
+     * @param zones zonelist being modified
      */
-    public static void setTarget(ZoneList zones) {
+    private static void setTarget(ZoneList zones) {
         Zone curr = zones.getSelectedZone();
 
+        //Teleportzone is source
         if (curr instanceof TeleportZone && ((TeleportZone) curr).getTeleType() == teleportType.SOURCE) {
             String name = MenuHelpers.promptForString("Enter the name of the zone you wish to target");
             int index = zones.findByID(name);
+            //Zone exists
             if (index != -1) {
+                //shenanigans to select target zone
                 int here = zones.getCursor();
                 zones.setCursor(index);
+                //target is telezone and a destination
                 if(zones.getSelectedZone() instanceof TeleportZone && ((TeleportZone) zones.getSelectedZone()).getTeleType() == teleportType.DESTINATION) {
                     ((TeleportZone) curr).setTarget(name);
                 }

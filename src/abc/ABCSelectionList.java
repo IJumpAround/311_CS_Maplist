@@ -1,44 +1,38 @@
 package abc;
 
 /**
- * Abstract base class that implements some menu selection functionality
- * NOTE: This is class is actually a container for maps, zones or records.
- * It allows selection of the items it contains in a way that makes sense for a menu.
- * IE: Next() Previous() Current()
+ * Abstract base class that implements some menu selection functionality and templates other functions.
+ * Implementers of this class will act as containers in that they hold arraylists of polymorphic types.
+ * They allow selection of the items contained in a way that makes sense for a menu.
+ * IE: Next() Previous() & retrieve currently selected item.
  * It has a cursor that points to the currently selected item in the arrayList
- * implemented by the child class.
  */
 public abstract class ABCSelectionList {
-    protected int cursor;
-    protected int count;
-    protected String type;
+    protected int cursor;   //Points to the currently "selected" item in the list
+    protected int count;    //Number of objects held by this class
+    protected String typeName;  //Used for display purposes
 
-    public ABCSelectionList() {
+    /**
+     * Default Constructor
+     */
+    protected ABCSelectionList() {
         cursor = 0;
         count = 0;
-        initializeType();
-    }
 
-
-    public ABCSelectionList(int count) {
-        cursor = 0;
-        this.count = count;
-        initializeType();
     }
 
     /**
-     * Copy constructor
-     * @param list
+     * Getter for the cursor
+     * @return cursor index
      */
-    public ABCSelectionList(ABCSelectionList list) {
-        this.cursor = list.cursor;
-        this.count = list.count;
-        this.type = list.type;
-    }
-
     public int getCursor() {
         return cursor;
     }
+
+    /**
+     * Setter for cursor
+     * @param val index to set
+     */
     public void setCursor(int val) {
         cursor = val;
         clampCursor();
@@ -46,28 +40,25 @@ public abstract class ABCSelectionList {
 
     /**
      * Step cursor forwards by one element.
-     * @throws IndexOutOfBoundsException
+     * Will not decrement the cursor out of bounds
      */
-    public void next() throws IndexOutOfBoundsException {
-        if(cursor < (count -1))
+    public void next() {
+        if (cursor < (count - 1))
             cursor++;
-//        else
-//            throw new IndexOutOfBoundsException("End of list");
     }
 
     /**
-     * Step cursor backwards by one element
-     * @throws IndexOutOfBoundsException
+     * Step cursor backwards by one element.
+     * Will not increment the cursor out of bounds
      */
-    public void prev() throws IndexOutOfBoundsException {
-        if(cursor > 0)
+    public void prev()  {
+        if (cursor > 0)
             cursor--;
-//        else
-//            throw new IndexOutOfBoundsException("Start of list");
     }
 
     /**
      * Set cursor to first element
+     * Already had too many menu options, didn't end up using
      */
     public void start() {
         cursor = 0;
@@ -75,51 +66,56 @@ public abstract class ABCSelectionList {
 
     /**
      * Set cursor to last element
+     * same as above
      */
     public void end() {
-        if(count == 0)
+        if (count == 0)
             cursor = 0;
         else
-            cursor = count-1;
+            cursor = count - 1;
     }
 
     /**
-     * Cursor can end up outside of bounds when deleting
+     * Cursor can end up outside the valid range when deleting.
+     * Reset cursor to be inbounds
      */
-    public void clampCursor() {
-        if(cursor >= count && count != 0 ) {
-            cursor = count -1;
+    protected void clampCursor() {
+        if (cursor >= count && count != 0) {
+            cursor = count - 1;
 
-        }
-        else if(cursor > 0 && count <= 1) {
+        } else if (cursor > 0 && count <= 1) {
+            cursor = 0;
+        } else if (cursor < 0) {
             cursor = 0;
         }
-        else if(cursor < 0) {
-            cursor = 0;
-        }
     }
 
-    public String getType() {
-        return type;
+    /**
+     * Getter for class type
+     * @return name of class
+     */
+    public String getTypeName() {
+        return typeName;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public boolean isCursorInbounds() {
-        if(cursor >= 0 && cursor < count)
-            return true;
-        else
-            return false;
+    /**
+     * Check if the cursor is inbounds
+     * @return true only if the current index has an item
+     */
+    protected boolean isCursorInbounds() {
+        return cursor >= 0 && cursor < count;
     }
 
     public int getCount() {
         return count;
     }
+
+    /**
+     * Should be implemented by each base class for formatted output in the menu
+     * Formats all information about the currently selected item for printing to the user
+     * @return string
+     */
     public abstract String prettyCurrentItem();
-
     protected abstract void initializeType();
-
 }
 

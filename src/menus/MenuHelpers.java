@@ -12,20 +12,22 @@ import java.util.List;
  */
 public class MenuHelpers {
 
-    public static void outputCurrentItem(ABCSelectionList list) {
-        String cursor = (list.getCount() > 0) ? String.valueOf(list.getCursor() + 1) : "0";
+    /**
+     * Prints most of the selection information seen on the interface
+     * @param list list of objects for the current menu
+     */
+    static void outputCurrentItem(ABCSelectionList list) {
+        String cursor = (list.getCount() > 0) ? String.valueOf(list.getCursor() + 1) : "0"; //convert from 0 index to 1 for display
         String max = (list.getCount() > 0) ? String.valueOf(list.getCount()) : "0";
 
-        String type = list.getType();
+        String type = list.getTypeName();
         System.out.println("\n\n" + type);
         System.out.println("Current Selection: " + cursor + " of " + max);
-        //System.out.println("Number of " + type + "s: " + list.getCount());
         System.out.println(list.prettyCurrentItem());
     }
 
     /**
      * Nice terminal refresh courtesy of stack overflow
-     *
      * @author Satish
      * https://stackoverflow.com/questions/2979383/java-clear-the-console
      */
@@ -44,7 +46,8 @@ public class MenuHelpers {
      */
     public static String promptWithOptions(List<String> options, String prompt) {
         String input = "";
-        String optionsFormatter = "(" + String.join("|",options) + ")";
+        String optionsFormatter = "(" + String.join("|", options) + ")";
+
 
         while (!options.contains(input)) {
             System.out.println(prompt + " " + optionsFormatter);
@@ -85,7 +88,7 @@ public class MenuHelpers {
      *
      * @return the entered string
      */
-    public static String promptForString(String prompt) {
+    static String promptForString(String prompt) {
         String line = "";
 
         System.out.println(prompt);
@@ -98,7 +101,11 @@ public class MenuHelpers {
         return line;
     }
 
-    public static String promptForString() {
+    /**
+     * First implementation, others are better.
+     * @return string entered by user
+     */
+    static String promptForString() {
         String line = "";
 
         while (line.compareTo("") == 0) {
@@ -113,23 +120,25 @@ public class MenuHelpers {
     /**
      * Variant of string prompt. Pass in the prompt the user should see.
      * Allows a default option if the user chooses nothing.
-     * @param prompt prompt to display to user
+     *
+     * @param prompt        prompt to display to user
      * @param defaultOption default choice
      * @return either user input or default
      */
-    public static String promptForString(String prompt, String defaultOption) {
-        String line = "";
-        System.out.println(prompt + " (default=" + defaultOption +")");
+    static String promptForString(String prompt, String defaultOption) {
+        String line;
+        System.out.println(prompt + " (default=" + defaultOption + ")");
 
         System.out.print(">");
-       // if (Menus.reader.()) {
-            line = Menus.reader.nextLine().strip();
+        // if (Menus.reader.()) {
+        line = Menus.reader.nextLine().strip();
         //}
 
-        if(line.compareTo("") == 0)
+        if (line.compareTo("") == 0)
             return defaultOption;
         return line;
     }
+
     /**
      * Prompt the user to enter a number.
      * Continues to prompt until they enter a valid number
@@ -137,7 +146,7 @@ public class MenuHelpers {
      * @return the number entered
      */
     //TODO comma in number still parses IE 39, -> 39.  0
-    public static int promptForNumber() {
+    static int promptForNumber() {
         String input;
         int value = -1;
 
@@ -158,12 +167,12 @@ public class MenuHelpers {
     }
 
     /**
-     * Prompt for a number from the user
+     * Prompt for a number from the user and display a prompt specified by the caller
      *
      * @param prompt optional prompt to display to the user
      * @return int
      */
-    public static int promptForNumber(String prompt) {
+    static int promptForNumber(String prompt) {
         String input;
         int value = -1;
 
@@ -187,11 +196,11 @@ public class MenuHelpers {
     /**
      * Prompt the user for three integer values each separated by a space
      * Store the values into a 3 length array and return the array
-     *
+     *(x y z) coordinates
      * @return int[3]
      */
-    public static long[] promptForCoords() {
-        String input = "";
+    static long[] promptForCoords() {
+        String input;
         long[] coords = {0, 0, 0};
         boolean done = false;
 
@@ -199,6 +208,7 @@ public class MenuHelpers {
             System.out.print(">");
 
             if (Menus.reader.hasNext()) {
+                //strip out parenthesis if the user decided to enter them
                 input = Menus.reader.nextLine().replace('(', ' ').replace(')', ' ').strip();
                 String[] s = input.split("\\s", 3);
 
@@ -217,14 +227,18 @@ public class MenuHelpers {
         return coords;
     }
 
-    public static Duration promptForTime() {
+    /**
+     * Prompts for the completion time of a user when adding a record to a map
+     * @return the string converted to a Duration
+     */
+    static Duration promptForTime() {
         String input;
 
-        Duration time = null;
-        boolean success = false;
+        Duration time;
         System.out.println("Enter the player's time (hh:mm:ss.SSS)");
         System.out.println("EX: 1:03:44.256");
 
+        //loops until correct imput calls break;
         while (true) {
             System.out.print(">");
 
@@ -232,7 +246,7 @@ public class MenuHelpers {
                 input = Menus.reader.nextLine().strip();
 
                 //Reformat the input to match ISO standard
-                int colonCount = countOccurances(input, ':');
+                int colonCount = countOccurrences(input, ':');
                 if (colonCount == 2) {
                     input = input.replaceFirst(":", "H");
                     input = input.replace(':', 'M');
@@ -241,7 +255,7 @@ public class MenuHelpers {
                 }
                 input = "PT" + input + "S";
 
-
+                //Parse the input to a duration
                 try {
                     time = Duration.parse(input);
                     break;
@@ -250,18 +264,16 @@ public class MenuHelpers {
                 }
             }
         }
-
         return time;
     }
 
     /**
-     * Count number of occurances of the character c in the input string
-     *
+     * Count number of occurrences of a character c in the input string
      * @param input string to check
      * @param c     target char
      * @return count
      */
-    public static int countOccurances(String input, char c) {
+    private static int countOccurrences(String input, char c) {
         int count = 0;
         for (int i = 0; i < input.length(); i++) {
             if (input.charAt(i) == c) {
@@ -273,13 +285,14 @@ public class MenuHelpers {
 
     /**
      * Prompt for a yes/no question and convert it to boolean
+     *
      * @param prompt prompt to display
      * @return true if yes was chosen, false otherwise
      */
-    public static boolean promptForComfirmation(String prompt) {
-        String line = "";
+    static boolean promptForComfirmation(String prompt) {
+        String line;
 
-        line = promptWithOptions(Arrays.asList("y","n"),prompt);
+        line = promptWithOptions(Arrays.asList("y", "n"), prompt);
 
         return (line.compareTo("y") == 0);
     }

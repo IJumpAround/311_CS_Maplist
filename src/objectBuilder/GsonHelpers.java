@@ -18,7 +18,7 @@ import zoning.Zone;
  */
 public class GsonHelpers {
 
-    private static GsonBuilder gsonbuilder = new GsonBuilder().setPrettyPrinting().serializeNulls();
+    private static final GsonBuilder gsonbuilder = new GsonBuilder().setPrettyPrinting().serializeNulls();
 
     public static Gson getGson() {
         return gsonbuilder.create();

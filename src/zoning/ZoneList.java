@@ -5,14 +5,26 @@ import abc.ABCSelectionList;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/**
+ * Child class of ABCSelectionList
+ * This class encompasses an arraylist of zones and provides and interface to them.
+ */
 public class ZoneList extends ABCSelectionList implements Iterable<Zone> {
-    ArrayList<Zone> zones;
+    private ArrayList<Zone> zones;  //Zones managed by this list
 
+    /**
+     * Default constructor
+     */
     public ZoneList() {
         super();
+        initializeType();
         zones = new ArrayList<>();
     }
 
+    /**
+     * Create a formatted string for the currently selected zone
+     * @return formatted string
+     */
     @Override
     public String prettyCurrentItem() {
         String str = "";
@@ -24,16 +36,18 @@ public class ZoneList extends ABCSelectionList implements Iterable<Zone> {
         return str;
     }
 
+    /**
+     * Set type
+     */
     @Override
     protected void initializeType() {
-        type = "Zone";
+        typeName = "Zone";
     }
 
-    public ZoneList(ArrayList<Zone> zones) {
-        super();
-        this.zones = zones;
-    }
-
+    /**
+     * Return the currently selected zone from the list
+     * @return Zone
+     */
     public Zone getSelectedZone() {
         if(isCursorInbounds()) {
             return zones.get(cursor);
@@ -43,6 +57,11 @@ public class ZoneList extends ABCSelectionList implements Iterable<Zone> {
         return null;
     }
 
+    /**
+     * Add a zone to the list
+     * @param z zone to add
+     * @throws DuplicateEntryException duplicate zone IDs not allowed
+     */
     public void addZone(Zone z) throws DuplicateEntryException {
         if(findByID(z.getID()) == -1) {
             zones.add(z);

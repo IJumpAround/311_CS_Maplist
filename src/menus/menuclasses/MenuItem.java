@@ -1,46 +1,50 @@
 package menus.menuclasses;
 
-public class MenuItem {
-    private int number;
-    private String name;
-    private optionsEnum identifier;
+/**
+ * Represents a choice in a given menu.
+ * Each choice has three properties:
+ *  A number the user will enter to choose it
+ *  Text that will be displayed on the menu
+ *  An enum representing the choice for easy comparison
+ */
+class MenuItem {
+    private final int number;             //number the user should enter to choose this item, will be displayed before the name
+    private final String name;            //Identifying text displayed in the menu
+    private final optionsEnum identifier; //enum representing the option
 
-    public MenuItem() {
-        number = -1;
-        name = "";
-        identifier = optionsEnum.NONE;
-    }
 
-    public MenuItem(int number, String name, optionsEnum identifier) {
+    /**
+     * Constructor
+     * @param number number choice
+     * @param name text shown
+     * @param identifier enum
+     */
+    MenuItem(int number, String name, optionsEnum identifier) {
         this.number = number;
         this.name = name;
         this.identifier = identifier;
     }
 
-    public int getNumber() {
+    /**
+     * getter for number choice
+     * @return int value of choice
+     */
+    int getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public optionsEnum getIdentifier() {
+    /**
+     * getter for enum identifier
+     * @return optionsEnum
+     */
+    optionsEnum getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(optionsEnum identifier) {
-        this.identifier = identifier;
-    }
-
+    /**
+     * Text that will be displayed on the menu
+     * @return string
+     */
     @Override
     public String toString() {
         return number + ") " + name;
